@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">移动办公</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- 自动刷新listView -->
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">松开可以刷新</string>
+    <string name="lastUpdateTime">最近更新：%s</string>
+    <string name="load_full">已加载全部</string>
+    <string name="no_data">暂无数据</string>
+    <string name="more">加载中</string>
+
+    <!-- 角色 -->
+    <string name="duanzhang">段长</string>
+    <string name="shuji">书记</string>
+
+    <string name="fuduanzhang">副段长</string>
+    <string name="fushuji">副书记</string>
+    <string name="duanzhangzhuli">段长助理</string>
+    <string name="gonghuizhuxi">工会主席</string>
+    <string name="tuanweishuji">团委书记</string>
+
+    <string name="keshikezhang">科室科长</string>
+    <string name="keshizhuanzhi">科室专职</string>
+    <string name="chejianzhuren">车间主任</string>
+    <string name="chejianzhuanzhi">车间专职</string>
+    <string name="chejianfushuji">车间副书记</string>
+
+    <!--  层级 -->
+    <string name="mainleader">主要领导签阅</string>
+    <string name="systemleader">系统领导签阅</string>
+    <string name="department">相关科室意见</string>
+    <string name="workshop">相关车间意见</string>
+    <string name="pigeonhole">归档</string>
+
+    <string name="supervisorleader">主管领导签批</string>
+    <string name="officeleader">办公室下发</string>
+    <string name="people">相关人员签阅</string>
+
+    <string name="sign">签阅</string>
+
+    <!--  办理方式 -->
+    <string name="stepstep">逐级办理</string>
+    <string name="direct">直接承办</string>
+</resources>
