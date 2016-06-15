@@ -19,6 +19,7 @@ import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.app.office.OfficeMainActivity;
 import com.publish.haoffice.application.SysApplication;
 
 import butterknife.ButterKnife;
@@ -109,6 +110,7 @@ public class LoginActivity extends BaseActivity{
 //                }
 //                MApplication.assignData(Const.SERVICE_URL, url);
 //                matchUser(userName,pwd);
+                jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
             }
         }
     });
@@ -124,6 +126,11 @@ public class LoginActivity extends BaseActivity{
         }else if("1".equals(flag)){
             etLoginName.setText(SPUtils.getString(LoginActivity.this, Const.USERNAME, "",Const.SP_REPAIR));
             etPassword.setText(SPUtils.getString(LoginActivity.this, Const.PWD, "",Const.SP_REPAIR));
+        }
+
+
+        if(loadingDialog != null){
+            loadingDialog.dismiss();
         }
     }
 
