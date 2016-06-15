@@ -181,13 +181,13 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
             case 0: // 电子公文
-                ToastUtils.showToast(AdminActivity.this,"该功能尚未开发，敬请期待");
+                updateUser();
                 break;
             case 1: // 报修管理
-                ToastUtils.showToast(AdminActivity.this,"该功能尚未开发，敬请期待");
+                updateDevices();
                 break;
             case 2: // 施工管理
-                ToastUtils.showToast(AdminActivity.this,"该功能尚未开发，敬请期待");
+                updateDepartment();
                 break;
         }
     }

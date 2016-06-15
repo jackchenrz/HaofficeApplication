@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.msystemlib.base.BaseFragment;
 import com.publish.haoffice.R;
 
-/**
- * Created by ACER on 2016/6/15.
- */
+
 public class OfficeSearchFragment extends Fragment {
 
     @Nullable

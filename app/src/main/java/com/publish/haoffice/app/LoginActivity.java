@@ -19,6 +19,7 @@ import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.app.Repair.RepairMainActivity;
 import com.publish.haoffice.app.office.OfficeMainActivity;
 import com.publish.haoffice.application.SysApplication;
 
@@ -110,7 +111,12 @@ public class LoginActivity extends BaseActivity{
 //                }
 //                MApplication.assignData(Const.SERVICE_URL, url);
 //                matchUser(userName,pwd);
-                jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
+                if("0".equals(flag)){
+                    jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
+                }else if("1".equals(flag)){
+                    jump2Activity(LoginActivity.this, RepairMainActivity.class,null,false);
+                }
+
             }
         }
     });

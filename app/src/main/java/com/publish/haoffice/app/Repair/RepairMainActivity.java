@@ -1,11 +1,9 @@
-package com.publish.haoffice.app.office;
+package com.publish.haoffice.app.Repair;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -14,13 +12,15 @@ import android.widget.TextView;
 
 import com.msystemlib.base.BaseActivity;
 import com.publish.haoffice.R;
-import com.publish.haoffice.app.LoginActivity;
 import com.publish.haoffice.app.MineFragment;
+import com.publish.haoffice.app.office.OfficeNoFragment;
+import com.publish.haoffice.app.office.OfficeSearchFragment;
+import com.publish.haoffice.app.office.OfficeYesFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCheckedChangeListener {
+public class RepairMainActivity extends BaseActivity implements  RadioGroup.OnCheckedChangeListener {
 
     @InjectView(R.id.rb_update)
     RadioButton rb_update;
@@ -28,8 +28,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
     RadioButton rb_business;
     @InjectView(R.id.rb_mine)
     RadioButton rb_mine;
-    @InjectView(R.id.rb_min)
-    RadioButton rb_min;
     @InjectView(R.id.rg_main)
     RadioGroup rg_main;
 
@@ -37,6 +35,8 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
     LinearLayout ll_back;
     @InjectView(R.id.tv_title)
     TextView tv_title;
+    @InjectView(R.id.rb_min)
+    RadioButton rb_min;
 
     private OfficeNoFragment officeNoFragment;
     private OfficeYesFragment officeYesFragment;
@@ -45,7 +45,7 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
 
     @Override
     public int bindLayout () {
-        return R.layout.activity_officemain;
+        return R.layout.activity_repairmain;
     }
 
     @Override
@@ -53,11 +53,11 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
 
         ButterKnife.inject(this);
 
-        tv_title.setText("电子公文");
+        tv_title.setText("故障报修");
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                finishActivity(OfficeMainActivity.this);
+                finishActivity(RepairMainActivity.this);
             }
         });
         Drawable[] drawables = rb_update.getCompoundDrawables();
@@ -91,7 +91,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 rb_update.setTextColor(this.getResources().getColor(R.color.bottomcolor));
                 rb_business.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rb_mine.setTextColor(this.getResources().getColor(R.color.darkblack));
-                rb_min.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rg_main.check(R.id.rb_update);
                 if (officeNoFragment == null) {
                     officeNoFragment = new OfficeNoFragment();
@@ -104,7 +103,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 rb_business.setTextColor(this.getResources().getColor(R.color.bottomcolor));
                 rb_update.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rb_mine.setTextColor(this.getResources().getColor(R.color.darkblack));
-                rb_min.setTextColor(this.getResources().getColor(R.color.darkblack));
                 if (officeYesFragment == null) {
                     officeYesFragment = new OfficeYesFragment();
                     ft.add(R.id.fragment_container, officeYesFragment);
@@ -117,7 +115,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 rb_mine.setTextColor(this.getResources().getColor(R.color.bottomcolor));
                 rb_business.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rb_update.setTextColor(this.getResources().getColor(R.color.darkblack));
-                rb_min.setTextColor(this.getResources().getColor(R.color.darkblack));
                 if (officeSearchFragment == null) {
                     officeSearchFragment = new OfficeSearchFragment();
                     ft.add(R.id.fragment_container, officeSearchFragment);
@@ -126,7 +123,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 }
                 rg_main.check(R.id.rb_mine);
                 break;
-
             case 3:
                 rb_min.setTextColor(this.getResources().getColor(R.color.bottomcolor));
                 rb_mine.setTextColor(this.getResources().getColor(R.color.darkblack));

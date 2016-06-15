@@ -31,7 +31,9 @@
         <activity android:name=".app.LoginActivity"/>
         <activity android:name=".app.SettingActivity"/>
         <activity android:name=".app.AdminActivity"/>
+        <activity android:name=".app.AboutActivity"/>
         <activity android:name=".app.office.OfficeMainActivity"/>
+        <activity android:name=".app.Repair.RepairMainActivity"/>
     </application>
 
 </manifest>
