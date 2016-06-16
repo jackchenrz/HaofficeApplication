@@ -2,7 +2,8 @@ package com.publish.haoffice.api;
 
 public class Const {
     public static final String SERVICE_NAMESPACE = "http://tempuri.org/";
-    public static final String SERVICE_PAGE = "/WebSerApp.asmx";
+    public static final String SERVICE_PAGE = "/DmApp.asmx";
+    public static final String SERVICE_PAGE1 = "/demo/RecSerApp.asmx";
     public static final String LOCAL = "local";
     public static final String LOCALPWD = "111111";
     public static final String SERVICE_IP = "ip";
@@ -13,6 +14,10 @@ public class Const {
     public static final String DB_NAME = "HaOffice";
     public static String SP_OFFICE = "office";
     public static String SP_REPAIR = "repair";
+
+
+
+    public static final String OFFIC_LOGIN = "Login";// 得到用户
 
 
 

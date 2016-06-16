@@ -72,6 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		sql.append("dept_id varchar(100) not null,");
 		sql.append("dept_bz_id varchar(100),");
 		sql.append("isrepair integer,");
+		sql.append("role_name varchar(100),");
 		sql.append("isleader integer");
 		sql.append(");");
 		db.execSQL(sql.toString());

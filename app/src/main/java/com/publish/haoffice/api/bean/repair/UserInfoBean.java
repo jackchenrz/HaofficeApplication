@@ -28,6 +28,7 @@ public class UserInfoBean {
 		public String sex;
 		public String sort_no;
 		public String user_id;
+		public String role_name;
 	}
 
 	

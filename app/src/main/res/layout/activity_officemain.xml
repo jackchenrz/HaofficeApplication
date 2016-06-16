@@ -79,7 +79,7 @@
                 android:button="@null"
                 android:text="搜索"
                 android:textColor="@color/darkblack"
-                android:drawableTop="@drawable/mine_selector"
+                android:drawableTop="@drawable/search_selector"
                 android:gravity="center|bottom"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"

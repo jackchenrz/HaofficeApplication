@@ -57,8 +57,8 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     @InjectView(R.id.ll_back)
     LinearLayout ll_back;
 
-    private static final int PRO_USER = 101;//同步维修部门
-    private static final int PRO_DEVICES = 102;//同步维修部门
+    private static final int PRO_USER = 101;//同步人员
+    private static final int PRO_DEVICES = 102;//同步设备
     private static final int PRO_DEPARTMENT= 103;//同步维修部门
     private com.msystemlib.utils.SPUtils SPUtils;
 
@@ -80,9 +80,9 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     private List<FiveTEqptInfoBean.FiveTEqpt> fiveTEqptList;
     private List<EqptInfoBean.EqptInfo> eqptInfoList;
     private List<TechEqptBean.TechEqpt> techEqptList;
-    private String[] names =  new String[] { "电子公文", "报修管理","施工管理"};
-    private int[] imageIds = new int[] { R.drawable.main_office, R.drawable.main_repair,
-            R.drawable.main_construct};
+    private String[] names =  new String[] { "同步人员", "同步设备","同步部门"};
+    private int[] imageIds = new int[] { R.drawable.update_user, R.drawable.update_eqpt,
+            R.drawable.update_dept};
 
     private Handler handler = new Handler(){
         public void handleMessage(Message msg) {
@@ -105,9 +105,6 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             }
         };
     };
-
-    public AdminActivity () {
-    }
 
     @Override
     public int bindLayout () {
@@ -180,13 +177,13 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     @Override
     public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
-            case 0: // 电子公文
+            case 0: // 更新人员
                 updateUser();
                 break;
-            case 1: // 报修管理
+            case 1: // 更新设备
                 updateDevices();
                 break;
-            case 2: // 施工管理
+            case 2: // 更新维修部门
                 updateDepartment();
                 break;
         }
@@ -370,11 +367,12 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "设备同步成功！", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "设备同步成功！", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    },null);
                 }
             });
 
@@ -382,11 +380,12 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "同步全部设备失败，请重新同步...", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "同步全部设备失败，请重新同步...", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    },null);
                 }
             });
         }
@@ -412,12 +411,13 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "维修部门同步成功！", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "维修部门同步成功！", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    }, null);
                 }
             });
 
@@ -425,11 +425,12 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "同步全部维修部门失败，请重新同步...", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "同步全部维修部门失败，请重新同步...", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    },null);
                 }
             });
         }
@@ -455,24 +456,26 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "人员同步成功！", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "人员同步成功！", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    },null);
                 }
             });
         } else {
             ThreadUtils.runInMainThread(new Runnable() {
                 @Override
                 public void run() {
-                    AlertUtils.dialog(AdminActivity.this, "提示", "同步全部人员失败，请重新同步...", new DialogInterface.OnClickListener() {
+                    AlertUtils.dialog1(AdminActivity.this, "提示", "同步全部人员失败，请重新同步...", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
                         }
-                    });
+                    },null);
                 }
             });
         }
@@ -494,7 +497,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
         LinearLayout layout = (LinearLayout) v.findViewById(R.id.dialog_view);// 加载布局
         pro = (MyProgressBar) v.findViewById(R.id.pro);
         tvPro = (TextView) v.findViewById(R.id.tv_pro);
-        TextView tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
+        tipTextView = (TextView) v.findViewById(R.id.tipTextView);// 提示文字
         tipTextView.setText(msg);// 设置加载信息
         tvPro.setText(text);//设置下载进度提示
         pro.setProgress(progress);

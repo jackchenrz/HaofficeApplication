@@ -1,11 +1,9 @@
 package com.publish.haoffice.app.office;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import com.msystemlib.base.BaseActivity;
 import com.publish.haoffice.R;
-import com.publish.haoffice.app.LoginActivity;
 import com.publish.haoffice.app.MineFragment;
 
 import butterknife.ButterKnife;
@@ -61,19 +58,19 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
             }
         });
         Drawable[] drawables = rb_update.getCompoundDrawables();
-        drawables[1].setBounds(0, 0, drawables[1].getMinimumWidth() - 25, drawables[1].getMinimumHeight() - 25);
+        drawables[1].setBounds(0, 0, drawables[1].getMinimumWidth() - 65, drawables[1].getMinimumHeight() - 65);
         rb_update.setCompoundDrawables(null, drawables[1], null, null);
 
         Drawable[] drawables1 = rb_business.getCompoundDrawables();
-        drawables1[1].setBounds(0, 0, drawables1[1].getMinimumWidth() - 25, drawables1[1].getMinimumHeight() - 25);
+        drawables1[1].setBounds(0, 0, drawables1[1].getMinimumWidth() - 65, drawables1[1].getMinimumHeight() - 65);
         rb_business.setCompoundDrawables(null, drawables1[1], null, null);
 
         Drawable[] drawables2 = rb_mine.getCompoundDrawables();
-        drawables2[1].setBounds(0, 0, drawables2[1].getMinimumWidth() - 25, drawables2[1].getMinimumHeight() - 25);
+        drawables2[1].setBounds(0, 0, drawables2[1].getMinimumWidth() - 65, drawables2[1].getMinimumHeight() - 65);
         rb_mine.setCompoundDrawables(null, drawables2[1], null, null);
 
-        Drawable[] drawables3 = rb_mine.getCompoundDrawables();
-        drawables3[1].setBounds(0, 0, drawables3[1].getMinimumWidth() - 25, drawables3[1].getMinimumHeight() - 25);
+        Drawable[] drawables3 = rb_min.getCompoundDrawables();
+        drawables3[1].setBounds(0, 0, drawables3[1].getMinimumWidth() - 65, drawables3[1].getMinimumHeight() - 65);
         rb_min.setCompoundDrawables(null, drawables3[1], null, null);
 
         rg_main.setOnCheckedChangeListener(this);

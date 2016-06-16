@@ -82,10 +82,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent2 = new Intent(getActivity(),LoginActivity.class);
-                        startActivity(intent2);
+                        dialog.dismiss();
                         getActivity().finish();
-                        getActivity().overridePendingTransition(R.anim.base_slide_right_in, R.anim.base_slide_remain);
                     }
                 },new DialogInterface.OnClickListener() {
 

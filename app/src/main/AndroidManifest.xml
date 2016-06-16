@@ -14,7 +14,7 @@
     <application
         android:name=".application.SysApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -33,7 +33,7 @@
         <activity android:name=".app.AdminActivity"/>
         <activity android:name=".app.AboutActivity"/>
         <activity android:name=".app.office.OfficeMainActivity"/>
-        <activity android:name=".app.Repair.RepairMainActivity"/>
+        <activity android:name=".app.Repair.RepairMainActivity" android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

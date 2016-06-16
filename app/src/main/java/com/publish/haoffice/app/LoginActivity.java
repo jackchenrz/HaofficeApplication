@@ -13,15 +13,24 @@ import android.widget.TextView;
 
 import com.msystemlib.MApplication;
 import com.msystemlib.base.BaseActivity;
+import com.msystemlib.http.HttpConn;
+import com.msystemlib.http.IWebServiceCallBack;
 import com.msystemlib.utils.AlertUtils;
+import com.msystemlib.utils.LogUtils;
+import com.msystemlib.utils.MD5Utils;
 import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
+import com.publish.haoffice.api.dao.repair.Sys_userDao;
 import com.publish.haoffice.api.utils.DialogUtils;
 import com.publish.haoffice.app.Repair.RepairMainActivity;
 import com.publish.haoffice.app.office.OfficeMainActivity;
 import com.publish.haoffice.application.SysApplication;
+
+import org.ksoap2.serialization.SoapObject;
+
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,6 +54,9 @@ public class LoginActivity extends BaseActivity{
     private String flag;
     private Dialog loadingDialog;
     private SPUtils SPUtils;
+    private String repairUrl;
+    private String officeUrl;
+    private Sys_userDao userDao;
 
     @Override
     public int bindLayout () {
@@ -59,6 +71,7 @@ public class LoginActivity extends BaseActivity{
     @Override
     public void doBusiness (Context mContext) {
         SPUtils = new SPUtils();
+        userDao = Sys_userDao.getInstance(this);
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -102,19 +115,39 @@ public class LoginActivity extends BaseActivity{
                 loadingDialog.dismiss();
                 jump2Activity(LoginActivity.this,SettingActivity.class,null,false);
             }else{
-//                MApplication.assignData(Const.USERNAME, userName);
-//                url = "http://" + ToolSP.getString(this, Const.SERVICE_IP, "") + ":" + ToolSP.getString(this, Const.SERVICE_PORT, "") + "/RecSerApp.asmx";
-//                if("".equals(ToolSP.getString(this, Const.SERVICE_IP, ""))){
-//                    loadingDialog.dismiss();
-//                    ToolToast.showToast(this, "请先联系管理员设置IP地址");
-//                    return;
-//                }
-//                MApplication.assignData(Const.SERVICE_URL, url);
-//                matchUser(userName,pwd);
                 if("0".equals(flag)){
+                    officeUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE1;
+
+                    HashMap<String,String> map = new HashMap<String, String>();
+                    map.put("userName",userName);
+                    map.put("passWord",pwd);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_LOGIN, map, new IWebServiceCallBack() {
+                        @Override
+                        public void onSucced (SoapObject result) {
+                            String string = result.getProperty(0).toString();
+                            LogUtils.d("ckj", string);
+
+                        }
+
+                        @Override
+                        public void onFailure (String result) {
+
+                        }
+                    });
+
                     jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
                 }else if("1".equals(flag)){
-                    jump2Activity(LoginActivity.this, RepairMainActivity.class,null,false);
+                    repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
+                    if(userDao.avaiLogin(userName, MD5Utils.md5Encode(pwd))){
+
+
+                        HashMap<String,String> map = new HashMap<String, String>();
+                        map.put(Const.USERNAME,userName);
+                        jump2Activity(LoginActivity.this, RepairMainActivity.class,map,false);
+                    } else {
+                        loadingDialog.dismiss();
+                        ToastUtils.showToast(LoginActivity.this, "账号或者密码错误");
+                    }
                 }
 
             }

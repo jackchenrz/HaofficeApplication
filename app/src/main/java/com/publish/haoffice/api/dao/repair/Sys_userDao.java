@@ -67,6 +67,7 @@ public class Sys_userDao {
 					BooleanAndintUtils.Boolean2int(userInfo.isrepair));
 			values.put("isleader",
 					BooleanAndintUtils.Boolean2int(userInfo.isleader));
+			values.put("role_name", userInfo.role_name);
 
 			database.insert(TABLE_NAME, null, values);
 			flag = true;
@@ -146,6 +147,8 @@ public class Sys_userDao {
 						.getColumnIndex("dept_id"));
 				userInfo.dept_bz_id = cursor.getString(cursor
 						.getColumnIndex("dept_bz_id"));
+				userInfo.role_name = cursor.getString(cursor
+						.getColumnIndex("role_name"));
 				userInfo.isrepair = BooleanAndintUtils.int2Boolean(cursor
 						.getInt(cursor.getColumnIndex("is_admin")));
 				userInfo.isleader = BooleanAndintUtils.int2Boolean(cursor
@@ -184,6 +187,28 @@ public class Sys_userDao {
 		return flag;
 	}
 
+
+	public String getRoleName(String userName) {
+		String role_name = null;
+		SQLiteDatabase database = null;
+		boolean flag = false;
+		try {
+			database = helper.getReadableDatabase();
+			Cursor cursor = database.query(TABLE_NAME, new String[]{"role_name"},
+					"user_name = ?", new String[] { userName }, null, null, null);
+			if (cursor.moveToNext()) {
+				role_name = cursor.getString(0);
+			}
+		} catch (Exception e) {
+			System.out.println("----getUserInfo-->" + e.getMessage());
+		} finally {
+			if (database != null) {
+				database.close();
+			}
+		}
+		return role_name;
+	}
+
 	public UserInfo getUserInfo(String userNmae) {
 		UserInfoBean bean = new UserInfoBean();
 		UserInfo userInfo = null;
@@ -198,6 +223,8 @@ public class Sys_userDao {
 						.getColumnIndex("user_id"));
 				userInfo.real_name = cursor.getString(cursor
 						.getColumnIndex("real_name"));
+				userInfo.role_name = cursor.getString(cursor
+						.getColumnIndex("role_name"));
 				userInfo.user_name = cursor.getString(cursor
 						.getColumnIndex("user_name"));
 				userInfo.password = cursor.getString(cursor
