@@ -104,6 +104,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 2: // 施工管理
                 ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");
+                jump2Activity(MainActivity.this,TestActivity.class,null,false);
                 break;
 		    case 3: // 生产交班
                 ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");

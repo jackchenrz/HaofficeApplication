@@ -9,13 +9,20 @@ import android.view.ViewGroup;
 
 import com.msystemlib.base.BaseFragment;
 import com.publish.haoffice.R;
+import com.publish.haoffice.app.Repair.BaseFragmentapp;
 
 
-public class OfficeSearchFragment extends Fragment {
+public class OfficeSearchFragment extends BaseFragmentapp {
 
-    @Nullable
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frg_office_search,container,false);
+    public View initView () {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frg_office_search,null);
+
+        return view;
+    }
+
+    @Override
+    public void initData () {
+
     }
 }

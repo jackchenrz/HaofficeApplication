@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dodgerblue"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true" >
+    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkbg"
+    android:orientation="vertical" >
+
+    <include layout="@layout/action_bar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_main1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            >
+
+
+            <RadioButton
+                android:id="@+id/rb_upload_no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:button="@null"
+                android:text="未上传"
+                android:textSize="18sp"
+                android:textColor="@color/red"
+                android:gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:checked="false"/>
+
+            <RadioButton
+                android:id="@+id/rb_upload_yes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:button="@null"
+                android:textSize="18sp"
+                android:text="已上传"
+                android:textColor="@color/darkblack"
+                android:gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <com.publish.haoffice.view.LazyViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9" ></com.publish.haoffice.view.LazyViewPager>
+    
+</LinearLayout>
+</RelativeLayout>

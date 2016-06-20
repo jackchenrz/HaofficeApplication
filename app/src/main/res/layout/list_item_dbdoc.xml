@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="5dp"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_marginLeft="5dp"
+        android:layout_width="60dp"
+        android:layout_gravity="center_vertical"
+        android:layout_height="60dp">
+
+
+        <TextView
+            android:id="@+id/tv_fileDZ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:text="上级文电"/>
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:background="@drawable/collection_message_attachement_bg"
+             />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+         >
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="故障时间："
+            android:textSize="16sp" />
+
+        <com.publish.haoffice.view.FocusTextView
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:id="@+id/tv_name"
+            android:layout_below="@id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="故障描述"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+
+
+        <TextView
+            android:layout_below="@id/tv_name"
+            android:id="@+id/tv_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="故障描述："
+            android:textColor="#AA000000"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</LinearLayout>

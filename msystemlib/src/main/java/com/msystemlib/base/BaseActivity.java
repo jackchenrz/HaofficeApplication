@@ -10,6 +10,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public abstract class BaseActivity extends Activity implements IBaseActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// //开启沉浸式状态栏
 		 StatuesUtils.openImmerseStatasBarMode(this);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		// 设置渲染视图View
 		mContextView = LayoutInflater.from(this).inflate(bindLayout(), null);
 		setContentView(mContextView);

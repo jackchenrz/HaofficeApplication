@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -14,11 +15,14 @@ import android.widget.TextView;
 
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.utils.LogUtils;
+import com.msystemlib.utils.ThreadUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.dao.repair.Sys_userDao;
 import com.publish.haoffice.app.MineFragment;
 import com.publish.haoffice.app.office.OfficeSearchFragment;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -196,7 +200,6 @@ public class RepairMainActivity extends BaseActivity implements  RadioGroup.OnCh
 
     @Override
     public void destroy () {
-
     }
 
 

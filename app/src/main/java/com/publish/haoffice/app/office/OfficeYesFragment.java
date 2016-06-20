@@ -9,11 +9,18 @@ import android.view.ViewGroup;
 
 import com.msystemlib.base.BaseFragment;
 import com.publish.haoffice.R;
+import com.publish.haoffice.app.Repair.BaseFragmentapp;
 
-public class OfficeYesFragment extends Fragment {
-    @Nullable
+public class OfficeYesFragment extends BaseFragmentapp {
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frg_office_yes,container,false);
+    public View initView () {
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.frg_office_yes,null);
+
+        return view;
+    }
+
+    @Override
+    public void initData () {
+
     }
 }

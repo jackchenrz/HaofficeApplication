@@ -18,11 +18,14 @@
             >
             <RelativeLayout
                 android:id="@+id/rl_repair"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:contextClickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_dialog_button_pressed"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_send_n"
                 android:clickable="true"
                 android:orientation="horizontal">
 
@@ -48,13 +51,50 @@
             <include
                 android:id="@+id/layout_input"
                 layout="@layout/layout_repairintput"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_repair_look"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:contextClickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_send_n"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="机械设备查看"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/minus_index"
+                    android:layout_alignParentRight="true"
+                    />
+
+            </RelativeLayout>
+
+
             <RelativeLayout
                 android:id="@+id/rl_5Trepair"
                 android:contextClickable="true"
-                android:layout_margin="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_dialog_special_normal"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_logout_n"
                 android:clickable="true"
                 android:orientation="horizontal">
 
@@ -80,7 +120,39 @@
 
             <include
                 android:id="@+id/layout_5Tinput"
-                layout="@layout/layout_repairintput"/>
+                layout="@layout/layout_repair5tintput"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_5Trepair_look"
+                android:contextClickable="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/btn_logout_n"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="行安设备查看"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/minus_index"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
 
         </LinearLayout>
 

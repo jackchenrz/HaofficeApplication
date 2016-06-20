@@ -15,6 +15,7 @@ import com.msystemlib.MApplication;
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.http.HttpConn;
 import com.msystemlib.http.IWebServiceCallBack;
+import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.AlertUtils;
 import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.MD5Utils;
@@ -22,6 +23,7 @@ import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
+import com.publish.haoffice.api.bean.office.UserBean;
 import com.publish.haoffice.api.dao.repair.Sys_userDao;
 import com.publish.haoffice.api.utils.DialogUtils;
 import com.publish.haoffice.app.Repair.RepairMainActivity;
@@ -116,7 +118,7 @@ public class LoginActivity extends BaseActivity{
                 jump2Activity(LoginActivity.this,SettingActivity.class,null,false);
             }else{
                 if("0".equals(flag)){
-                    officeUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE1;
+                    officeUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_OFFICE) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE) + Const.SERVICE_PAGE1;
 
                     HashMap<String,String> map = new HashMap<String, String>();
                     map.put("userName",userName);
@@ -124,18 +126,34 @@ public class LoginActivity extends BaseActivity{
                     HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_LOGIN, map, new IWebServiceCallBack() {
                         @Override
                         public void onSucced (SoapObject result) {
-                            String string = result.getProperty(0).toString();
-                            LogUtils.d("ckj", string);
 
+                            loadingDialog.dismiss();
+                            if(result != null){
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+
+                                    UserBean userBean = JsonToBean.getJsonBean(string, UserBean.class);
+                                    if(userBean.ds != null || userBean.ds.size() != 0){
+                                        SysApplication.assignData(Const.TOKEN, userBean.ds.get(0).token);
+                                        SysApplication.assignData(Const.USERID, userBean.ds.get(0).user_id);
+                                        SysApplication.assignData(Const.STEP, userBean.ds.get(0).Step);
+                                    }
+                                    jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
+                                }else{
+                                    ToastUtils.showToast(LoginActivity.this, "用户名或者密码错误");
+                                }
+                            }else{
+                                ToastUtils.showToast(LoginActivity.this, "请检查网络连接");
+                            }
                         }
 
                         @Override
                         public void onFailure (String result) {
-
+                            ToastUtils.showToast(LoginActivity.this, "请检查网络连接");
+                            loadingDialog.dismiss();
                         }
                     });
 
-                    jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
                 }else if("1".equals(flag)){
                     repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
                     if(userDao.avaiLogin(userName, MD5Utils.md5Encode(pwd))){

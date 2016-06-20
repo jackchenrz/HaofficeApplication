@@ -74,7 +74,7 @@ public class SettingActivity extends BaseActivity {
                 String serverIP = etServerIP.getText().toString();
                 String serverPort = etServerPort.getText().toString();
 
-                if(TextUtils.isEmpty(serverIP)){
+                if(TextUtils.isEmpty(serverIP) || TextUtils.isEmpty(serverPort)){
                     ToastUtils.showToast(SettingActivity.this, "请输入IP地址或端口");
                     return;
                 }

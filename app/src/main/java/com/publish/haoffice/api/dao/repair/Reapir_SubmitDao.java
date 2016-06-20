@@ -166,14 +166,14 @@ public class Reapir_SubmitDao{
 		return list;
 	}
 
-	public List<RepairInfo> getRepairInfo(int IsUpload) {
+	public List<RepairInfo> getRepairInfo(int IsUpload,String RepairType) {
 		List<RepairInfo> list = new ArrayList<RepairInfo>();
 		RepairInfo repairInfo = null;
 		SQLiteDatabase database = null;
 		try {
 			database = helper.getReadableDatabase();
-			Cursor cursor = database.query(TABLE_NAME, null, "IsUpload = ?",
-					new String[] { IsUpload + "" }, null, null, null);
+			Cursor cursor = database.query(TABLE_NAME, null, "IsUpload = ? and RepairType = ?",
+					new String[] { IsUpload + "" ,RepairType}, null, null, "FaultOccu_Time desc");
 			while (cursor.moveToNext()) {
 				repairInfo = new RepairInfo();
 				repairInfo.RepairID = cursor.getString(cursor
@@ -246,15 +246,13 @@ public class Reapir_SubmitDao{
 		}
 	}
 
-	public void editRepairInfo(int isUpload, String FaultReceiveTime,
-			String imgUrl, String RepairID) {
+	public void editRepairInfo(int isUpload, String FaultReceiveTime, String RepairID) {
 		SQLiteDatabase database = null;
 		try {
 			database = helper.getReadableDatabase();
 			ContentValues values = new ContentValues();
 			values.put("IsUpload", isUpload);
 			values.put("FaultReceiveTime", FaultReceiveTime);
-			values.put("ImageUrl", imgUrl);
 			database.update(TABLE_NAME, values, "RepairID = ?",
 					new String[] { RepairID });
 		} catch (Exception e) {
