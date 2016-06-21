@@ -44,4 +44,12 @@ public class Const {
 
     public static final String OFFIC_LOGIN = "Login";// 得到用户
     public static final String OFFIC_GETDBDOCLIST = "GetDbDocList";// 得到用户
+    public static final String OFFIC_GETDOCDETAIL = "GetDocDetail";// 得到用户
+    public static final String OFFIC_AUDITRECORDDOC = "AuditRecordDoc";// 得到用户
+    public static final String OFFIC_GETDETAIL = "GetDetail";// 得到用户
+    public static final String OFFIC_AUDITRECORD = "AuditRecord";// 得到用户
+    public static final String OFFIC_GETNOTICEDETAIL = "GetNoticeDetail";// 得到用户
+    public static final String OFFIC_AUDITRECORDNOTICE = "AuditRecordNotice";// 得到用户
+    public static final String OFFIC_GETDOCDATAURL = "GetDocDataUrl";// 得到用户
+    public static final String OFFIC_GETATTACHSBYDOCID = "GetAttachsByDocID";// 得到用户
 }

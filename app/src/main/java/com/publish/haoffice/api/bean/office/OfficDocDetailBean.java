@@ -34,5 +34,7 @@ public class OfficDocDetailBean  implements Serializable{
 		public String SendDept;
 		public String Tel;
 		public String UserID;
+		public String FileRecUsersText;
+		public String FileRecCopyUsersText;
 	}
 }

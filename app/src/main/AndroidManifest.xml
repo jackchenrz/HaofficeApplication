@@ -34,13 +34,12 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.SettingActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.AdminActivity"
-                  android:screenOrientation="portrait"/>
         <activity android:name=".app.AboutActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.TestActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.office.OfficeMainActivity"
+
+        <activity android:name=".app.AdminActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.SearchActivity"
                   android:screenOrientation="portrait"/>
@@ -48,12 +47,22 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.RepairDetailActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.office.DocDetailActivity"
-                  android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.RepairMainActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan|stateHidden"
                   android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".app.Repair.ToRepairListActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".app.office.OfficeMainActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.DocDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.OfficDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.NoticeDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <service android:name=".app.office.MsgService"/>
     </application>
 
 </manifest>

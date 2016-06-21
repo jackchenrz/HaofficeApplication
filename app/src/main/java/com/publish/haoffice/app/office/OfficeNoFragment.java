@@ -75,12 +75,29 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
                 DBDocListBean.Doc doc = DBDocList.get(position);
-                Intent intent = new Intent(getActivity(),
-                        DocDetailActivity.class);
-                intent.putExtra("doc", doc);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.base_slide_right_in,
-                        R.anim.base_slide_remain);
+                if("上级文电".equals(doc.DocType)){
+                    Intent intent = new Intent(getActivity(),
+                            DocDetailActivity.class);
+                    intent.putExtra("RecID", doc.RecID);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.base_slide_right_in,
+                            R.anim.base_slide_remain);
+                }else if("段发公文".equals(doc.DocType)){
+                    Intent intent = new Intent(getActivity(),
+                            OfficDetailActivity.class);
+                    intent.putExtra("RecID", doc.RecID);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.base_slide_right_in,
+                            R.anim.base_slide_remain);
+                }else{
+                    Intent intent = new Intent(getActivity(),
+                            NoticeDetailActivity.class);
+                    intent.putExtra("RecID", doc.RecID);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.base_slide_right_in,
+                            R.anim.base_slide_remain);
+                }
+
 
 
             }
@@ -161,7 +178,14 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
                 vh.tv_name.setText(Doc.FileTitle);
                 vh.tv_time.setText(Doc.CreateDate);
                 vh.tv_describe.setText(Doc.FileCode);
-                vh.tv_fileDZ.setText(Doc.FileDZ);
+
+                if("上级文电".equals(Doc.DocType)){
+                    vh.tv_fileDZ.setText("电");
+                }else if("段发公文".equals(Doc.DocType)){
+                    vh.tv_fileDZ.setText("段");
+                }else{
+                    vh.tv_fileDZ.setText("通");
+                }
                 return view;
             }
         };
@@ -171,7 +195,7 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
 
     static class ViewHolder {
         @InjectView(R.id.tv_name)
-        FocusTextView tv_name;
+        TextView tv_name;
         @InjectView(R.id.tv_time)
         TextView tv_time;
         @InjectView(R.id.tv_describe)

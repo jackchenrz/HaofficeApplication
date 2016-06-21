@@ -25,6 +25,11 @@ public class RepairHandlerBean {
 		public String RepairFinishTime;
 		public String RepairHandleID;
 		public String RepairID;
+		public String ImageUrlPath;
+		public String EqptName;
+		public String FaultOccu_Time;
+		public String FaultAppearance;
 		public String RepairUserName;
+		public String RepairType;
 	}
 }

@@ -13,8 +13,8 @@ public class DocDetailBean  implements Serializable{
 		public String CurrentStepNo;
 		public String DocumentNo;
 		public String FileCode;
-		public String FileRecCbUsers;
-		public String FileRecCopyUsers;
+//		public String FileRecCbUsers;
+//		public String FileRecCopyUsers;
 		public String FileRecUsers;
 		public String FlowID;
 		public String IsDocument;

@@ -14,5 +14,6 @@ public class DBDocListBean implements Serializable{
 		public String RecID;
 		public String FileTitle;
 		public String SendDept;
+		public String DocType;
 	}
 }

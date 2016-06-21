@@ -158,10 +158,9 @@ public class LoginActivity extends BaseActivity{
                     repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
                     if(userDao.avaiLogin(userName, MD5Utils.md5Encode(pwd))){
 
+                        SysApplication.assignData(Const.USERNAME,userName);
 
-                        HashMap<String,String> map = new HashMap<String, String>();
-                        map.put(Const.USERNAME,userName);
-                        jump2Activity(LoginActivity.this, RepairMainActivity.class,map,false);
+                        jump2Activity(LoginActivity.this, RepairMainActivity.class,null,false);
                     } else {
                         loadingDialog.dismiss();
                         ToastUtils.showToast(LoginActivity.this, "账号或者密码错误");

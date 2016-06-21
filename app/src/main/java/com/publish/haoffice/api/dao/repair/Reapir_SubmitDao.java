@@ -235,6 +235,72 @@ public class Reapir_SubmitDao{
 		return list;
 	}
 
+	public RepairInfo getRepairInfobyRepairID(String RepairID,String RepairType) {
+		RepairInfo repairInfo = null;
+		SQLiteDatabase database = null;
+		try {
+			database = helper.getReadableDatabase();
+			Cursor cursor = database.query(TABLE_NAME, null, "RepairID like ? and EqptType = ?",
+					new String[] { "%"+RepairID+"%",RepairType}, null, null, null);
+			if (cursor.moveToNext()) {
+				repairInfo = new RepairInfo();
+				repairInfo.RepairID = cursor.getString(cursor
+						.getColumnIndex("RepairID"));
+				repairInfo.RepairType = cursor.getString(cursor
+						.getColumnIndex("RepairType"));
+				repairInfo.EqptID = cursor.getString(cursor
+						.getColumnIndex("EqptID"));
+				repairInfo.EqptName = cursor.getString(cursor
+						.getColumnIndex("EqptName"));
+				repairInfo.EqptType = cursor.getString(cursor
+						.getColumnIndex("EqptType"));
+				repairInfo.ProbeStation = cursor.getString(cursor
+						.getColumnIndex("ProbeStation"));
+				repairInfo.FaultStatus = cursor.getString(cursor
+						.getColumnIndex("FaultStatus"));
+				repairInfo.Specification = cursor.getString(cursor
+						.getColumnIndex("Specification"));
+				repairInfo.Manufacturer = cursor.getString(cursor
+						.getColumnIndex("Manufacturer"));
+				repairInfo.UserID = cursor.getString(cursor
+						.getColumnIndex("UserID"));
+				repairInfo.UserDeptID = cursor.getString(cursor
+						.getColumnIndex("UserDeptID"));
+				repairInfo.FaultOccu_Time = cursor.getString(cursor
+						.getColumnIndex("FaultOccu_Time"));
+				repairInfo.FaultReceiveTime = cursor.getString(cursor
+						.getColumnIndex("FaultReceiveTime"));
+				repairInfo.FaultAppearance = cursor.getString(cursor
+						.getColumnIndex("FaultAppearance"));
+				repairInfo.CreateDate = cursor.getString(cursor
+						.getColumnIndex("CreateDate"));
+				repairInfo.LastUpdateDate = cursor.getString(cursor
+						.getColumnIndex("LastUpdateDate"));
+				repairInfo.IsStop = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("IsStop")));
+				repairInfo.StopTime = cursor.getString(cursor
+						.getColumnIndex("StopTime"));
+				repairInfo.StopHours = cursor.getInt(cursor
+						.getColumnIndex("StopHours"));
+				repairInfo.StopMinutes = cursor.getInt(cursor
+						.getColumnIndex("StopMinutes"));
+				repairInfo.ImageUrl = cursor.getString(cursor
+						.getColumnIndex("ImageUrl"));
+				repairInfo.IsUpload = cursor.getInt(cursor
+						.getColumnIndex("IsUpload"));
+				repairInfo.RepairDeptID = cursor.getString(cursor
+						.getColumnIndex("RepairDeptID"));
+			}
+		} catch (Exception e) {
+			System.out.println("----getRepairInfo-->" + e.getMessage());
+		} finally {
+			if (database != null) {
+				database.close();
+			}
+		}
+		return repairInfo;
+	}
+
 	public void delRepairInfo(String RepairID) {
 		SQLiteDatabase database = null;
 		try {
