@@ -2,48 +2,31 @@ package com.publish.haoffice.app.Repair;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.ViewUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.msystemlib.base.BaseActivity;
-import com.msystemlib.base.BaseFragment;
-import com.msystemlib.common.adapter.ComFragmentAdapter;
 import com.msystemlib.common.adapter.CommonAdapter;
 import com.msystemlib.http.HttpConn;
 import com.msystemlib.http.IWebServiceCallBack;
 import com.msystemlib.http.JsonToBean;
 import com.msystemlib.img.ImgLoad;
-import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
-import com.msystemlib.utils.StatuesUtils;
-import com.msystemlib.utils.ThreadUtils;
-import com.msystemlib.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
-import com.publish.haoffice.api.bean.repair.RepairHandlerBean;
 import com.publish.haoffice.api.bean.repair.ToRepairedBean;
 import com.publish.haoffice.api.dao.repair.Sys_userDao;
-import com.publish.haoffice.application.SysApplication;
-import com.publish.haoffice.view.LazyViewPager;
-
-import net.tsz.afinal.annotation.view.ViewInject;
+import com.publish.haoffice.api.dao.repair.ToRepairDao;
 
 import org.ksoap2.serialization.SoapObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +41,10 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
     SwipeRefreshLayout refreshLayout;
     @InjectView(R.id.tv_count)
     TextView tv_count;
+    @InjectView(R.id.ll_back)
+    LinearLayout ll_back;
+    @InjectView(R.id.tv_title)
+    TextView tv_title;
     private ImageLoader imageLoader;
     private SPUtils spUtils;
     private int flag5t;
@@ -66,6 +53,21 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
     private Sys_userDao userDao;
     private List<ToRepairedBean.ToRepair> toRepairs;
     private CommonAdapter<ToRepairedBean.ToRepair> adapter;
+    public static ToRepairListActivity instance = null;
+    private ToRepairDao toRepairDao;
+//    private List<ToRepairSave> repairInfoList;
+
+
+//    private Handler handler = new Handler(){
+//        @Override
+//        public void handleMessage (Message msg) {
+//            super.handleMessage(msg);
+//
+//            int position = (int) msg.obj;
+//
+//            listView.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.powderblue));
+//        }
+//    };
 
     @Override
     public int bindLayout () {
@@ -75,10 +77,18 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
     @Override
     public void initView (View view) {
         ButterKnife.inject(this,view);
+        tv_title.setText("维修列表");
+        ll_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                finishActivity(ToRepairListActivity.this);
+            }
+        });
     }
 
     @Override
     public void doBusiness (Context mContext) {
+        instance = this;
         imageLoader = ImgLoad.initImageLoader(this);
         spUtils = new SPUtils();
         userDao = Sys_userDao.getInstance(this);
@@ -92,22 +102,39 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
                 R.color.yellow,
                 R.color.green,
                 R.color.gold);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
+                ToRepairedBean.ToRepair toRepair = toRepairs.get(position);
+                Intent intent = new Intent(ToRepairListActivity.this,
+                        ToRepairDetailActivity.class);
+                intent.putExtra("toRepair", toRepair);
+                intent.putExtra("flag5t", flag5t);
+                startActivity(intent);
+                overridePendingTransition(R.anim.base_slide_right_in,
+                        R.anim.base_slide_remain);
+
+
+            }
+        });
     }
 
     @Override
     public void resume () {
+        toRepairDao = ToRepairDao.getInstance(this);
         if(firstIn == 0){
             Intent intent = getIntent();
             flag5t = intent.getIntExtra("flag5t", 0);
+            refreshLayout.post(new Runnable() {
+                @Override
+                public void run () {
+                    refreshLayout.setRefreshing(true);
+                }
+            });
+            onRefresh();
         }
         firstIn++;
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run () {
-                refreshLayout.setRefreshing(true);
-            }
-        });
-        onRefresh();
     }
 
     /**
@@ -116,7 +143,7 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
     public void getData (String methodName) {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("DeptID",userDao.getUserInfo(SysApplication.gainData(Const.USERNAME).toString().trim()).dept_id);
+        map.put("DeptID",userDao.getUserInfo(spUtils.getString(ToRepairListActivity.this,Const.USERNAME,"",Const.SP_REPAIR)).dept_id);
         HttpConn.callService(url, Const.SERVICE_NAMESPACE, methodName, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
@@ -136,14 +163,15 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
 
                     }else{
                         tv_count.setVisibility(View.VISIBLE);
-                        tv_count.setText("暂无数据");
+                        tv_count.setText("联网失败");
                     }
                 }
             }
 
             @Override
             public void onFailure (String result) {
-                ToastUtils.showToast(ToRepairListActivity.this, "联网失败");
+                tv_count.setVisibility(View.VISIBLE);
+                tv_count.setText("联网失败");
                 refreshLayout.post(new Runnable() {
                     @Override
                     public void run () {
@@ -154,12 +182,14 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
         });
     }
 
+
+    private ToRepairedBean.ToRepair toRepair;
     protected void setOrUpdateAdapter(
             final List<ToRepairedBean.ToRepair> toRepairList) {
         adapter = new CommonAdapter<ToRepairedBean.ToRepair>(toRepairList) {
 
                     @Override
-                    public View getView(int position, View convertView,
+                    public View getView(final int position, View convertView,
                                         ViewGroup parent) {
                         View view;
                         ViewHolder vh;
@@ -173,7 +203,28 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
                             view = convertView;
                             vh = (ViewHolder) view.getTag();
                         }
-                        ToRepairedBean.ToRepair toRepair = toRepairList.get(position);
+                        toRepair = toRepairList.get(position);
+
+                        if(toRepairDao.getToRepairSave(toRepair.RepairID) != null){
+                            view.setBackgroundColor(getResources().getColor(R.color.powderblue));
+                        }else{
+                            view.setBackgroundColor(getResources().getColor(R.color.darkbg));
+                        }
+
+//                        if(repairInfoList.size() != 0 && repairInfoList !=null){
+//                            ThreadUtils.runInBackground(new Runnable() {
+//                                @Override
+//                                public void run () {
+//                                    Message msg = Message.obtain();
+//                                    for (int i = 0; i < repairInfoList.size(); i++) {
+//                                        if(repairInfoList.get(i).RepairID.equals(toRepair.RepairID)){
+//                                            msg.obj = position;
+//                                            handler.sendMessage(msg);
+//                                        }
+//                                    }
+//                                }
+//                            });
+//                        }
                         vh.tv_name.setText("设备名称：" + toRepair.EqptName);
                         vh.tv_department.setText("故障发生时间："
                                 + toRepair.FaultOccu_Time);
@@ -208,11 +259,12 @@ public class ToRepairListActivity extends BaseActivity implements SwipeRefreshLa
 
     @Override
     public void onRefresh () {
-        LogUtils.d("ckj",flag5t+"");
+//        repairInfoList = toRepairDao.getAllToRepairSave(userDao
+//                .getUserInfo(spUtils.getString(ToRepairListActivity.this,Const.USERNAME, "",Const.SP_REPAIR)).user_id,1,flag5t == 1 ? "5T" : "Tech");
         if(flag5t == 0){
-             getData (Const.SERVICE_GETTECHREPAIRINGLIST);
+             getData (Const.REPAIR_GETTECHREPAIRINGLIST);
         }else if(flag5t == 1){
-            getData (Const.SERVICE_GET5TREPAIRINGLIST);
+            getData (Const.REPAIR_GET5TREPAIRINGLIST);
         }
     }
 }

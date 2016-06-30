@@ -189,7 +189,7 @@ public abstract class BaseActivity extends Activity implements IBaseActivity {
 	 * @param map 页面调整传递的数据
 	 * @param b	是否关闭当前activity
 	 */
-	public void jump2Activity(Activity self,Class<? extends Activity> clazz,HashMap<String,String> map,boolean b) {
+	public <T>void jump2Activity(Activity self,Class<? extends Activity> clazz,HashMap<String,String> map,boolean b) {
 		Intent intent = new Intent(self, clazz);
 		if (map != null) {
 			for (Iterator<Map.Entry<String, String>> it = map.entrySet().iterator(); it.hasNext();) {

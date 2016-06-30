@@ -135,6 +135,7 @@ public class RepairMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 rb_min.setTextColor(this.getResources().getColor(R.color.darkblack));
                 if (repairSearchFragment == null) {
                     repairSearchFragment = new RepairSearchFragment();
+                    repairSearchFragment.setArguments(bundle);
                     ft.add(R.id.fragment_container, repairSearchFragment);
                 } else {
                     ft.show(repairSearchFragment);

@@ -35,5 +35,18 @@
         <item name="android:progressDrawable">@drawable/progressbar_mini</item>
     </style>
 
+    <!-- spinner -->
+    <style name="spinner_style">
+        <item name="android:background">@drawable/spinner_selector</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingTop">5dip</item>
+    </style>
+
+
+    <style name="AnimationPreview">
+        <item name="android:windowEnterAnimation">@anim/popup_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_out</item>
+    </style>
+
 
 </resources>

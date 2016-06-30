@@ -39,6 +39,7 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
     private OfficeYesFragment officeYesFragment;
     private OfficeSearchFragment officeSearchFragment;
     private MineFragment mineFragment;
+    public static OfficeMainActivity instance = null;
 
     @Override
     public int bindLayout () {
@@ -49,7 +50,7 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
     public void initView (View view) {
 
         ButterKnife.inject(this);
-
+        instance = this;
         tv_title.setText("电子公文");
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override

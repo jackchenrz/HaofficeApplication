@@ -22,7 +22,7 @@ public class NoticeDetailBean  implements Serializable{
 		public String CurrentStepNo;
 		public String IsRunning;
 		public String AllowDocument;
-//		public String FileRecUsersText;
-//		public String FileRecCopyUsersText;
+		public String FileRecUsersText;
+		public String FileRecCopyUsersText;
 	}
 }

@@ -1,7 +1,7 @@
 package com.publish.haoffice.app.Repair;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,18 +21,12 @@ import com.msystemlib.http.JsonToBean;
 import com.msystemlib.img.ImgLoad;
 import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ThreadUtils;
-import com.msystemlib.utils.ToastUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
-import com.publish.haoffice.api.bean.office.DBDocListBean;
 import com.publish.haoffice.api.bean.repair.RepairHandlerBean;
 import com.publish.haoffice.api.bean.repair.RepairHandlerBean.RepairHandler;
-import com.publish.haoffice.api.bean.repair.RepairInfo;
-import com.publish.haoffice.api.bean.repair.RepairShow;
-import com.publish.haoffice.api.dao.repair.Reapir_SubmitDao;
 import com.publish.haoffice.api.dao.repair.Sys_userDao;
-import com.publish.haoffice.application.SysApplication;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -50,6 +44,7 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
     SwipeRefreshLayout refreshLayout;
     @InjectView(R.id.tv_count)
     TextView tv_count;
+
 
     private ImageLoader imageLoader;
     private SPUtils spUtils;
@@ -77,6 +72,7 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
 
         }
     };
+    private int firstIn = 0;
 
     @Override
     public View initView () {
@@ -106,12 +102,6 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
                 R.color.yellow,
                 R.color.green,
                 R.color.gold);
-
-    }
-
-    @Override
-    public void onResume () {
-        super.onResume();
         refreshLayout.post(new Runnable() {
             @Override
             public void run () {
@@ -119,6 +109,34 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
             }
         });
         onRefresh();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
+                RepairHandler repairHandler = templerList.get(position);
+                Intent intent = new Intent(getActivity(),
+                        RepairHadlerDetailActivity.class);
+                intent.putExtra("repairHandler", repairHandler);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.base_slide_right_in,
+                        R.anim.base_slide_remain);
+
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onResume () {
+        super.onResume();
+//        refreshLayout.post(new Runnable() {
+//            @Override
+//            public void run () {
+//                refreshLayout.setRefreshing(true);
+//            }
+//        });
+//        onRefresh();
     }
 
     /**
@@ -156,6 +174,14 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
                     imageLoader.displayImage(repairHandler.ImageUrlPath, vh.ivImg);
                 }
 
+                if(repairHandler.RepairUserName == null || "".equals(repairHandler.RepairUserName)
+                        ||repairHandler.RepairFinishTime == null || "".equals(repairHandler.RepairFinishTime)
+                        ||repairHandler.FaultHandle == null || "".equals(repairHandler.FaultHandle)){
+                    view.setBackgroundColor(getResources().getColor(R.color.powderblue));
+                }else{
+                    view.setBackgroundColor(getResources().getColor(R.color.darkbg));
+                }
+
 
                 return view;
             }
@@ -169,8 +195,8 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
     public void getData () {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("DeptID",userDao.getUserInfo(SysApplication.gainData(Const.USERNAME).toString().trim()).dept_id);
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.SERVICE_GETREPAIR_HANDLE, map, new IWebServiceCallBack() {
+        map.put("DeptID",userDao.getUserInfo(spUtils.getString(getActivity(),Const.USERNAME,"",Const.SP_REPAIR)).dept_id);
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.REPAIR_GETREPAIR_HANDLE, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
                 if(result != null){
@@ -215,7 +241,11 @@ public class YesUploadFragment extends BaseFragment implements SwipeRefreshLayou
 
             @Override
             public void onFailure (String result) {
-                ToastUtils.showToast(getActivity(), "联网失败");
+                if(adapter != null){
+                    adapter.notifyDataSetChanged();
+                }
+                tv_count.setVisibility(View.VISIBLE);
+                tv_count.setText("联网失败");
                 refreshLayout.post(new Runnable() {
                     @Override
                     public void run () {

@@ -51,6 +51,7 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
     private String officeUrl;
     private List<DBDocListBean.Doc> DBDocList;
     private CommonAdapter<DBDocListBean.Doc> adapter;
+    private int firstIn = 0;
 
     @Override
     public View initView () {
@@ -79,6 +80,7 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
                     Intent intent = new Intent(getActivity(),
                             DocDetailActivity.class);
                     intent.putExtra("RecID", doc.RecID);
+                    intent.putExtra("btnFlag", 0);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.base_slide_right_in,
                             R.anim.base_slide_remain);
@@ -86,6 +88,7 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
                     Intent intent = new Intent(getActivity(),
                             OfficDetailActivity.class);
                     intent.putExtra("RecID", doc.RecID);
+                    intent.putExtra("btnFlag", 0);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.base_slide_right_in,
                             R.anim.base_slide_remain);
@@ -93,6 +96,7 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
                     Intent intent = new Intent(getActivity(),
                             NoticeDetailActivity.class);
                     intent.putExtra("RecID", doc.RecID);
+                    intent.putExtra("btnFlag", 0);
                     startActivity(intent);
                     getActivity().overridePendingTransition(R.anim.base_slide_right_in,
                             R.anim.base_slide_remain);
@@ -105,21 +109,21 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
     }
 
 
-    @Override
-    public void onResume () {
-        super.onResume();
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run () {
-                refreshLayout.setRefreshing(true);
-            }
-        });
-        onRefresh();
-    }
+//    @Override
+//    public void onResume () {
+//        super.onResume();
+//        refreshLayout.post(new Runnable() {
+//            @Override
+//            public void run () {
+//                refreshLayout.setRefreshing(true);
+//            }
+//        });
+//        onRefresh();
+//    }
     public void getData () {
 
         HashMap<String, String> map = new HashMap<>();
-        map.put("UserID", SysApplication.gainData(Const.USERID).toString().trim());
+        map.put("UserID", spUtils.getString(getActivity(), Const.USERID, "", Const.SP_OFFICE));
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETDBDOCLIST, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
@@ -145,7 +149,12 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
 
             @Override
             public void onFailure (String result) {
-                ToastUtils.showToast(getActivity(), "联网失败");
+                if(adapter != null){
+                    DBDocList.clear();
+                    adapter.notifyDataSetChanged();
+                }
+                tv_count.setVisibility(View.VISIBLE);
+                tv_count.setText("联网失败");
                 refreshLayout.post(new Runnable() {
                     @Override
                     public void run () {
@@ -205,6 +214,24 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);
+        }
+    }
+
+    @Override
+    public void onHiddenChanged (boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+
+            if(firstIn == 0){
+                refreshLayout.post(new Runnable() {
+                    @Override
+                    public void run () {
+                        refreshLayout.setRefreshing(true);
+                    }
+                });
+                onRefresh();
+            }
+            firstIn++;
         }
     }
 

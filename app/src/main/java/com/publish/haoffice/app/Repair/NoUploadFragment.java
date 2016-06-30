@@ -33,6 +33,7 @@ import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.bean.repair.RepairInfo;
 import com.publish.haoffice.api.dao.repair.Reapir_SubmitDao;
+import com.publish.haoffice.api.dao.repair.Sys_userDao;
 import com.publish.haoffice.api.utils.DialogUtils;
 import com.publish.haoffice.api.utils.FormatJsonUtils;
 import com.publish.haoffice.api.utils.Image2StrUtils;
@@ -58,6 +59,7 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
     TextView tv_count;
 
     private Reapir_SubmitDao repairDao;
+    private Sys_userDao userDao;
     private List<RepairInfo> repairInfoList;
     private CommonAdapter<RepairInfo> adapter1;
     private ImageLoader imageLoader;
@@ -108,7 +110,7 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
         HashMap<String, String> map  = new HashMap<>();
         map.put("FileName",s);
         map.put("image", s1);
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.SERVICE_UPLOADIMAGE, map, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.REPAIR_UPLOADIMAGE, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
                 if (result != null) {
@@ -122,6 +124,7 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
                             public void onClick (DialogInterface dialog, int which) {
 
                                 repairInfoList.clear();
+                                repairDao.deleteAllRepairSubmit();
                                 adapter1.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
@@ -163,7 +166,7 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
             LogUtils.d("ckj",formatJson);
             HashMap<String,String> map  = new HashMap<>();
             map.put("strJson",formatJson);
-            HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.SERVICE_RETURNREPAIR_SUBMIT, map, new IWebServiceCallBack() {
+            HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.REPAIR_RETURNREPAIR_SUBMIT, map, new IWebServiceCallBack() {
                 @Override
                 public void onSucced (SoapObject result) {
                     if (result != null) {
@@ -258,6 +261,7 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void initData () {
         repairDao = Reapir_SubmitDao.getInstance(getActivity());
+        userDao = Sys_userDao.getInstance(getActivity());
         imageLoader = ImgLoad.initImageLoader(getActivity());
         spUtils = new SPUtils();
 
@@ -275,6 +279,14 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
                 R.color.yellow,
                 R.color.green,
                 R.color.gold);
+
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run () {
+                refreshLayout.setRefreshing(true);
+            }
+        });
+        onRefresh();
         getActivity().findViewById(R.id.ll_upload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -326,13 +338,13 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
     @Override
     public void onResume () {
         super.onResume();
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run () {
-                refreshLayout.setRefreshing(true);
-            }
-        });
-        onRefresh();
+//        refreshLayout.post(new Runnable() {
+//            @Override
+//            public void run () {
+//                refreshLayout.setRefreshing(true);
+//            }
+//        });
+//        onRefresh();
     }
 
     @Override
@@ -340,7 +352,8 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
         ThreadUtils.runInBackground(new Runnable() {
             @Override
             public void run () {
-                repairInfoList = repairDao.getRepairInfo(1,flag5t == 1 ? "5T" : "Tech");
+                repairInfoList = repairDao.getRepairInfo(userDao
+                        .getUserInfo(spUtils.getString(getActivity(),Const.USERNAME, "",Const.SP_REPAIR)).user_id,1,flag5t == 1 ? "5T" : "Tech");
                 handler.sendEmptyMessage(FLUSH);
             }
         });

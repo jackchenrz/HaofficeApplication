@@ -9,15 +9,15 @@
     
     <ImageView 
         android:id="@+id/iv_icon_gird_item"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/main_office"
         />
     
      <TextView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:id="@+id/tv_name_grid_item"
         android:textColor="@color/darkblack"
         android:text="电子公文"

@@ -15,7 +15,7 @@ public class FiveTProbTypeBean {
 		
 		@Override
 		public String toString() {
-			return SysName + " " + Type + " " + " " + Name + " " + Response;
+			return SysName + " " + Type + " "  + Name + " " + Response;
 		}
 	}
 }

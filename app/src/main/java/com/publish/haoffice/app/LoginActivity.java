@@ -135,7 +135,9 @@ public class LoginActivity extends BaseActivity{
                                     UserBean userBean = JsonToBean.getJsonBean(string, UserBean.class);
                                     if(userBean.ds != null || userBean.ds.size() != 0){
                                         SysApplication.assignData(Const.TOKEN, userBean.ds.get(0).token);
-                                        SysApplication.assignData(Const.USERID, userBean.ds.get(0).user_id);
+
+                                        SPUtils.saveString(LoginActivity.this, Const.USERID, userBean.ds.get(0).user_id,Const.SP_OFFICE);
+//                                        SysApplication.assignData(Const.USERID, userBean.ds.get(0).user_id);
                                         SysApplication.assignData(Const.STEP, userBean.ds.get(0).Step);
                                     }
                                     jump2Activity(LoginActivity.this, OfficeMainActivity.class,null,false);
@@ -158,9 +160,11 @@ public class LoginActivity extends BaseActivity{
                     repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
                     if(userDao.avaiLogin(userName, MD5Utils.md5Encode(pwd))){
 
-                        SysApplication.assignData(Const.USERNAME,userName);
-
-                        jump2Activity(LoginActivity.this, RepairMainActivity.class,null,false);
+//                        SysApplication.assignData(Const.USERNAME,userName);
+                        SPUtils.saveString(LoginActivity.this, Const.USERNAME, userName,Const.SP_REPAIR);
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put(Const.USERNAME,userName);
+                        jump2Activity(LoginActivity.this, RepairMainActivity.class,map,false);
                     } else {
                         loadingDialog.dismiss();
                         ToastUtils.showToast(LoginActivity.this, "账号或者密码错误");

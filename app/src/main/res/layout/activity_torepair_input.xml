@@ -1,0 +1,309 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/dodgerblue"
+                android:clipToPadding="true"
+                android:fitsSystemWindows="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitesmoke"
+        android:orientation="vertical" >
+
+        <include layout="@layout/action_bar"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                layout="@layout/layout_error"/>
+
+            <LinearLayout
+                android:id="@+id/ll_show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_repair_workshop"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/darkwhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="维修车间："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_repair_workshop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:focusableInTouchMode="false"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/ll_repair_people"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="维修人    ："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_repair_people"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    
+     <LinearLayout
+         android:id="@+id/ll_torepairtime"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#AAFFFFFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="完成时间："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_torepairtime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusableInTouchMode="false"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+    </LinearLayout>
+    
+     <!--<LinearLayout-->
+         <!--android:id="@+id/ll_repair_type"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="38dp"-->
+        <!--android:layout_marginBottom="1dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/darkwhite"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal" >-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:text="故障类型："-->
+            <!--android:textColor="#50bcff"-->
+            <!--android:textSize="16sp" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_repair_type"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:background="@null"-->
+            <!--android:textCursorDrawable="@null"-->
+            <!--android:textSize="14sp" />-->
+    <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:id="@+id/ll_repair_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@color/darkwhite"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="故障类型："
+                android:textColor="#50bcff"
+                android:textSize="16sp" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/et_repair_type"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:focusableInTouchMode="false"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinner_repair_type"
+                style="@style/spinner_style"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="5dp"
+                android:paddingTop="0dip"
+                android:paddingBottom="0dip"
+                android:animationCache="true"
+                android:drawSelectorOnTop="true" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_repair_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/darkwhite"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="责任分类："
+                android:textColor="#50bcff"
+                android:textSize="16sp" />
+
+            <EditText
+            android:visibility="gone"
+            android:id="@+id/et_repair_category"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:focusableInTouchMode="false"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/spinner_repair_category"
+                style="@style/spinner_style"
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_marginRight="5dp"
+                android:paddingTop="0dip"
+                android:paddingBottom="0dip"
+                android:animationCache="true"
+                android:drawSelectorOnTop="true" />
+        </LinearLayout>
+
+    
+     <!--<LinearLayout-->
+         <!--android:id="@+id/ll_repair_category"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_marginBottom="1dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/darkwhite"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal" >-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:text="责任分类："-->
+            <!--android:textColor="#50bcff"-->
+            <!--android:textSize="16sp" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/et_repair_category"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@null"-->
+            <!--android:focusableInTouchMode="false"-->
+            <!--android:textCursorDrawable="@null"-->
+            <!--android:textSize="14sp" />-->
+    <!--</LinearLayout>-->
+    
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:background="#AAFFFFFF"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="情况分析："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_breakdown"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:textCursorDrawable="@null" />
+    </LinearLayout>
+    
+
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="保存"
+        	android:textColor="@color/white"
+            android:background="@drawable/long_button" />
+
+</LinearLayout>
+    </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

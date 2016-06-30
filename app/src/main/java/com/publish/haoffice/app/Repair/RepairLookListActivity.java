@@ -24,7 +24,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class RepairListActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
+public class RepairLookListActivity extends FragmentActivity implements RadioGroup.OnCheckedChangeListener {
     @InjectView(R.id.ll_back)
     LinearLayout ll_back;
     @InjectView(R.id.tv_title)
@@ -56,7 +56,7 @@ public class RepairListActivity extends FragmentActivity implements RadioGroup.O
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                RepairListActivity.this.finish();
+                RepairLookListActivity.this.finish();
                 overridePendingTransition(0, com.msystemlib.R.anim.base_slide_right_out);
             }
         });

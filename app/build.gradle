@@ -26,4 +26,5 @@ dependencies {
     compile files('libs/butterknife-6.0.0.jar')
     compile project(':msystemlib')
     compile 'com.wdullaer:materialdatetimepicker:2.3.0'
+    compile files('libs/phonegap-1.4.0.jar')
 }

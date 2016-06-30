@@ -27,7 +27,7 @@ public class HttpConn {
 	 * @param properties WebService的参数
 	 * @param webServiceCallBack 返回结果回调接口
 	 */
-	public static void callService(String url,final String namespace,final String methodName,HashMap<String,String> properties,final IWebServiceCallBack webServiceCallBack) {
+	public static <T> void callService(String url,final String namespace,final String methodName,HashMap<String,T> properties,final IWebServiceCallBack webServiceCallBack) {
 		// 创建HttpTransportSE对象，传递WebService服务器地址
 		final HttpTransportSE httpTransportSE = new HttpTransportSE(url);
 		// 创建SoapObject对象
@@ -35,8 +35,8 @@ public class HttpConn {
 		
 		// SoapObject添加参数
 		if (properties != null) {
-			for (Iterator<Map.Entry<String, String>> it = properties.entrySet().iterator(); it.hasNext();) {
-				Map.Entry<String, String> entry = it.next();
+			for (Iterator<Map.Entry<String, T>> it = properties.entrySet().iterator(); it.hasNext();) {
+				Map.Entry<String, T> entry = it.next();
 				soapObject.addProperty(entry.getKey(), entry.getValue());
 			}
 		}

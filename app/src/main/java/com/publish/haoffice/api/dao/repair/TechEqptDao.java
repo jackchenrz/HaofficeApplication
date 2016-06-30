@@ -183,6 +183,56 @@ public class TechEqptDao {
 		}
 		return techEqpt;
 	}
+
+
+	public TechEqpt getTechEqpt1(String EqptInfoID) {
+		TechEqptBean bean = new TechEqptBean();
+		TechEqpt techEqpt = null;
+		SQLiteDatabase database = null;
+		try {
+			database = helper.getReadableDatabase();
+			Cursor cursor = database.query(TABLE_NAME, null, "EqptInfoID = ?",
+					new String[] { EqptInfoID }, null, null, null);
+			if (cursor.moveToNext()) {
+				techEqpt = bean.new TechEqpt();
+				techEqpt.TechEqptID = cursor.getString(cursor
+						.getColumnIndex("TechEqptID"));
+				techEqpt.EqptName = cursor.getString(cursor
+						.getColumnIndex("EqptName"));
+				techEqpt.dept_id = cursor.getString(cursor
+						.getColumnIndex("dept_id"));
+				techEqpt.EqptAddress = cursor.getString(cursor
+						.getColumnIndex("EqptAddress"));
+				techEqpt.EqptUse = cursor.getString(cursor
+						.getColumnIndex("EqptUse"));
+				techEqpt.EqptOwner = cursor.getString(cursor
+						.getColumnIndex("EqptOwner"));
+				techEqpt.EqptStatus = cursor.getString(cursor
+						.getColumnIndex("EqptStatus"));
+				techEqpt.InDate = cursor.getString(cursor
+						.getColumnIndex("InDate"));
+				techEqpt.CreateDate = cursor.getString(cursor
+						.getColumnIndex("CreateDate"));
+				techEqpt.LastUpdateDate = cursor.getString(cursor
+						.getColumnIndex("LastUpdateDate"));
+				techEqpt.EqptInfoID = cursor.getString(cursor
+						.getColumnIndex("EqptInfoID"));
+				techEqpt.WorkAreaID = cursor.getString(cursor
+						.getColumnIndex("WorkAreaID"));
+				techEqpt.EqptType = cursor.getString(cursor
+						.getColumnIndex("EqptType"));
+				techEqpt.RepairDeptID = cursor.getString(cursor
+						.getColumnIndex("RepairDeptID"));
+			}
+		} catch (Exception e) {
+			System.out.println("----getAllFiveTEqptList-->" + e.getMessage());
+		} finally {
+			if (database != null) {
+				database.close();
+			}
+		}
+		return techEqpt;
+	}
 	
 	
 	public String getTechEqptID(String EqptInfoID) {

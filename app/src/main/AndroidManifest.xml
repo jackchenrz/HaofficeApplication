@@ -43,15 +43,27 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.SearchActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".app.Repair.RepairListActivity"
+        <activity android:name=".app.Repair.RepairLookListActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.RepairDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.RepairHadlerDetailActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.RepairMainActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="adjustPan|stateHidden"
                   android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".app.Repair.ToRepairListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.ToRepairDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.ToRepairInputActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.ToRepairLookListActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.ToRepairHanderDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.SearchResultActivity"
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".app.office.OfficeMainActivity"
@@ -62,7 +74,18 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.office.NoticeDetailActivity"
                   android:screenOrientation="portrait"/>
-        <service android:name=".app.office.MsgService"/>
+        <activity android:name=".app.office.OfficSignActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.SelectUserActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.OfficSignBackActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.AddUserActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.NoticeSignActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.DocSignActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

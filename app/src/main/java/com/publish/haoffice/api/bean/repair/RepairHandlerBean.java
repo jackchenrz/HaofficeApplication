@@ -1,11 +1,12 @@
 package com.publish.haoffice.api.bean.repair;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class RepairHandlerBean {
+public class RepairHandlerBean implements Serializable {
 
 	public List<RepairHandler> ds;
-	public class RepairHandler{
+	public class RepairHandler implements Serializable{
 		public String ArriveTime;
 		public String CreateDate;
 		public String FaultHandle;

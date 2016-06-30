@@ -196,7 +196,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
         downloadDialog = showDownloadDialog(this, "正在准备更新...", "0/0", i);
         downloadDialog.show();
 
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.SERVICE_GETSYS_DEPT, null, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.REPAIR_GETSYS_DEPT, null, new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {
@@ -229,7 +229,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
         downloadDialog = showDownloadDialog(this, "正在准备更新...", "0/0", i);
         downloadDialog.show();
 
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.SERVICE_GETFIVET_EQPT, null, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.REPAIR_GETFIVET_EQPT, null, new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {
@@ -249,7 +249,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
         });
     }
     private void getEqpt(final String str) {
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.SERVICE_GETEQPT_INFO, null, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.REPAIR_GETEQPT_INFO, null, new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {
@@ -270,7 +270,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     }
 
     protected void getTech(final String str) {
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.SERVICE_GETTECH_EQPT, null, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.REPAIR_GETTECH_EQPT, null, new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {
@@ -302,7 +302,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     private void updateUser() {
         downloadDialog = showDownloadDialog(this, "正在准备更新...", "0/0", i);
         downloadDialog.show();
-        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.SERVICE_GETSYSUSER, null, new IWebServiceCallBack() {
+        HttpConn.callService(url, Const.SERVICE_NAMESPACE,Const.REPAIR_GETSYSUSER, null, new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {

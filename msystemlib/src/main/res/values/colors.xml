@@ -6,7 +6,7 @@
 
     <color name="darkwhite">#AAFFFFFF</color>
     <color name="darkblack">#AA000000</color>
-    <color name="darkbg">#EAEAEA</color>
+    <color name="darkbg">#FFFFFF</color>
     <color name="bg">#AA3D4AEF</color>
     <color name="item_bg">#0056A0</color>
     <color name="bottomcolor">#00A4FF</color>

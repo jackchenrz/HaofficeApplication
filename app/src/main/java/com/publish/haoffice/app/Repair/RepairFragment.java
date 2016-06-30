@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.msystemlib.utils.AlertUtils;
@@ -59,21 +59,21 @@ import butterknife.InjectView;
 public class RepairFragment extends Fragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     @InjectView(R.id.rl_repair)
-    RelativeLayout rl_repair;
+    LinearLayout rl_repair;
     @InjectView(R.id.rl_5Trepair)
-    RelativeLayout rl_5Trepair;
+    LinearLayout rl_5Trepair;
     @InjectView(R.id.rl_5Trepair_look)
-    RelativeLayout rl_5Trepair_look;
+    LinearLayout rl_5Trepair_look;
     @InjectView(R.id.rl_repair_look)
-    RelativeLayout rl_repair_look;
+    LinearLayout rl_repair_look;
     @InjectView(R.id.layout_5Tinput)
     View layout_5Tinput;
     @InjectView(R.id.layout_input)
     View layout_input;
-    @InjectView(R.id.iv_click)
-    ImageView iv_click;
-    @InjectView(R.id.iv_click1)
-    ImageView iv_click1;
+//    @InjectView(R.id.iv_click)
+//    ImageView iv_click;
+//    @InjectView(R.id.iv_click1)
+//    ImageView iv_click1;
     @InjectView(R.id.iv_photo)
     ImageView iv_photo;
     @InjectView(R.id.iv_selimg)
@@ -109,7 +109,7 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
     @InjectView(R.id.btn_save1)
     Button btn_save1;
 
-    private boolean isClick = true;
+    private boolean isClick = false;
     private boolean isClick1 = false;
     private String roleName;
     private String date;
@@ -144,7 +144,6 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
                                 iv_photo.setVisibility(View.VISIBLE);
                                 iv_selimg.setVisibility(View.GONE);
                                 layout_input.setVisibility(View.GONE);
-                                iv_click.setBackgroundResource(R.drawable.minus_index);
 
                             }else if(flag5t == 1){
                                 et_repairtime1.setText("");
@@ -154,7 +153,6 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
                                 iv_photo1.setVisibility(View.VISIBLE);
                                 iv_selimg1.setVisibility(View.GONE);
                                 layout_5Tinput.setVisibility(View.GONE);
-                                iv_click1.setBackgroundResource(R.drawable.minus_index);
                             }
                         }
                     },null);
@@ -187,7 +185,7 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frg_repair,container,false);
+        View view = inflater.inflate(R.layout.frg_repair1,container,false);
         ButterKnife.inject(this,view);
         init();
         return view;
@@ -205,40 +203,39 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
         repairDao = Reapir_SubmitDao.getInstance(getActivity());
         sp = new SPUtils();
         Bundle bundle = getArguments();//从activity传过来的Bundle
-        if(bundle!=null && null!=bundle.getString("datetime")){
+        if(bundle!=null){
             roleName = bundle.getString("roleName");
-            LogUtils.d("ckj",bundle.getString("datetime"));
+            LogUtils.d("ckj",bundle.getString("roleName"));
         }
 
         if("动态车间".equals(roleName)){
             rl_repair.setVisibility(View.GONE);
+            rl_repair_look.setVisibility(View.GONE);
         }
-        layout_input.setVisibility(View.GONE);
-        layout_5Tinput.setVisibility(View.GONE);
         rl_repair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
                 if(isClick){
                     layout_input.setVisibility(View.GONE);
-                    iv_click.setBackgroundResource(R.drawable.minus_index);
                 }else{
                     layout_input.setVisibility(View.VISIBLE);
-                    iv_click.setBackgroundResource(R.drawable.plus_index);
                 }
 
                 isClick = !isClick;
             }
         });
+
+        layout_input.setVisibility(View.GONE);
+        layout_5Tinput.setVisibility(View.GONE);
+
         rl_5Trepair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
                 if(isClick1){
                     layout_5Tinput.setVisibility(View.GONE);
 
-                    iv_click1.setBackgroundResource(R.drawable.minus_index);
                 }else{
                     layout_5Tinput.setVisibility(View.VISIBLE);
-                    iv_click1.setBackgroundResource(R.drawable.plus_index);
                 }
 
                 isClick1 = !isClick1;
@@ -375,7 +372,7 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
         rl_repair_look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                Intent intent2 = new Intent(getActivity(), RepairListActivity.class);
+                Intent intent2 = new Intent(getActivity(), RepairLookListActivity.class);
                 flag5t = 0;
                 intent2.putExtra("flag5t", flag5t);
                 startActivity(intent2);
@@ -385,7 +382,7 @@ public class RepairFragment extends Fragment implements DatePickerDialog.OnDateS
         rl_5Trepair_look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                Intent intent2 = new Intent(getActivity(), RepairListActivity.class);
+                Intent intent2 = new Intent(getActivity(), RepairLookListActivity.class);
                 flag5t = 1;
                 intent2.putExtra("flag5t", flag5t);
                 startActivity(intent2);

@@ -20,13 +20,11 @@ public class SPUtils {
 	 * @param value
 	 */
 	public  void saveString(Context context, String key, String value,String SP_NAME) {
-		if (sp == null)
 			sp = context.getSharedPreferences(SP_NAME, 0);
 		sp.edit().putString(key, value).commit();
 	}
 	
 	public  void clear(Context context,String SP_NAME){
-		if (sp == null)
 			sp = context.getSharedPreferences(SP_NAME, 0);
 		sp.edit().clear().commit();
 	}
@@ -41,7 +39,6 @@ public class SPUtils {
 	 * @return
 	 */
 	public  String getString(Context context, String key, String defValue,String SP_NAME) {
-		if (sp == null)
 			sp = context.getSharedPreferences(SP_NAME, 0);
 		return sp.getString(key, defValue);
 	}

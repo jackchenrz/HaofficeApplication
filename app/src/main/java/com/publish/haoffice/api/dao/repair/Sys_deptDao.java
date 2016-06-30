@@ -91,11 +91,56 @@ public class Sys_deptDao{
 		List<DeptInfo> list = new ArrayList<DeptInfo>();
 		DeptInfoBean bean = new DeptInfoBean();
 		DeptInfo deptInfo;
-		String sql = "select * from " + TABLE_NAME + "where is_repairdept = " + is_repairdept;
 		SQLiteDatabase database = null;
 		try {
 			database = helper.getReadableDatabase();
 			Cursor cursor = database.query(TABLE_NAME, null, "is_repairdept = ?", new String[]{is_repairdept+""}, null, null, null);
+			while (cursor.moveToNext()) {
+				deptInfo = bean.new DeptInfo();
+				deptInfo.dept_id = cursor.getString(cursor
+						.getColumnIndex("dept_id"));
+				deptInfo.dept_name = cursor.getString(cursor
+						.getColumnIndex("dept_name"));
+				deptInfo.p_dept_id = cursor.getString(cursor
+						.getColumnIndex("p_dept_id"));
+				deptInfo.is_used = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("is_used")));
+				deptInfo.sort_no = cursor.getString(cursor
+						.getColumnIndex("sort_no"));
+				deptInfo.is_usedept = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("is_usedept")));
+				deptInfo.is_repairdept = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("is_repairdept")));
+				deptInfo.deptlevel = cursor.getInt(cursor
+						.getColumnIndex("deptlevel"));
+				deptInfo.is_repairgroup = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("is_repairgroup")));
+				deptInfo.is_workarea = BooleanAndintUtils.int2Boolean(cursor
+						.getInt(cursor.getColumnIndex("is_workarea")));
+				deptInfo.short_dept_name = cursor.getString(cursor
+						.getColumnIndex("short_dept_name"));
+				list.add(deptInfo);
+				deptInfo = null;
+			}
+		} catch (Exception e) {
+			System.out.println("----getAllUserLogList-->" + e.getMessage());
+		} finally {
+			if (database != null) {
+				database.close();
+			}
+		}
+		return list;
+	}
+
+
+	public List<DeptInfo> getAllDeptList1(int is_usedept) {
+		List<DeptInfo> list = new ArrayList<DeptInfo>();
+		DeptInfoBean bean = new DeptInfoBean();
+		DeptInfo deptInfo;
+		SQLiteDatabase database = null;
+		try {
+			database = helper.getReadableDatabase();
+			Cursor cursor = database.query(TABLE_NAME, null, "is_usedept = ?", new String[]{is_usedept+""}, null, null, null);
 			while (cursor.moveToNext()) {
 				deptInfo = bean.new DeptInfo();
 				deptInfo.dept_id = cursor.getString(cursor

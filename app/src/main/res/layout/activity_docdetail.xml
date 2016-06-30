@@ -13,7 +13,20 @@
         android:orientation="vertical" >
 
         <include layout="@layout/action_bar"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                layout="@layout/layout_error"/>
 
+            <LinearLayout
+                android:id="@+id/ll_show"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,26 +159,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/line" />
-        <TextView
-            android:id="@+id/tv_doc"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="附件："
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_doc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="附件："
+                />
+            <ListView
+                android:id="@+id/lv_doc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </ListView>
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/line" />
-     <TextView 
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="审批记录:"
-         />
-     
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="审批记录"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            />
          <TableLayout 
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
@@ -218,6 +242,7 @@
 
     </LinearLayout>
     </ScrollView>
-    
+            </LinearLayout>
+        </RelativeLayout>
 </LinearLayout>
     </RelativeLayout>

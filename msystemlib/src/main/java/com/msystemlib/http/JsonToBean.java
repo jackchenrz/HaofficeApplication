@@ -14,7 +14,7 @@ public class JsonToBean {
 		T t = new Gson().fromJson(jsonString, cls);
 		return t;
 	}
-	
+
 	/**
 	 * 将对象转成json
 	 * @param t

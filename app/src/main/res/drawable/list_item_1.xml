@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--&lt;!&ndash; 默认时的背景图片&ndash;&gt;-->
+    <item android:drawable="@drawable/item_dark" />
+    <!--&lt;!&ndash;选中时的图片背景&ndash;&gt;-->
+    <!--<item android:state_selected="true" android:drawable="@drawable/item_dark" />-->
+</selector>

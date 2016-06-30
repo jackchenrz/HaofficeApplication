@@ -26,6 +26,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.msystemlib.MApplication;
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.common.adapter.CommonAdapter;
 import com.msystemlib.http.HttpConn;
@@ -34,6 +35,7 @@ import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.FileUtils;
 import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
+import com.msystemlib.utils.ThreadUtils;
 import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
@@ -87,6 +89,11 @@ public class OfficDetailActivity extends BaseActivity {
     @InjectView(R.id.tv_main_doc)
     TextView tv_main_doc;
 
+    @InjectView(R.id.ll_show)
+    LinearLayout ll_show;
+    @InjectView(R.id.tv_count)
+    TextView tv_count;
+
 
 
     @InjectView(R.id.tab)
@@ -100,6 +107,7 @@ public class OfficDetailActivity extends BaseActivity {
     @InjectView(R.id.tv_title)
     TextView tv_title;
 
+    public static OfficDetailActivity instance = null;
     private List<ApproveRecordBean.Record> record;
     private ApproveRecordBean approveRecordBean;
     private String recID;
@@ -109,6 +117,20 @@ public class OfficDetailActivity extends BaseActivity {
     private OfficDocDetailBean.OfficDocDetail officdocDetail;
     private List<WordBean.Word> wordList;
     private CommonAdapter<WordBean.Word> adapter;
+    private String stepNo;
+
+    private final int JUMP = 59;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage (Message msg) {
+            if(!"1".equals(stepNo)){
+                HashMap<String, String> map = new HashMap<>();
+                map.put("stepNo",stepNo);
+                map.put("recID",recID);
+                jump2Activity(OfficDetailActivity.this,OfficSignActivity.class,map,false);
+            }
+        }
+    };
 
 
     /**
@@ -147,6 +169,10 @@ public class OfficDetailActivity extends BaseActivity {
             tv3.setLayoutParams(params4);
             tv3.setText(record.get(i).StartDate + "|" + record.get(i).EndDate);
             tr.addView(tv3);
+            if("".equals(record.get(i).EndDate)){
+                tr.setBackgroundColor(getResources().getColor(R.color.powderblue));
+            }
+
             tabLayout.addView(tr);
             ImageView iv = new ImageView(this);
             TableLayout.LayoutParams params5 = new TableLayout.LayoutParams(systemService.getDefaultDisplay().getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -165,6 +191,10 @@ public class OfficDetailActivity extends BaseActivity {
     public void initView (View view) {
         ButterKnife.inject(this);
         tv_title.setText("详情页");
+        tv_count.setVisibility(View.VISIBLE);
+        tv_count.setText("正在加载中");
+        instance = this;
+        ll_show.setVisibility(View.GONE);
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -175,23 +205,65 @@ public class OfficDetailActivity extends BaseActivity {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
                 WordBean.Word word = wordList.get(position);
+                try {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 Uri content_url = Uri.parse(word.DownUrl);
                 intent.setData(content_url);
                 startActivity(intent);
+            }catch (Exception e){
+
+            }
+            }
+        });
+        ll_sign_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("recID",recID);
+                map.put("flagNorO","0");
+                jump2Activity(OfficDetailActivity.this,OfficSignBackActivity.class,map,false);
+
+            }
+        });
+        ll_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+
+                HashMap<String, String> map = new HashMap<>();
+//                map.put("stepNo",stepNo);
+                map.put("recID",recID);
+                jump2Activity(OfficDetailActivity.this,OfficSignActivity.class,map,false);
+
+//                ThreadUtils.runInBackground(new Runnable() {
+//                    @Override
+//                    public void run () {
+//                        for (ApproveRecordBean.Record re : record) {
+//                            if(re.PostilUserID.equals(SysApplication.gainData(Const.USERID).toString().trim())){
+//                                stepNo = re.StepNo;
+//                            }
+//                        }
+//
+//                        handler.sendEmptyMessage(JUMP);
+//                    }
+//                });
             }
         });
     }
-
-
-
-
 
     @Override
     public void doBusiness (Context mContext) {
         Intent intent = getIntent();
         recID = intent.getStringExtra("RecID");
+        int btnFlag = intent.getIntExtra("btnFlag",-1);
+        if(btnFlag == 0){
+            ll_sign.setVisibility(View.VISIBLE);
+            ll_sign_back.setVisibility(View.VISIBLE);
+        }else if(btnFlag == 1){
+            ll_sign.setVisibility(View.GONE);
+            ll_sign_back.setVisibility(View.GONE);
+        }
         spUtils = new SPUtils();
 
         officeUrl = "http://" + spUtils.getString(this, Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(this, Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE1;
@@ -202,6 +274,8 @@ public class OfficDetailActivity extends BaseActivity {
             @Override
             public void onSucced (SoapObject result) {
                 if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
                     String string = result.getProperty(0).toString();
                     if(!"404".equals(string)){
                         OfficDocDetailBean jsonBean = JsonToBean.getJsonBean(string, OfficDocDetailBean.class);
@@ -211,20 +285,24 @@ public class OfficDetailActivity extends BaseActivity {
                         tv_docCode.setText("文电号：" + officdocDetail.FileCode );
                         tv_FileHJCD.setText("紧急程度：" + officdocDetail.FileHJCD );
                         tv_FileJMDJ.setText("秘密等级：" + officdocDetail.FileJMDJ );
-                        tv_docuser.setText("拟稿人：" + officdocDetail.LXR );
+                        tv_docuser.setText("拟稿人：" + officdocDetail.OwerUserName );
                         tv_docdept.setText("拟稿部门：" + officdocDetail.SendDept );
                         tv_send_main.setText("主送：" + officdocDetail.FileRecUsersText );
                         tv_send_other.setText("抄送：" + officdocDetail.FileRecCopyUsersText );
                     }
                     getAutoRecord();
                 }else{
-                    ToastUtils.showToast(OfficDetailActivity.this, "联网失败");
+                    tv_count.setVisibility(View.VISIBLE);
+                    ll_show.setVisibility(View.GONE);
+                    tv_count.setText("联网失败");
                 }
             }
 
             @Override
             public void onFailure (String result) {
-                ToastUtils.showToast(OfficDetailActivity.this, "联网失败");
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
             }
         });
 
@@ -232,15 +310,18 @@ public class OfficDetailActivity extends BaseActivity {
 
 
     protected void getWordData() {
-        // TODO: 2016/6/21
-        map.put("DocID","4E2FAA12-6A33-46CA-BE36-0129146F1947");
+        map.put("DocID",recID);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETDOCDATAURL, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
 
                 if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
                     String string = result.getProperty(0).toString();
-                    if(!"404".equals(string)){
+
+                    LogUtils.d("ckj",string);
+                    if(!"anyType{}".equals(string)){
                         tv_main_doc.setText("点击下载查看" );
                         setclick(string);
 
@@ -265,7 +346,9 @@ public class OfficDetailActivity extends BaseActivity {
 
                         @Override
                         public void onFailure (String result) {
-                            ToastUtils.showToast(OfficDetailActivity.this, "联网错误，请检查网络连接");
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
                         }
                     });
                 }
@@ -273,7 +356,9 @@ public class OfficDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure (String result) {
-                ToastUtils.showToast(OfficDetailActivity.this, "联网错误，请检查网络连接");
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
             }
         });
 
@@ -285,11 +370,15 @@ public class OfficDetailActivity extends BaseActivity {
         tv_main_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
+                try {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
                 Uri content_url = Uri.parse(string);
                 intent.setData(content_url);
                 startActivity(intent);
+            }catch (Exception e){
+
+            }
             }
         });
     }
@@ -335,7 +424,7 @@ public class OfficDetailActivity extends BaseActivity {
 
     protected void getAutoRecord() {
         map.put("DocID", recID);
-        map.put("userID", SysApplication.gainData(Const.USERID).toString());
+        map.put("userID", spUtils.getString(OfficDetailActivity.this, Const.USERID, "", Const.SP_OFFICE));
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_AUDITRECORDDOC, map , new IWebServiceCallBack() {
 
             @Override
@@ -349,13 +438,17 @@ public class OfficDetailActivity extends BaseActivity {
                         addTab();
                     }
                 }else{
-                    ToastUtils.showToast(OfficDetailActivity.this, "联网失败");
+                    tv_count.setVisibility(View.VISIBLE);
+                    ll_show.setVisibility(View.GONE);
+                    tv_count.setText("联网失败");
                 }
             }
 
             @Override
             public void onFailure(String result) {
-                ToastUtils.showToast(OfficDetailActivity.this, "联网错误，请检查网络连接");
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
             }
         });
     }

@@ -40,7 +40,15 @@ public class DBHelper extends SQLiteOpenHelper {
 		sql.append("FaultHandle varchar(100),");
 		sql.append("RepairFinishTime varchar(100),");
 		sql.append("ProbType varchar(100),");
-		sql.append("ProbSysName varchar(100)");
+		sql.append("ProbSysName varchar(100),");
+		sql.append("RepairType varchar(100),");
+		sql.append("UserID varchar(100),");
+		sql.append("IsUpload varchar(100),");
+		sql.append("EqptName varchar(100),");
+		sql.append("FaultAppearance varchar(100),");
+		sql.append("ImageUrl varchar(100),");
+		sql.append("FaultOccu_Time varchar(100),");
+		sql.append("FaultStatus varchar(100)");
 		sql.append(");");
 		db.execSQL(sql.toString());
 	}
