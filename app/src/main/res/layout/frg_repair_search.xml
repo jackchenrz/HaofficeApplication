@@ -28,8 +28,7 @@
                     android:id="@+id/ll_tech_search"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="30dp"
                     android:contextClickable="true"
                     android:background="@drawable/itembgcolor"
                     android:layout_width="0dp"
@@ -44,8 +43,8 @@
                     <ImageView
                         android:layout_marginTop="10dp"
                         android:id="@+id/iv_click"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:background="@drawable/push"
                         />
 
@@ -55,6 +54,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="机械设备查询"
+                        android:textColor="@color/title"
                         android:layout_margin="10dp"
                         android:textSize="18sp"
                         />
@@ -64,8 +64,7 @@
                     android:id="@+id/ll_5t_search"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
                     android:gravity="center"
                     android:contextClickable="true"
                     android:background="@drawable/itembgcolor"
@@ -79,8 +78,8 @@
                     <ImageView
                         android:layout_marginTop="10dp"
                         android:id="@+id/iv_look"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:background="@drawable/logo_uidemo"
                         />
 
@@ -90,6 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="行安设备查询"
+                        android:textColor="@color/title"
                         android:layout_margin="10dp"
                         android:textSize="18sp"
                         android:layout_centerVertical="true"

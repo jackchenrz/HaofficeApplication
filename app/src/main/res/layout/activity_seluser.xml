@@ -37,9 +37,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:background="@drawable/sel_title_bg"
+                android:gravity="center_vertical"
                 >
                 <TextView
                     android:layout_width="0dp"
@@ -72,15 +73,15 @@
                 android:id="@+id/lv_item1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:listSelector="@color/white"
-                android:background="@color/powderblue"
+                android:listSelector="@drawable/sel_item_bg1"
+                android:background="@drawable/sel_list_bg"
                 android:divider="@android:color/transparent"
                 android:layout_height="wrap_content">
             </ListView>
             <ListView
                 android:layout_marginLeft="1dp"
-                android:background="@color/powderblue"
-                android:listSelector="@color/powderblue"
+                android:background="@drawable/sel_list_bg"
+                android:listSelector="@drawable/sel_item_bg2"
                 android:id="@+id/lv_item2"
                 android:layout_width="0dp"
                 android:fadeScrollbars="false"
@@ -104,10 +105,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:textColor="@color/white"
-                    android:text="添加"
-                    android:textSize="16sp" />
+                    android:background="@drawable/btn_add_bg"
+                    />
 
                 <Button
                     android:id="@+id/btn_addall"
@@ -117,10 +116,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:textColor="@color/white"
-                    android:text="全添加"
-                    android:textSize="16sp" />
+                    android:background="@drawable/btn_addall_bg"
+                     />
                 <Button
                     android:id="@+id/btn_remove"
                     android:layout_width="0dp"
@@ -129,10 +126,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:textColor="@color/white"
-                    android:text="移除"
-                    android:textSize="16sp" />
+                    android:background="@drawable/btn_remove_bg"
+                    />
                 <Button
                     android:id="@+id/btn_removeall"
                     android:layout_width="0dp"
@@ -141,10 +136,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:textColor="@color/white"
-                    android:text="全移除"
-                    android:textSize="16sp" />
+                    android:background="@drawable/btn_removeall_bg"
+                     />
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_width="0dp"
@@ -153,15 +146,13 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:textColor="@color/white"
-                    android:text="保存"
-                    android:textSize="16sp" />
+                    android:background="@drawable/btn_save_bg"
+                     />
             </LinearLayout>
             <ListView
                 android:layout_marginTop="5dp"
-                android:background="@color/white"
-                android:listSelector="@color/powderblue"
+                android:background="@drawable/sel_list_bg"
+                android:listSelector="@drawable/sel_item_bg2"
                 android:id="@+id/lv_item3"
                 android:layout_width="match_parent"
                 android:fadeScrollbars="false"

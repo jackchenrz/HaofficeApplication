@@ -69,7 +69,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
-                    android:gravity="center"
                     android:text="注意："
                     android:textColor="@color/red"
                     android:textSize="16sp"
@@ -88,7 +87,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
-                    android:gravity="center"
                     android:text="注意："
                     android:textColor="@color/red"
                     android:textSize="16sp"
@@ -125,7 +123,7 @@
                         android:id="@+id/tv_sel1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="选择班子成员："
+                        android:text="选择人员："
                         android:textSize="16sp"/>
 
                     <EditText
@@ -133,7 +131,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/sel_list_bg"
                         android:focusableInTouchMode="false"
                         android:singleLine="true"
                         android:textCursorDrawable="@null"
@@ -144,11 +142,9 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/long_button"
+                        android:background="@drawable/com_sel_bg"
                         android:focusableInTouchMode="false"
-                        android:padding="5dp"
-                        android:text="选择"
-                        android:textSize="14sp"/>
+                       />
                 </LinearLayout>
 
                 <ImageView
@@ -180,7 +176,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/sel_list_bg"
                         android:focusableInTouchMode="false"
                         android:singleLine="true"
                         android:textCursorDrawable="@null"
@@ -191,11 +187,9 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/long_button"
+                        android:background="@drawable/com_sel_bg"
                         android:focusableInTouchMode="false"
-                        android:padding="5dp"
-                        android:text="选择"
-                        android:textSize="14sp"/>
+                        />
 
 
                 </LinearLayout>
@@ -229,7 +223,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/sel_list_bg"
                         android:focusableInTouchMode="false"
                         android:singleLine="true"
                         android:textCursorDrawable="@null"
@@ -240,11 +234,9 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/long_button"
+                        android:background="@drawable/com_sel_bg"
                         android:focusableInTouchMode="false"
-                        android:padding="5dp"
-                        android:text="选择"
-                        android:textSize="14sp"/>
+                        />
 
 
                 </LinearLayout>
@@ -285,7 +277,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:background="@null"
+                            android:background="@drawable/sel_list_bg"
                             android:focusableInTouchMode="false"
                             android:singleLine="true"
                             android:textCursorDrawable="@null"
@@ -296,11 +288,9 @@
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
-                            android:background="@drawable/long_button"
+                            android:background="@drawable/com_sel_bg"
                             android:focusableInTouchMode="false"
-                            android:padding="5dp"
-                            android:text="选择"
-                            android:textSize="14sp"/>
+                            />
 
 
                     </LinearLayout>
@@ -317,7 +307,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_margin="5dp"
-                        android:gravity="center"
                         android:text="注意："
                         android:textColor="@color/red"
                         android:textSize="16sp"
@@ -361,7 +350,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/sel_list_bg"
                         android:focusableInTouchMode="false"
                         android:singleLine="true"
                         android:textCursorDrawable="@null"
@@ -372,11 +361,9 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:background="@drawable/long_button"
+                        android:background="@drawable/com_sel_bg"
                         android:focusableInTouchMode="false"
-                        android:padding="5dp"
-                        android:text="选择"
-                        android:textSize="14sp"/>
+                       />
 
 
                 </LinearLayout>
@@ -394,7 +381,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_margin="5dp"
-                    android:gravity="center"
                     android:text="注意："
                     android:textColor="@color/red"
                     android:textSize="16sp"
@@ -459,7 +445,7 @@
                         android:layout_width="0dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:background="@null"
+                        android:background="@drawable/sel_list_bg"
                         android:gravity="top"
                         android:textCursorDrawable="@null"
                         android:textSize="14sp"/>

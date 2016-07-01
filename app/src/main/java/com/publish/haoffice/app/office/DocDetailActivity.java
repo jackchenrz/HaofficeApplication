@@ -83,6 +83,7 @@ public class DocDetailActivity extends BaseActivity {
     private DocDetailBean.DocDetail officdocDetail;
     private List<WordBean.Word> wordList;
     private CommonAdapter<WordBean.Word> adapter;
+    public static DocDetailActivity instance = null;
 
 
     @Override
@@ -181,10 +182,22 @@ public class DocDetailActivity extends BaseActivity {
             }
         });
 
+        ll_sign_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("recID",recID);
+                map.put("flagNorO","2");
+                jump2Activity(DocDetailActivity.this,OfficSignBackActivity.class,map,false);
+
+            }
+        });
+
     }
 
     @Override
     public void doBusiness (Context mContext) {
+        instance = this;
         Intent intent = getIntent();
         recID = intent.getStringExtra("RecID");
         int btnFlag = intent.getIntExtra("btnFlag",-1);

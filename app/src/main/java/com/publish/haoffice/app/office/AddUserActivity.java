@@ -74,7 +74,7 @@ public class AddUserActivity extends BaseActivity {
 
     @Override
     public int bindLayout () {
-        return R.layout.activity_add_user;
+        return R.layout.activity_docadd_user;
     }
 
     @Override

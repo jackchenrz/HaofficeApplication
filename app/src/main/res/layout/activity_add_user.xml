@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whitesmoke"
+        android:background="@color/darkbg"
         android:orientation="vertical" >
 
         <include layout="@layout/action_bar"/>
@@ -43,7 +43,10 @@
                     android:text="标        题："
                     android:textSize="16sp" />
             </LinearLayout>
-
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -59,46 +62,20 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:orientation="horizontal" >-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="下一环节："-->
-                <!--android:textSize="16sp" />-->
-
-            <!--<EditText-->
-                <!--android:id="@+id/etNext"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:focusableInTouchMode="false"-->
-                <!--android:background="@null"-->
-                <!--android:textCursorDrawable="@null"-->
-                <!--android:textSize="14sp" />-->
-        <!--</LinearLayout>-->
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/line" />
 
         <LinearLayout
-            android:id="@+id/ll_text"
+            android:id="@+id/ll_sel1"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginLeft="5dp"
             android:orientation="horizontal" >
 
             <TextView
-                android:id="@+id/tv_text"
+                android:id="@+id/tv_sel1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|left"
@@ -106,38 +83,336 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/etText"
+                android:id="@+id/et_SelectUsers"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                android:background="@null"
+                android:background="@drawable/sel_list_bg"
                 android:focusableInTouchMode="false"
                 android:gravity="top"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/btn_sel"
+                android:id="@+id/btn_sel1"
                 android:layout_width="60dp"
                 android:layout_height="40dp"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/long_button"
-                android:textColor="@color/white"
-                android:text="选择"
-                android:textSize="16sp" />
+                android:background="@drawable/com_sel_bg"
+                />
         </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_line_sel1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line" />
 
-        <ImageView
-            android:id="@+id/iv_line_shenhe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/line" />
 
+                <LinearLayout
+                    android:id="@+id/ll_sel2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_sel2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选择主办人员："
+                            android:layout_gravity="top|left"
+                            android:textSize="16sp"/>
+
+                        <EditText
+                            android:id="@+id/et_ZBSelect"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/sel_list_bg"
+                            android:focusableInTouchMode="false"
+                            android:gravity="top"
+                            android:textCursorDrawable="@null"
+                            android:textSize="14sp"/>
+
+                        <Button
+                            android:id="@+id/bt_sel2"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/com_sel_bg"
+                            android:focusableInTouchMode="false"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_line_sel2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_txtErrorMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:text="注意："
+                        android:visibility="gone"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_line_txtErrorMsg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_sel3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_sel3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选择协办人员:"
+                            android:layout_gravity="top|left"
+                            android:textSize="16sp"/>
+
+                        <EditText
+                            android:id="@+id/et_XBSelect"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/sel_list_bg"
+                            android:focusableInTouchMode="false"
+                            android:gravity="top"
+                            android:textCursorDrawable="@null"
+                            android:textSize="14sp"/>
+
+                        <Button
+                            android:id="@+id/bt_sel3"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/com_sel_bg"
+                            android:focusableInTouchMode="false"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_line_sel3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tv_txtErrorMsg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:text="注意："
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/iv_line_txtErrorMsg2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_sel4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_sel4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选择批阅人员："
+                            android:layout_gravity="top|left"
+                            android:textSize="16sp"/>
+
+                        <EditText
+                            android:id="@+id/et_BLSelect"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/sel_list_bg"
+                            android:focusableInTouchMode="false"
+                            android:gravity="top"
+                            android:textCursorDrawable="@null"
+                            android:textSize="14sp"/>
+
+                        <Button
+                            android:id="@+id/bt_sel4"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/com_sel_bg"
+                            android:focusableInTouchMode="false"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_line_sel4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>
+
+                    <!--<TextView
+                        android:id="@+id/tv_txtErrorMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:text="注意："
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/iv_line_txtErrorMsg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_sel5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/tv_sel5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="选择查看人员："
+                            android:layout_gravity="top|left"
+                            android:textSize="16sp"/>
+
+                        <EditText
+                            android:id="@+id/et_PYSelect"
+                            android:layout_width="0dp"
+                            android:layout_height="100dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/sel_list_bg"
+                            android:focusableInTouchMode="false"
+                            android:gravity="top"
+                            android:textCursorDrawable="@null"
+                            android:textSize="14sp"/>
+
+                        <Button
+                            android:id="@+id/bt_sel5"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/com_sel_bg"
+                            android:focusableInTouchMode="false"
+                            />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_line_sel5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>
+
+                    <!--<TextView
+                        android:id="@+id/tv_txtErrorMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:text="注意："
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/iv_line_txtErrorMsg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/line"
+                        android:visibility="gone"/>-->
+                </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -147,10 +422,8 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/long_button"
-                android:textColor="@color/white"
-                android:text="保存"
-                android:textSize="16sp" />
+                android:background="@drawable/btn_s_bg"
+                 />
 
             <Button
                 android:id="@+id/btn_back"
@@ -159,11 +432,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/long_button"
-                android:textColor="@color/white"
-                android:text="返回"
-                android:textSize="16sp" />
+                android:background="@drawable/btn_c_bg"
+                 />
         </LinearLayout>
+
 
         <TextView 
             android:textColor="@color/red"

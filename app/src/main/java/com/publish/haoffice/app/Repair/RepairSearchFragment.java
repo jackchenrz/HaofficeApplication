@@ -159,7 +159,7 @@ public class RepairSearchFragment extends BaseFragmentapp implements TimePickerD
             public void onClick (View v) {
                 falgSearch = 0;
                 layout_search.setVisibility(View.VISIBLE);
-                tv_tech_search.setTextColor(getResources().getColor(R.color.powderblue));
+                tv_tech_search.setTextColor(getResources().getColor(R.color.title));
                 tv_5t_search.setTextColor(getResources().getColor(R.color.darkblack));
             }
         });
@@ -170,7 +170,7 @@ public class RepairSearchFragment extends BaseFragmentapp implements TimePickerD
                 falgSearch = 1;
                 layout_search.setVisibility(View.VISIBLE);
                 tv_tech_search.setTextColor(getResources().getColor(R.color.darkblack));
-                tv_5t_search.setTextColor(getResources().getColor(R.color.powderblue));
+                tv_5t_search.setTextColor(getResources().getColor(R.color.title));
             }
         });
 

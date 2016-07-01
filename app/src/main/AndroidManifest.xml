@@ -86,6 +86,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.office.DocSignActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.DocAddUserActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

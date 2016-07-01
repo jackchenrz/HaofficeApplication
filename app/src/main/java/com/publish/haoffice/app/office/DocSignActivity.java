@@ -160,12 +160,54 @@ public class DocSignActivity extends BaseActivity {
     private List<OfficeUserBean.OfficeUser> temp;
     private String users = "";
     private String ids = "";
+    private List<OfficeUserBean.OfficeUser> temp1;
+    private String users1 = "";
+    private String ids1 = "";
+    private List<OfficeUserBean.OfficeUser> temp2;
+    private String users2 = "";
+    private String ids2 = "";
+
+    private List<OfficeUserBean.OfficeUser> temp3;
+    private String users3 = "";
+    private String ids3 = "";
+
+    private List<OfficeUserBean.OfficeUser> temp4;
+    private String users4 = "";
+    private String ids4 = "";
+
+    private String trIsSelectUsers_Style_display = "block";
+    private String tr_zb_Style_display = "block";
+    private boolean trblfsVisible = false;
+    private boolean tr_blVisible = false;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage (Message msg) {
             super.handleMessage(msg);
+            switch (msg.what){
+                case Const.CODE:
+                    et_SelectUsers.setText(users);
+                    et_SelectUsers.setHint(ids);
+                break;
+                case Const.CODE1:
+                    et_ZBSelect.setText(users1);
+                    et_ZBSelect.setHint(ids1);
+                    break;
+                case Const.CODE2:
+                    et_XBSelect.setText(users2);
+                    et_XBSelect.setHint(ids2);
+                    break;
+                case Const.CODE3:
+                    et_BLSelect.setText(users3);
+                    et_BLSelect.setHint(ids3);
+                    break;
+                case Const.CODE4:
+                    et_PYSelect.setText(users4);
+                    et_PYSelect.setHint(ids4);
+                    break;
+            }
 
-//            etClass.setText(users);
+
         }
     };
     private int[] stepNos;
@@ -207,10 +249,6 @@ public class DocSignActivity extends BaseActivity {
             @Override
             public void onSucced(SoapObject result) {
                 if(result != null){
-                String string = result.getProperty(0).toString();
-                    LogUtils.d("ckj",string);
-                }
-                if(result != null){
                     tv_count.setVisibility(View.GONE);
                     ll_show.setVisibility(View.VISIBLE);
                     String string = result.getProperty(0).toString();
@@ -235,89 +273,181 @@ public class DocSignActivity extends BaseActivity {
         });
 
 
-//        bt_sel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick (View v) {
-//
-//                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
-//                intent1.putExtra("recID",recID);
-//                intent1.putExtra("flagclick",0);
-//                startActivityForResult(intent1,Const.CODE);
-//
-//            }
-//        });
+        bt_sel1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
 
-//        btn_sign.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick (View v) {
-//
-//                loadingDialog = DialogUtils.createLoadingDialog(DocSignActivity.this, "正在签阅，请稍后...");
-//                loadingDialog.show();
-//
-//                String _StepNo =  stepNos[spinner_next.getSelectedItemPosition()] + "";
-//                String _PostilDesc = etText.getText().toString().trim();
-//                String _HFSelectUsersValue = ids;
-//                String _txtIsHuiQianSelectedValue = "";
-////                if(rb_sign.isChecked()){
-////                    _txtIsHuiQianSelectedValue = "签发";
-////                }else if(rb_sign1.isChecked()){
-////                    _txtIsHuiQianSelectedValue = "会签";
-////                }
-//                String _btnSaveText = btn_sign.getText().toString().trim();
-//                if(llText.getVisibility() == View.VISIBLE && "".equals(_PostilDesc)){
-//                    loadingDialog.dismiss();
-//                    ToastUtils.showToast(DocSignActivity.this,"请填写审批意见");
-//                    return;
-//                }
-//                HashMap<String, String> map = new HashMap<String, String>();
-//                map.put("DocID", recID);
-//                map.put("UserID", spUtils.getString(DocSignActivity.this, Const.USERID, "", Const.SP_OFFICE));
-//                map.put("_StepNo", _StepNo);
-//                map.put("_PostilDesc", _PostilDesc);
-//                map.put("_HFSelectUsersValue", _HFSelectUsersValue);
-//                map.put("_txtIsHuiQianSelectedValue", _txtIsHuiQianSelectedValue);
-//                map.put("_btnSaveText", _btnSaveText);
-//                HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_SAVESENDDOCCTR, map , new IWebServiceCallBack() {
-//
-//                    @Override
-//                    public void onSucced(SoapObject result) {
-//
-//                        if(result != null){
-//                            loadingDialog.dismiss();
-//                            String string = result.getProperty(0).toString();
-//                            if(!"".equals(string)){
-//                                ToastUtils.showToast(DocSignActivity.this,"签阅成功");
-//                                jump2Activity(DocSignActivity.this,OfficeMainActivity.class,null,true);
-//                                DocSignActivity.this.finish();
-//                                OfficDetailActivity.instance.finish();
-//                                OfficeMainActivity.instance.finish();
-//                            }
-//                        }else{
-//                            loadingDialog.dismiss();
-//                            ToastUtils.showToast(DocSignActivity.this,"签阅失败");
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String result) {
-//                        loadingDialog.dismiss();
-//                        ToastUtils.showToast(DocSignActivity.this,"签阅失败");
-//                    }
-//                });
-//            }
-//        });
-//
-//
-//        btn_lesign.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick (View v) {
-//                Intent intent1 = new Intent(DocSignActivity.this,AddUserActivity.class);
-//                intent1.putExtra("recID",recID);
-//                intent1.putExtra("flagclick",1);
-//                intent1.putExtra("flagNorO",0);
-//                startActivity(intent1);
-//            }
-//        });
+                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",0);
+                intent1.putExtra("docorno",1);
+                startActivityForResult(intent1,Const.CODE);
+
+            }
+        });
+
+        bt_sel2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",0);
+                intent1.putExtra("docorno",2);
+                startActivityForResult(intent1,Const.CODE1);
+
+            }
+        });
+
+        bt_sel3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",0);
+                intent1.putExtra("docorno",3);
+                startActivityForResult(intent1,Const.CODE2);
+
+            }
+        });
+
+        bt_sel4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",0);
+                intent1.putExtra("flagchejian",1);
+                intent1.putExtra("docorno",4);
+                startActivityForResult(intent1,Const.CODE3);
+
+            }
+        });
+
+        bt_sel5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                Intent intent1 = new Intent(DocSignActivity.this,SelectUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",0);
+                intent1.putExtra("flagchejian",2);
+                intent1.putExtra("docorno",5);
+                startActivityForResult(intent1,Const.CODE4);
+
+            }
+        });
+
+
+        btn_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                loadingDialog = DialogUtils.createLoadingDialog(DocSignActivity.this, "正在签阅，请稍后...");
+                loadingDialog.show();
+
+                String _StepNo =  stepNos[spinner_next.getSelectedItemPosition()] + "";
+                String _PostilDesc = etText.getText().toString().trim();
+                if(llText.getVisibility() == View.VISIBLE && "".equals(_PostilDesc)){
+                    loadingDialog.dismiss();
+                    ToastUtils.showToast(DocSignActivity.this,"请填写审批意见");
+                    return;
+                }
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                map.put("DocID", recID);
+                map.put("UserID", spUtils.getString(DocSignActivity.this, Const.USERID, "", Const.SP_OFFICE));
+                map.put("txtStepNoSelectedValue", _StepNo);
+                map.put("txtPostilDescText", _PostilDesc);
+
+                map.put("trIsSelectUsers_Style_display", trIsSelectUsers_Style_display);
+                CharSequence hint = et_SelectUsers.getHint();
+                String HFSelectUsersValue = "";
+                if(hint != null){
+                    HFSelectUsersValue = hint.toString().trim();
+                }
+                map.put("HFSelectUsersValue", HFSelectUsersValue);
+
+                map.put("trblfsVisible", trblfsVisible);
+                if(trblfsVisible){
+                    map.put("HFblfsValue", types[spinner_sign_type.getSelectedItemPosition()]);
+                }else{
+                    map.put("HFblfsValue", "");
+                }
+
+
+                map.put("tr_zb_Style_display", tr_zb_Style_display);
+                CharSequence hint1 = et_ZBSelect.getHint();
+                String HFZBSelectUsersValue = "";
+                if(hint1 != null){
+                    HFZBSelectUsersValue = hint1.toString().trim();
+                }
+                map.put("HFZBSelectUsersValue",HFZBSelectUsersValue);
+
+                map.put("tr_blVisible", tr_blVisible);
+                CharSequence hint2 = et_BLSelect.getHint();
+                String HFBLSelectUsersValue = "";
+                if(hint2 != null){
+                    HFBLSelectUsersValue = hint2.toString().trim();
+                }
+                map.put("HFBLSelectUsersValue", HFBLSelectUsersValue);
+
+                CharSequence hint3 = et_XBSelect.getHint();
+                String HFXBSelectUsersValue = "";
+                if(hint3 != null){
+                    HFXBSelectUsersValue = hint3.toString().trim();
+                }
+                map.put("HFXBSelectUsersValue",HFXBSelectUsersValue);
+
+                CharSequence hint4 = et_PYSelect.getHint();
+                String HFPYSelectUsersValue = "";
+                if(hint4 != null){
+                    HFPYSelectUsersValue = hint4.toString().trim();
+                }
+                map.put("HFPYSelectUsersValue", HFPYSelectUsersValue);
+                map.put("lblBLUsersText", tv_sel4.getText().toString().trim());
+                HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_SAVEBINDRECDOCCTR, map , new IWebServiceCallBack() {
+
+                    @Override
+                    public void onSucced(SoapObject result) {
+
+                        if(result != null){
+                            loadingDialog.dismiss();
+                            String string = result.getProperty(0).toString();
+                            if(!"".equals(string)){
+                                ToastUtils.showToast(DocSignActivity.this,"签阅成功");
+                                jump2Activity(DocSignActivity.this,OfficeMainActivity.class,null,true);
+                                DocSignActivity.this.finish();
+                                DocDetailActivity.instance.finish();
+                                OfficeMainActivity.instance.finish();
+                            }
+                        }else{
+                            loadingDialog.dismiss();
+                            ToastUtils.showToast(DocSignActivity.this,"签阅失败");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String result) {
+                        loadingDialog.dismiss();
+                        ToastUtils.showToast(DocSignActivity.this,"签阅失败");
+                    }
+                });
+            }
+        });
+
+
+        btn_lesign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Intent intent1 = new Intent(DocSignActivity.this,DocAddUserActivity.class);
+                intent1.putExtra("recID",recID);
+                intent1.putExtra("flagclick",1);
+                intent1.putExtra("flagNorO",0);
+                startActivity(intent1);
+            }
+        });
     }
 
     @Override
@@ -346,7 +476,103 @@ public class DocSignActivity extends BaseActivity {
                             }
                         }
 
-                        handler.sendEmptyMessage(100);
+                        handler.sendEmptyMessage(Const.CODE);
+                    }
+                });
+            }else if (resultCode == Const.CODE1) {
+                users1 = "";
+                ids1 = "";
+                temp1 = (List<OfficeUserBean.OfficeUser>) data.getSerializableExtra("temp");
+                ThreadUtils.runInBackground(new Runnable() {
+                    @Override
+                    public void run () {
+
+
+                        for (int i = 0; i < temp1.size(); i++) {
+
+                            if(i == temp1.size() -1){
+                                users1 +=  temp1.get(i).real_name;
+                                ids1 += "'" + temp1.get(i).user_id + "'";
+
+                            }else{
+                                users1 +=  temp1.get(i).real_name + ",";
+                                ids1 +=  "'" + temp1.get(i).user_id + "'" + ",";
+                            }
+                        }
+
+                        handler.sendEmptyMessage(Const.CODE1);
+                    }
+                });
+            }else if (resultCode == Const.CODE2) {
+                users2 = "";
+                ids2 = "";
+                temp2 = (List<OfficeUserBean.OfficeUser>) data.getSerializableExtra("temp");
+                ThreadUtils.runInBackground(new Runnable() {
+                    @Override
+                    public void run () {
+
+
+                        for (int i = 0; i < temp2.size(); i++) {
+
+                            if(i == temp2.size() -1){
+                                users2 +=  temp2.get(i).real_name;
+                                ids2 += "'" + temp2.get(i).user_id + "'";
+
+                            }else{
+                                users2 +=  temp2.get(i).real_name + ",";
+                                ids2 +=  "'" + temp2.get(i).user_id + "'" + ",";
+                            }
+                        }
+
+                        handler.sendEmptyMessage(Const.CODE2);
+                    }
+                });
+            }else if (resultCode == Const.CODE3) {
+                users3 = "";
+                ids3 = "";
+                temp3 = (List<OfficeUserBean.OfficeUser>) data.getSerializableExtra("temp");
+                ThreadUtils.runInBackground(new Runnable() {
+                    @Override
+                    public void run () {
+
+
+                        for (int i = 0; i < temp3.size(); i++) {
+
+                            if(i == temp3.size() -1){
+                                users3 +=  temp3.get(i).real_name;
+                                ids3 += "'" + temp3.get(i).user_id + "'";
+
+                            }else{
+                                users3 +=  temp3.get(i).real_name + ",";
+                                ids3 +=  "'" + temp3.get(i).user_id + "'" + ",";
+                            }
+                        }
+
+                        handler.sendEmptyMessage(Const.CODE3);
+                    }
+                });
+            }else if (resultCode == Const.CODE4) {
+                users4 = "";
+                ids4 = "";
+                temp4 = (List<OfficeUserBean.OfficeUser>) data.getSerializableExtra("temp");
+                ThreadUtils.runInBackground(new Runnable() {
+                    @Override
+                    public void run () {
+
+
+                        for (int i = 0; i < temp4.size(); i++) {
+
+                            if(i == temp4.size() -1){
+                                users4 +=  temp4.get(i).real_name;
+                                ids4 += "'" + temp4.get(i).user_id + "'";
+
+                            }else{
+                                users4 +=  temp4.get(i).real_name + ",";
+                                ids4 +=  "'" + temp4.get(i).user_id + "'" + ",";
+                            }
+                        }
+
+                        handler.sendEmptyMessage(Const.CODE4);
                     }
                 });
             }
@@ -373,6 +599,7 @@ public class DocSignActivity extends BaseActivity {
                 case "trblfs":
                     switch (testBean.Attributes){
                         case "Visible":
+                            trblfsVisible = Boolean.parseBoolean(testBean.Value);
                             switch (testBean.Value){
                                 case "false":
                             ll_sign_type.setVisibility(View.GONE);
@@ -475,6 +702,7 @@ public class DocSignActivity extends BaseActivity {
                 case "tr_zb":
                     switch (testBean.Attributes){
                         case "Style[\"display\"]":
+                            tr_zb_Style_display = testBean.Value;
                             switch (testBean.Value){
                                 case "block":
                                     llSel2.setVisibility(View.VISIBLE);
@@ -534,6 +762,7 @@ public class DocSignActivity extends BaseActivity {
                 case "tr_bl":
                     switch (testBean.Attributes){
                         case "Visible":
+                            tr_blVisible = Boolean.parseBoolean(testBean.Value);
                             switch (testBean.Value){
                                 case "true":
                                     llSel4.setVisibility(View.VISIBLE);
@@ -650,6 +879,7 @@ public class DocSignActivity extends BaseActivity {
                 case "trIsSelectUsers":
                     switch (testBean.Attributes){
                         case "Style[\"display\"]":
+                            trIsSelectUsers_Style_display =  testBean.Value;
                             switch (testBean.Value){
                                 case "block":
                                     llSel1.setVisibility(View.VISIBLE);
@@ -701,11 +931,9 @@ public class DocSignActivity extends BaseActivity {
                             switch (testBean.Value){
                                 case "false":
                                     btn_lesign.setVisibility(View.GONE);
-                                    iv_line_shenhe.setVisibility(View.GONE);
                                     break;
                                 case "true":
                                     btn_lesign.setVisibility(View.VISIBLE);
-                                    iv_line_shenhe.setVisibility(View.VISIBLE);
                                     break;
                             }
                             break;
@@ -754,9 +982,11 @@ public class DocSignActivity extends BaseActivity {
                     switch (testBean.Value){
                         case "true":
                             llText.setVisibility(View.VISIBLE);
+                            iv_line_shenhe.setVisibility(View.VISIBLE);
                             break;
                         case "false":
                             llText.setVisibility(View.GONE);
+                            iv_line_shenhe.setVisibility(View.GONE);
                             break;
                     }
                     break;
@@ -825,9 +1055,17 @@ public class DocSignActivity extends BaseActivity {
             @Override
             public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
                 if(position == 1){
+                    llSel1.setVisibility(View.VISIBLE);
+                    iv_line_sel1.setVisibility(View.VISIBLE);
+                    llSel2.setVisibility(View.GONE);
+                    iv_line_sel2.setVisibility(View.GONE);
                     llSel3.setVisibility(View.GONE);
                     iv_line_sel3.setVisibility(View.GONE);
                 }else if(position == 0){
+                    llSel1.setVisibility(View.GONE);
+                    iv_line_sel1.setVisibility(View.GONE);
+                    llSel2.setVisibility(View.VISIBLE);
+                    iv_line_sel2.setVisibility(View.VISIBLE);
                     llSel3.setVisibility(View.VISIBLE);
                     iv_line_sel3.setVisibility(View.VISIBLE);
                 }

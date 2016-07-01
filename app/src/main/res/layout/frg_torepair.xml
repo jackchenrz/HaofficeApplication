@@ -42,8 +42,8 @@
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:id="@+id/iv_click"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/torepair_tech"
                     />
 
@@ -52,6 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="机械设备维修"
+                    android:textColor="@color/title"
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     />
@@ -77,8 +78,8 @@
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:id="@+id/iv_look"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/repair_tech_look"
                     />
 
@@ -87,6 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="机械设备查看"
+                    android:textColor="@color/title"
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
@@ -122,8 +124,8 @@
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:id="@+id/iv_click1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/torepair_5t"
                     />
 
@@ -132,6 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="行安设备维修"
+                    android:textColor="@color/title"
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     />
@@ -157,9 +160,9 @@
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:id="@+id/iv_look1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/repair_tech_look"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/repair_5t_look"
                     />
 
                 <TextView
@@ -167,6 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="行安设备查看"
+                    android:textColor="@color/title"
                     android:layout_margin="10dp"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"

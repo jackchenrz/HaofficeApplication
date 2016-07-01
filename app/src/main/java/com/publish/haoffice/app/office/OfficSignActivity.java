@@ -173,6 +173,7 @@ public class OfficSignActivity extends BaseActivity {
                 Intent intent1 = new Intent(OfficSignActivity.this,SelectUserActivity.class);
                 intent1.putExtra("recID",recID);
                 intent1.putExtra("flagclick",0);
+                intent1.putExtra("docorno",0);
                 startActivityForResult(intent1,Const.CODE);
 
             }

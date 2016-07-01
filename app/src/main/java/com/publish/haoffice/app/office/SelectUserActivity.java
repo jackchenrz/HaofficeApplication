@@ -87,6 +87,8 @@ public class SelectUserActivity extends BaseActivity {
     private OfficeUserBean.OfficeUser officeUser;
     private OfficeUserBean.OfficeUser officeUserremove;
     private int positionflag = -1;
+    private HashMap<String, Object> map1;
+    private int docorno;
 
     @Override
     public int bindLayout () {
@@ -111,7 +113,6 @@ public class SelectUserActivity extends BaseActivity {
         lv_item1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
-                lv_item2.setBackgroundColor(getResources().getColor(R.color.white));
                 if("BindSelectUsersEx".equals(ds.get(position).MethodName)){
                     getUser(Const.OFFIC_GETUSERBYDEPTIDEX,position);
                 }else if("BindCheJianSelectUsersEx".equals(ds.get(position).MethodName)){
@@ -233,7 +234,9 @@ public class SelectUserActivity extends BaseActivity {
                     ds1.add(officeUserremove);
                 }
                 setOrUpdateAdapter3();
-                setOrUpdateAdapter1();
+                if(ds1 != null || ds1.size() != 0){
+                    setOrUpdateAdapter1();
+                }
             }
         });
     }
@@ -311,7 +314,18 @@ public class SelectUserActivity extends BaseActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra("temp",(Serializable)temp);
-                setResult(Const.CODE,intent);
+                if(docorno == 0 || docorno == 1 ){
+                    setResult(Const.CODE,intent);
+                }else if(docorno == 2 ){
+                    setResult(Const.CODE1,intent);
+                }else if(docorno == 3 || docorno == 6){
+                    setResult(Const.CODE2,intent);
+                }else if(docorno == 4 ){
+                    setResult(Const.CODE3,intent);
+                }else if(docorno == 5 ){
+                    setResult(Const.CODE4,intent);
+                }
+
                 finishActivity(SelectUserActivity.this);
             }
         });
@@ -326,17 +340,42 @@ public class SelectUserActivity extends BaseActivity {
 
         Intent intent = getIntent();
         String recID = intent.getStringExtra("recID");
+        docorno = intent.getIntExtra("docorno",0);
         int flagclick = intent.getIntExtra("flagclick",0);
+        int flagchejian = intent.getIntExtra("flagchejian",0);
+
+        map1 = new HashMap<String, Object>();
+
+        if(docorno == 0 || docorno == 2 || docorno == 4 || docorno == 5 || docorno == 6){
+            if(flagchejian == 1){
+                map1.put("DocID", recID);
+                map1.put("UserID", spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
+                getRole(Const.OFFIC_BINDBLSELECTUSERSEX);
+            }else if(flagchejian == 2){
+                map1.put("DocID", recID);
+                map1.put("UserID", spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
+                getRole(Const.OFFIC_BINDPYSELECTUSERSEX);
+            }else{
+                map1.put("DocID", recID);
+                map1.put("UserID", spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
+                map1.put("IsAddUser", flagclick);
+                getRole(Const.OFFIC_BINDSELECTUSERSEX);
+
+            }
+        }else if(docorno == 1 || docorno == 3){
+            map1.put("DocID", recID);
+            map1.put("UserID", spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
+            getRole(Const.OFFIC_BINDCBSELECTUSERSEX);
+        }
 
 
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("DocID", recID);
-        map.put("UserID", spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
 
-        LogUtils.d("ckj",spUtils.getString(SelectUserActivity.this, Const.USERID, "", Const.SP_OFFICE));
-        map.put("IsAddUser", flagclick);
 
-        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_BINDSELECTUSERSEX, map , new IWebServiceCallBack() {
+
+    }
+
+    private void getRole (String methodName) {
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, methodName, map1 , new IWebServiceCallBack() {
 
             @Override
             public void onSucced(SoapObject result) {
@@ -367,8 +406,6 @@ public class SelectUserActivity extends BaseActivity {
                 tv_count.setText("联网失败");
             }
         });
-
-
     }
 
     /**

@@ -109,6 +109,8 @@ public class OfficSignBackActivity extends BaseActivity {
 
         }else if("0".equals(flagNorO)){
             getData(Const.OFFIC_BACKSENDDOC);
+        }else if("2".equals(flagNorO)){
+            getData(Const.OFFIC_BACKRECDOC);
         }
 
 
@@ -142,6 +144,8 @@ public class OfficSignBackActivity extends BaseActivity {
 
                 }else if("0".equals(flagNorO)){
                     uploadData(Const.OFFIC_SAVEBACKSENDDOC);
+                }else if("2".equals(flagNorO)){
+                    uploadData(Const.OFFIC_SAVEBACKRECDOC);
                 }
 
             }
@@ -167,7 +171,13 @@ public class OfficSignBackActivity extends BaseActivity {
                         ToastUtils.showToast(OfficSignBackActivity.this,"回退成功");
                         jump2Activity(OfficSignBackActivity.this,OfficeMainActivity.class,null,true);
                         OfficSignBackActivity.this.finish();
-                        OfficDetailActivity.instance.finish();
+                        if("1".equals(flagNorO)){
+                            NoticeDetailActivity.instance.finish();
+                        }else if("0".equals(flagNorO)){
+                            OfficDetailActivity.instance.finish();
+                        }else if("2".equals(flagNorO)){
+                            DocDetailActivity.instance.finish();
+                        }
                         OfficeMainActivity.instance.finish();
                     }
                 }else{

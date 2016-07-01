@@ -47,6 +47,11 @@ public class Const {
     public static String SP_OFFICE = "office";
     public static final String USERID = "user_id";// 用户ID
     public static final int CODE = 11;
+    public static final int CODE1 = 12;
+    public static final int CODE2 = 13;
+    public static final int CODE3 = 14;
+    public static final int CODE4 = 15;
+    public static final int CODE5 = 16;
     public static final String OFFIC_LOGIN = "Login";// 得到用户
     public static final String OFFIC_GETDBDOCLIST = "GetDbDocList";// 得到用户
     public static final String OFFIC_GETDOCDETAIL = "GetDocDetail";// 得到用户
@@ -74,4 +79,12 @@ public class Const {
     public static final String OFFIC_BACKNOTICEDOC = "BackNoticeDoc";// 得到用户
     public static final String OFFIC_SAVEBACKNOTICEDOC = "SaveBackNoticeDoc";// 得到用户
     public static final String OFFIC_BINDRECDOCCTR = "BindRecDocCtr";// 得到用户
+    public static final String OFFIC_BINDCBSELECTUSERSEX = "BindCBSelectUsersEx";// 得到用户
+    public static final String OFFIC_SAVEBINDRECDOCCTR = "SaveBindRecDocCtr";// 得到用户
+    public static final String OFFIC_BINDBLSELECTUSERSEX = "BindBLSelectUsersEx";// 得到用户
+    public static final String OFFIC_BINDPYSELECTUSERSEX = "BindPYSelectUsersEx";// 得到用户
+    public static final String OFFIC_BACKRECDOC = "BackRecDoc";// 得到用户
+    public static final String OFFIC_SAVEBACKRECDOC = "SaveBackRecDoc";// 得到用户
+    public static final String OFFIC_ADDUSERRECDOC = "AddUserRecDoc";// 增加同级签阅人员
+    public static final String OFFIC_SAVEADDUSERRECDOC = "SaveAddUserRecDoc";// 增加同级签阅人员
 }

@@ -173,6 +173,7 @@ public class NoticeSignActivity extends BaseActivity {
                 Intent intent1 = new Intent(NoticeSignActivity.this,SelectUserActivity.class);
                 intent1.putExtra("recID",recID);
                 intent1.putExtra("flagclick",0);
+                intent1.putExtra("docorno",0);
                 startActivityForResult(intent1,Const.CODE);
 
             }
