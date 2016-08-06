@@ -31,6 +31,7 @@ import com.publish.haoffice.api.bean.office.FlowStep;
 import com.publish.haoffice.api.bean.office.OfficeUserBean;
 import com.publish.haoffice.api.bean.office.TestBean;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.api.utils.StrConUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -155,88 +156,136 @@ public class DocAddUserActivity extends BaseActivity {
             switch (msg.what){
                 case Const.CODE:
 
-                    if(HFSelectUsers != null){
-                        et_SelectUsers.setHint(HFSelectUsers + "," + ids);
-                    }else {
+                    if(!"".equals(ids)){
+                        String cha = ids.charAt(ids.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            et_SelectUsers.setHint(ids.substring(0, ids.length() -1));
+                        }else{
+                            et_SelectUsers.setHint(ids);
+                        }
+                    }else{
                         et_SelectUsers.setHint(ids);
                     }
 
-                    if(txtSelectUsers != null){
+                    if(!"".equals(txtSelectUsers) && !"".equals(users)){
                         et_SelectUsers.setText(txtSelectUsers + "," + users);
-                    }else {
+                    }else if("".equals(txtSelectUsers)){
                         et_SelectUsers.setText(users);
+                    }else if(!"".equals(txtSelectUsers) && "".equals(users)){
+                        et_SelectUsers.setText(txtSelectUsers);
                     }
+                    LogUtils.d("ckj",et_SelectUsers.getHint().toString());
                     break;
                 case Const.CODE1:
-                    if(HFZBSelectUsers != null){
-                        et_ZBSelect.setHint(HFZBSelectUsers + "," + ids1);
-                    }else {
+                    if(!"".equals(ids1)){
+                        String cha1 =ids1.charAt( ids1.length() -1 ) + "";
+                        if(",".equals(cha1)){
+                            et_ZBSelect.setHint(ids1.substring(0,ids1.length() -1));
+                        }else{
+                            et_ZBSelect.setHint(ids1);
+                        }
+                    }else{
                         et_ZBSelect.setHint(ids1);
                     }
-                    if(txtZBUsers != null){
+
+
+                    if(!"".equals(txtZBUsers) && !"".equals(users1)){
                         et_ZBSelect.setText(txtZBUsers + "," + users1);
-                    }else {
+                    }else if("".equals(txtZBUsers)){
                         et_ZBSelect.setText(users1);
+                    }else if(!"".equals(txtZBUsers) && "".equals(users1)){
+                        et_ZBSelect.setText(txtZBUsers);
                     }
+                    LogUtils.d("ckj",et_ZBSelect.getHint().toString());
                     break;
                 case Const.CODE2:
 
-                    if(HFXBSelectUsers != null){
-                        et_XBSelect.setHint(HFXBSelectUsers + "," + ids2);
-                    }else {
+                    if(!"".equals(ids2)){
+                        String cha2 = ids2.charAt(ids2.length() -1 ) + "";
+                        if(",".equals(cha2)){
+                            et_XBSelect.setHint(ids2.substring(0,ids2.length() -1));
+                        }else{
+                            et_XBSelect.setHint(ids2);
+                        }
+
+                    }else{
                         et_XBSelect.setHint(ids2);
                     }
-                    if(txtXBUsers != null){
+
+                    if(!"".equals(txtXBUsers) && !"".equals(users2)){
                         et_XBSelect.setText(txtXBUsers + "," + users2);
-                    }else {
+                    }else if("".equals(txtXBUsers)){
                         et_XBSelect.setText(users2);
+                    }else if(!"".equals(txtXBUsers) && "".equals(users2)){
+                        et_XBSelect.setText(txtXBUsers);
                     }
+                    LogUtils.d("ckj",et_XBSelect.getHint().toString());
                     break;
                 case Const.CODE3:
 
-                    if(HFBLSelectUsers != null){
-                        et_BLSelect.setHint(HFBLSelectUsers + "," + ids3);
-                    }else {
+                    if(!"".equals(ids3)){
+                        String cha3 =  ids3.charAt( ids3.length() -1 ) + "";
+                        if(",".equals(cha3)){
+                            et_BLSelect.setHint(ids3.substring(0, ids3.length() -1));
+                        }else{
+                            et_BLSelect.setHint(ids3);
+                        }
+
+                    }else{
                         et_BLSelect.setHint(ids3);
                     }
-                    if(txtBLUsers != null){
+
+                    if(!"".equals(txtBLUsers) && !"".equals(users3)){
                         et_BLSelect.setText(txtBLUsers + "," + users3);
-                    }else {
+                    }else if("".equals(txtBLUsers)){
                         et_BLSelect.setText(users3);
+                    }else if(!"".equals(txtBLUsers) && "".equals(users3)){
+                        et_BLSelect.setText(txtBLUsers);
                     }
+                    LogUtils.d("ckj",et_BLSelect.getHint().toString());
                     break;
                 case Const.CODE4:
+                    if(!"".equals(ids4)){
+                        String cha4 =  ids4.charAt(ids4.length() -1 ) + "";
+                        if(",".equals(cha4)){
+                            et_PYSelect.setHint(ids4.substring(0, ids4.length() -1));
+                        }else{
+                            et_PYSelect.setHint(ids4);
+                        }
 
-                    if(HFPYSelectUsers != null){
-                        et_PYSelect.setHint(HFPYSelectUsers + "," + ids4);
-                    }else {
+
+                    }else{
                         et_PYSelect.setHint(ids4);
                     }
-                    if(txtPYUsers != null){
+
+                    if(!"".equals(txtPYUsers) && !"".equals(users4)){
                         et_PYSelect.setText(txtPYUsers + "," + users4);
-                    }else {
+                    }else if("".equals(txtPYUsers)){
                         et_PYSelect.setText(users4);
+                    }else if(!"".equals(txtPYUsers) && "".equals(users4)){
+                        et_PYSelect.setText(txtPYUsers);
                     }
+                    LogUtils.d("ckj",et_PYSelect.getHint().toString());
                     break;
             }
 
 
         }
     };
-    private String txtXBUsers;
-    private String HFXBSelectUsers;
-    private String HFZBSelectUsers;
-    private String txtZBUsers;
-    private String HFBLSelectUsers;
-    private String txtBLUsers;
-    private String txtPYUsers;
-    private String HFPYSelectUsers;
+    private String txtXBUsers = "";
+    private String HFXBSelectUsers = "";
+    private String HFZBSelectUsers = "";
+    private String txtZBUsers = "";
+    private String HFBLSelectUsers = "";
+    private String txtBLUsers = "";
+    private String txtPYUsers = "";
+    private String HFPYSelectUsers = "";
     private boolean trIsSelectUsersVisible;
     private boolean tr_blVisible;
     private boolean tr_zbVisible;
-    private Dialog loadingDialog;
-    private String txtSelectUsers;
-    private String HFSelectUsers;
+    private Dialog loadingDialog ;
+    private String txtSelectUsers = "";
+    private String HFSelectUsers = "";
 
     @Override
     public int bindLayout () {
@@ -391,8 +440,8 @@ public class DocAddUserActivity extends BaseActivity {
                                 DocDetailActivity.instance.finish();
                                 ToastUtils.showToast(DocAddUserActivity.this,"添加成功");
                                 HashMap<String,  String> map = new HashMap<String, String>();
-                                map.put("RecID",recID);
-                                jump2Activity(DocAddUserActivity.this,DocDetailActivity.class,map,true);
+                                map.put("recID",recID);
+                                jump2Activity(DocAddUserActivity.this,DocSignActivity.class,map,true);
                             }
                         }else{
                             loadingDialog.dismiss();
@@ -912,13 +961,16 @@ public class DocAddUserActivity extends BaseActivity {
 
                         for (int i = 0; i < temp.size(); i++) {
 
-                            if(i == temp.size() -1){
-                                users +=  temp.get(i).real_name;
-                                ids += "'" + temp.get(i).user_id + "'";
 
-                            }else{
-                                users +=  temp.get(i).real_name + ",";
-                                ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                            if(!StrConUtils.StrCon(txtSelectUsers,temp.get(i).real_name) && !StrConUtils.StrCon(HFSelectUsers,temp.get(i).user_id)){
+                                if(i == temp.size() -1){
+                                    users +=  temp.get(i).real_name;
+                                    ids += "'" + temp.get(i).user_id + "'";
+
+                                }else{
+                                    users +=  temp.get(i).real_name + ",";
+                                    ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -935,14 +987,15 @@ public class DocAddUserActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp1.size(); i++) {
+                            if(!StrConUtils.StrCon(txtZBUsers,temp1.get(i).real_name) && !StrConUtils.StrCon(HFZBSelectUsers,temp1.get(i).user_id)){
+                                if(i == temp1.size() -1){
+                                    users1 +=  temp1.get(i).real_name;
+                                    ids1 += "'" + temp1.get(i).user_id + "'";
 
-                            if(i == temp1.size() -1){
-                                users1 +=  temp1.get(i).real_name;
-                                ids1 += "'" + temp1.get(i).user_id + "'";
-
-                            }else{
-                                users1 +=  temp1.get(i).real_name + ",";
-                                ids1 +=  "'" + temp1.get(i).user_id + "'" + ",";
+                                }else{
+                                    users1 +=  temp1.get(i).real_name + ",";
+                                    ids1 +=  "'" + temp1.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -959,14 +1012,15 @@ public class DocAddUserActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp2.size(); i++) {
+                            if(!StrConUtils.StrCon(txtXBUsers,temp2.get(i).real_name) && !StrConUtils.StrCon(HFXBSelectUsers,temp2.get(i).user_id)){
+                                if(i == temp2.size() -1){
+                                    users2 +=  temp2.get(i).real_name;
+                                    ids2 += "'" + temp2.get(i).user_id + "'";
 
-                            if(i == temp2.size() -1){
-                                users2 +=  temp2.get(i).real_name;
-                                ids2 += "'" + temp2.get(i).user_id + "'";
-
-                            }else{
-                                users2 +=  temp2.get(i).real_name + ",";
-                                ids2 +=  "'" + temp2.get(i).user_id + "'" + ",";
+                                }else{
+                                    users2 +=  temp2.get(i).real_name + ",";
+                                    ids2 +=  "'" + temp2.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -983,14 +1037,15 @@ public class DocAddUserActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp3.size(); i++) {
+                            if(!StrConUtils.StrCon(txtBLUsers,temp3.get(i).real_name) && !StrConUtils.StrCon(HFBLSelectUsers,temp3.get(i).user_id)){
+                                if(i == temp3.size() -1){
+                                    users3 +=  temp3.get(i).real_name;
+                                    ids3 += "'" + temp3.get(i).user_id + "'";
 
-                            if(i == temp3.size() -1){
-                                users3 +=  temp3.get(i).real_name;
-                                ids3 += "'" + temp3.get(i).user_id + "'";
-
-                            }else{
-                                users3 +=  temp3.get(i).real_name + ",";
-                                ids3 +=  "'" + temp3.get(i).user_id + "'" + ",";
+                                }else{
+                                    users3 +=  temp3.get(i).real_name + ",";
+                                    ids3 +=  "'" + temp3.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -1007,14 +1062,15 @@ public class DocAddUserActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp4.size(); i++) {
+                            if(!StrConUtils.StrCon(txtPYUsers,temp4.get(i).real_name) && !StrConUtils.StrCon(HFPYSelectUsers,temp4.get(i).user_id)){
+                                if(i == temp4.size() -1){
+                                    users4 +=  temp4.get(i).real_name;
+                                    ids4 += "'" + temp4.get(i).user_id + "'";
 
-                            if(i == temp4.size() -1){
-                                users4 +=  temp4.get(i).real_name;
-                                ids4 += "'" + temp4.get(i).user_id + "'";
-
-                            }else{
-                                users4 +=  temp4.get(i).real_name + ",";
-                                ids4 +=  "'" + temp4.get(i).user_id + "'" + ",";
+                                }else{
+                                    users4 +=  temp4.get(i).real_name + ",";
+                                    ids4 +=  "'" + temp4.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 

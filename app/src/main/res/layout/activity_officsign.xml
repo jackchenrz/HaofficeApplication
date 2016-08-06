@@ -23,6 +23,10 @@
                 android:layout_centerInParent="true"
                 layout="@layout/layout_error"/>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <LinearLayout
                 android:id="@+id/ll_show"
                 android:layout_width="match_parent"
@@ -32,6 +36,7 @@
                     android:id="@+id/tv_notify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textColor="@color/red"
                     android:visibility="gone"
                     android:textSize="16sp"
@@ -228,6 +233,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/line" />
 
+                <TextView
+                    android:padding="5dp"
+                    android:id="@+id/tv_selusers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已选择人员："
+                    android:textSize="16sp"/>
+        <Button
+                android:id="@+id/btn_lesign"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:visibility="gone"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/long_button"
+                android:textColor="@color/white"
+                android:text="增加同级签阅人员"
+                android:textSize="16sp" />
         <Button
             android:id="@+id/btn_sign"
             android:layout_width="match_parent"
@@ -235,27 +259,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/long_button"
             android:textColor="@color/white"
             android:text="签阅"
             android:textSize="16sp" />
 
-
-        <Button
-            android:id="@+id/btn_lesign"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:visibility="gone"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/long_button"
-            android:textColor="@color/white"
-            android:text="增加同级签阅人员"
-            android:textSize="16sp" />
-        
     </LinearLayout>
-
+            </ScrollView>
     </RelativeLayout>
     </LinearLayout>
 

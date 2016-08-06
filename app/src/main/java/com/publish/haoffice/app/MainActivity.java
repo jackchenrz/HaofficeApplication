@@ -53,9 +53,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     TextView tv_count;
 
     private GirdViewAdapter adapter;
-    private String[] names =  new String[] { "电子公文", "报修管理","施工管理","生产交班"};
+    private String[] names =  new String[] { "电子公文", "报修管理","施工管理"};//,"生产交班"
     private int[] imageIds = new int[] { R.drawable.main_office, R.drawable.main_repair,
-            R.drawable.main_construct, R.drawable.main_produce};
+            R.drawable.main_construct};//, R.drawable.main_produce
     private SPUtils spUtils;
     private String officeUrl;
     private String repairUrl;
@@ -235,12 +235,13 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 jump2Activity(MainActivity.this,LoginActivity.class,null,false);
                 break;
             case 2: // 施工管理
-                ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");
-                jump2Activity(MainActivity.this,TestActivity.class,null,false);
+                SysApplication.assignData(Const.SYSTEM_FLAG,"2");
+//                ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");
+                jump2Activity(MainActivity.this,LoginActivity.class,null,false);
                 break;
-		    case 3: // 生产交班
-                ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");
-			break;
+//		    case 3: // 生产交班
+//                ToastUtils.showToast(MainActivity.this,"该功能尚未开发，敬请期待");
+//			break;
 
         }
     }

@@ -12,11 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.msystemlib.utils.AlertUtils;
+import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ThreadUtils;
 import com.publish.haoffice.R;
+import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.application.SysApplication;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,6 +32,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     RelativeLayout rlAbout;
     @InjectView(R.id.rl_logout)
     RelativeLayout rlLogout;
+    @InjectView(R.id.tv_user)
+    TextView tv_user;
 
     private Handler handler = new Handler(){
         public void handleMessage(android.os.Message msg) {
@@ -42,18 +48,25 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         };
     };
     private Dialog loadingDialog;
+    private SPUtils spUtils;
 
     @Nullable
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_mine,container,false);
-
+        spUtils = new SPUtils();
         ButterKnife.inject(this,view);
         rlCheckversion.setOnClickListener(this);
 		rlAbout.setOnClickListener(this);
         rlLogout.setOnClickListener(this);
-
+        if("0".equals(SysApplication.gainData(Const.SYSTEM_FLAG).toString().trim())){
+            tv_user.setText(spUtils.getString(getActivity(), Const.ROLENAME, "", Const.SP_OFFICE) + ":" + spUtils.getString(getActivity(), Const.USERNAME, "", Const.SP_OFFICE));
+        }else if("1".equals(SysApplication.gainData(Const.SYSTEM_FLAG).toString().trim())){
+            tv_user.setText(spUtils.getString(getActivity(), Const.ROLENAME, "", Const.SP_REPAIR) + ":" + spUtils.getString(getActivity(), Const.USERNAME, "", Const.SP_REPAIR));
+        }else if("2".equals(SysApplication.gainData(Const.SYSTEM_FLAG).toString().trim())){
+            tv_user.setText(spUtils.getString(getActivity(), Const.ROLENAME, "", Const.SP_CONSTRUCT) + ":" + spUtils.getString(getActivity(), Const.USERNAME, "", Const.SP_CONSTRUCT));
+        }
         return view;
     }
 

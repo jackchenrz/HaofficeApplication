@@ -18,8 +18,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:theme="@style/AppSplash"
-                  android:name=".app.SplashActivity"
+        <activity
+                  android:name=".app.MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,8 +28,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.MainActivity"
-                  android:screenOrientation="portrait"/>
+       <!-- <activity android:name=".app.MainActivity"
+                  android:screenOrientation="portrait"/>-->
         <activity android:name=".app.LoginActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.SettingActivity"
@@ -65,9 +65,13 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.Repair.SearchResultActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".app.Repair.SearchDetailActivity"
+                  android:screenOrientation="portrait"/>
 
         <activity android:name=".app.office.OfficeMainActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".app.office.DocDetailActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.office.OfficDetailActivity"
@@ -87,6 +91,24 @@
         <activity android:name=".app.office.DocSignActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".app.office.DocAddUserActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.office.OffSearchResultActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".api.downmanger.DownloadListActivity"
+                  android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".app.Construct.ConstructMainActivity"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".app.Construct.ConDetaileActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Construct.RepDetaileActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Construct.OtherDetaileActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".app.Construct.ConSearchResultActivity"
                   android:screenOrientation="portrait"/>
     </application>
 

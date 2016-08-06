@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_img"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:adjustViewBounds="true"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
@@ -43,25 +43,34 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="故障描述"
+            android:text="test"
             android:textColor="#000000"
             android:textSize="16sp" />
-
+        <TextView
+            android:layout_below="@id/tv_name"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_step"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="：问我"
+            android:textColor="#AA000000"
+            android:textSize="14sp" />
 
 
         <TextView
-            android:layout_below="@id/tv_name"
+            android:layout_below="@id/tv_step"
             android:layout_marginTop="5dp"
             android:id="@+id/tv_describe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="故障描述："
+            android:text="：问我"
             android:textColor="#AA000000"
             android:textSize="14sp" />
 
         <TextView
-            android:layout_below="@id/tv_name"
+            android:layout_below="@id/tv_step"
             android:layout_alignParentRight="true"
             android:id="@+id/tv_time"
             android:layout_marginTop="5dp"

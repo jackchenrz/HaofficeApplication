@@ -2,12 +2,14 @@ package com.publish.haoffice.api.bean.office;
 
 import java.util.List;
 
+/**
+ * Created by ACER on 2016/6/24.
+ */
 public class SelUserBean {
-	public List<SelUser> ds;
-	public class SelUser{
-		public String role_name;
-		public String user_id;
-		public String user_name;
-		public String dept_name;
-	}
+
+    public List<SelUser> ds;
+    public class SelUser{
+        public String AllUserID;
+        public String AllRealName;
+    }
 }

@@ -115,14 +115,14 @@ public class RepairLookListActivity extends FragmentActivity implements RadioGro
             case R.id.rb_upload_no://更新
                 index = 0;
                 ll_upload.setVisibility(View.VISIBLE);
-                rb_upload_no.setTextColor(this.getResources().getColor(R.color.red));
+                rb_upload_no.setTextColor(this.getResources().getColor(R.color.titleText));
                 rb_upload_yes.setTextColor(this.getResources().getColor(R.color.darkblack));
                 break;
             case R.id.rb_upload_yes://业务
                 index = 1;
                 ll_upload.setVisibility(View.GONE);
                 rb_upload_no.setTextColor(this.getResources().getColor(R.color.darkblack));
-                rb_upload_yes.setTextColor(this.getResources().getColor(R.color.red));
+                rb_upload_yes.setTextColor(this.getResources().getColor(R.color.titleText));
                 break;
         }
         //将页面设置到index下标的页面

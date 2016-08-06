@@ -24,5 +24,6 @@ public class NoticeDetailBean  implements Serializable{
 		public String AllowDocument;
 		public String FileRecUsersText;
 		public String FileRecCopyUsersText;
+		public String CurrentStepName;
 	}
 }

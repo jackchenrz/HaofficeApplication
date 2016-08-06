@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/darkwhite"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="开始时间："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_start_time"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:focusableInTouchMode="false"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/darkwhite"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="结束时间："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/et_end_time"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:focusableInTouchMode="false"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="线别："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_line"
+            style="@style/spinner_style"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            android:animationCache="true"
+            android:drawSelectorOnTop="true" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+    <LinearLayout
+        android:id="@+id/ll_station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="站/区段："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_station"
+            style="@style/spinner_style"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            android:animationCache="true"
+            android:drawSelectorOnTop="true" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_regstation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="登记站："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_regstation"
+            style="@style/spinner_style"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            android:animationCache="true"
+            android:drawSelectorOnTop="true" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_linntype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="行别："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_linntype"
+            style="@style/spinner_style"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            android:animationCache="true"
+            android:drawSelectorOnTop="true" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_workspace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/darkwhite"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="作业车间："
+            android:textColor="#50bcff"
+            android:textSize="16sp" />
+
+        <Spinner
+            android:id="@+id/spinner_workspace"
+            style="@style/spinner_style"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:layout_marginRight="5dp"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            android:animationCache="true"
+            android:drawSelectorOnTop="true" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        />
+
+
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:text="查询"
+        android:textColor="@color/white"
+        android:background="@drawable/long_button" />
+</LinearLayout>

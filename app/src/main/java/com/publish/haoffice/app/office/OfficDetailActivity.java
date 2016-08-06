@@ -1,24 +1,15 @@
 package com.publish.haoffice.app.office;
 
-import android.animation.AnimatorSet;
-import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,7 +17,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.msystemlib.MApplication;
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.common.adapter.CommonAdapter;
 import com.msystemlib.http.HttpConn;
@@ -35,28 +25,19 @@ import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.FileUtils;
 import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
-import com.msystemlib.utils.ThreadUtils;
-import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.bean.office.ApproveRecordBean;
-import com.publish.haoffice.api.bean.office.DocDetailBean;
-import com.publish.haoffice.api.bean.office.DocListBean;
 import com.publish.haoffice.api.bean.office.OfficDocDetailBean;
 import com.publish.haoffice.api.bean.office.WordBean;
-import com.publish.haoffice.api.bean.repair.RepairHandlerBean;
+import com.publish.haoffice.api.downmanger.DownloadListActivity;
+import com.publish.haoffice.api.downmanger.DownloadNotificationListener;
+import com.publish.haoffice.api.downmanger.DownloadTask;
+import com.publish.haoffice.api.downmanger.DownloadTaskManager;
 import com.publish.haoffice.api.utils.DensityUtils;
-import com.publish.haoffice.app.LoginActivity;
-import com.publish.haoffice.application.SysApplication;
-import com.publish.haoffice.view.FocusTextView;
-
-import net.tsz.afinal.FinalHttp;
-import net.tsz.afinal.http.AjaxCallBack;
-import net.tsz.afinal.http.AjaxParams;
 
 import org.ksoap2.serialization.SoapObject;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -106,6 +87,8 @@ public class OfficDetailActivity extends BaseActivity {
     LinearLayout ll_back;
     @InjectView(R.id.tv_title)
     TextView tv_title;
+    @InjectView(R.id.tv_step)
+    TextView tv_step;
 
     public static OfficDetailActivity instance = null;
     private List<ApproveRecordBean.Record> record;
@@ -205,6 +188,17 @@ public class OfficDetailActivity extends BaseActivity {
             @Override
             public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
                 WordBean.Word word = wordList.get(position);
+
+
+//                DownloadTask downloadTask5 = new DownloadTask(
+//                        word.DownUrl, FileUtils.gainSDCardPath(),
+//                        word.FileName, word.FileName,  null);
+////                downloadTask5.setThumbnail("http://img31.mtime.cn/mt/2012/10/17/103856.98537644_75X100.jpg"); //use url image
+////                DownloadTaskManager.getInstance(OfficDetailActivity.this).registerListener(downloadTask5,
+////                        new DownloadNotificationListener(OfficDetailActivity.this, downloadTask5));
+//                DownloadTaskManager.getInstance(OfficDetailActivity.this).startDownload(downloadTask5);
+//                Intent intent = new Intent(OfficDetailActivity.this, DownloadListActivity.class);
+//                startActivity(intent);
                 try {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
@@ -270,6 +264,9 @@ public class OfficDetailActivity extends BaseActivity {
         map = new HashMap<>();
         map.put("DocID",recID);
         getWordData();
+        if(btnFlag == 0){
+            getBackBtnState();
+        }
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETDOCDETAIL, map, new IWebServiceCallBack() {
             @Override
             public void onSucced (SoapObject result) {
@@ -281,6 +278,7 @@ public class OfficDetailActivity extends BaseActivity {
                         OfficDocDetailBean jsonBean = JsonToBean.getJsonBean(string, OfficDocDetailBean.class);
                         officdocDetail = jsonBean.ds.get(0);
                         tvTitle.setText("标        题：" + officdocDetail.FileTitle);
+                        tv_step.setText("当前环节：" + officdocDetail.CurrentStepName);
                         tvType.setText("公文种类：" + officdocDetail.FileDZ);
                         tv_docCode.setText("文电号：" + officdocDetail.FileCode );
                         tv_FileHJCD.setText("紧急程度：" + officdocDetail.FileHJCD );
@@ -295,6 +293,35 @@ public class OfficDetailActivity extends BaseActivity {
                     tv_count.setVisibility(View.VISIBLE);
                     ll_show.setVisibility(View.GONE);
                     tv_count.setText("联网失败");
+                }
+            }
+
+            @Override
+            public void onFailure (String result) {
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
+            }
+        });
+
+    }
+
+    private void getBackBtnState () {
+        map.put("DocID",recID);
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_SENDDOCBACKBTNSTATE, map, new IWebServiceCallBack() {
+            @Override
+            public void onSucced (SoapObject result) {
+
+                if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
+                    String string = result.getProperty(0).toString();
+                    if("true".equals(string)){
+                        ll_sign_back.setVisibility(View.VISIBLE);
+
+                    }else if("false".equals(string)){
+                        ll_sign_back.setVisibility(View.GONE);
+                    }
                 }
             }
 

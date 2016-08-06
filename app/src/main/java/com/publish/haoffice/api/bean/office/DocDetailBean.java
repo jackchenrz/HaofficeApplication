@@ -24,5 +24,6 @@ public class DocDetailBean  implements Serializable{
 		public String RecTitle;
 		public String RecType;
 		public String UserID;
+		public String CurrentStepName;
 	}
 }

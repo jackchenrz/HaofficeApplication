@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.http.HttpConn;
 import com.msystemlib.http.IWebServiceCallBack;
+import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ThreadUtils;
@@ -29,8 +30,10 @@ import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.bean.office.FlowStep;
 import com.publish.haoffice.api.bean.office.OfficeUserBean;
+import com.publish.haoffice.api.bean.office.SelUserBean;
 import com.publish.haoffice.api.bean.office.TestBean;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.api.utils.StrConUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -149,6 +152,8 @@ public class DocSignActivity extends BaseActivity {
     Button btn_lesign;
     @InjectView(R.id.iv_line_shenhe)
     ImageView iv_line_shenhe;
+    @InjectView(R.id.tv_selusers)
+    TextView tv_selusers;
 
 
 
@@ -186,30 +191,318 @@ public class DocSignActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what){
                 case Const.CODE:
-                    et_SelectUsers.setText(users);
-                    et_SelectUsers.setHint(ids);
-                break;
+
+                    if(!"".equals(ids)){
+                        String cha = ids.charAt(ids.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            ids = ids.substring(0, ids.length() -1);
+                        }
+                    }
+                    HashMap<String, Object> map4 = new HashMap<String, Object>();
+                    map4.put("DocID", recID);
+                    map4.put("PostilUserType", "0");
+                    map4.put("AllUserID", ids);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLUSERSBYPOSTILTYPE, map4 , new IWebServiceCallBack() {
+
+                        @Override
+                        public void onSucced(SoapObject result) {
+
+                            if(result != null){
+                                tv_count.setVisibility(View.GONE);
+                                ll_show.setVisibility(View.VISIBLE);
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+                                    SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                    ids = jsonBean.ds.get(0).AllUserID;
+                                    et_SelectUsers.setHint(ids);
+                                    users = jsonBean.ds.get(0).AllRealName;
+                                    if(!"".equals(txtSelectUsers) && !"".equals(users)){
+                                        et_SelectUsers.setText(txtSelectUsers + "," + users);
+                                    }else if("".equals(txtSelectUsers)){
+                                        et_SelectUsers.setText(users);
+                                    }else if(!"".equals(txtSelectUsers) && "".equals(users)){
+                                        et_SelectUsers.setText(txtSelectUsers);
+                                    }
+                                }
+                            }else{
+                                tv_count.setVisibility(View.VISIBLE);
+                                ll_show.setVisibility(View.GONE);
+                                tv_count.setText("联网失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String result) {
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
+                        }
+                    });
+                    break;
                 case Const.CODE1:
-                    et_ZBSelect.setText(users1);
-                    et_ZBSelect.setHint(ids1);
+
+                    if(!"".equals(ids1)){
+                        String cha = ids1.charAt(ids1.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            ids1 = ids1.substring(0, ids1.length() -1);
+                        }
+                    }
+                    HashMap<String, Object> map3 = new HashMap<String, Object>();
+                    map3.put("DocID", recID);
+                    map3.put("PostilUserType", "1");
+                    map3.put("AllUserID", ids1);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLUSERSBYPOSTILTYPE, map3 , new IWebServiceCallBack() {
+
+                        @Override
+                        public void onSucced(SoapObject result) {
+
+                            if(result != null){
+                                tv_count.setVisibility(View.GONE);
+                                ll_show.setVisibility(View.VISIBLE);
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+                                    SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                    ids1 = jsonBean.ds.get(0).AllUserID;
+                                    et_ZBSelect.setHint(ids1);
+                                    users1 = jsonBean.ds.get(0).AllRealName;
+                                    if(!"".equals(txtZBUsers) && !"".equals(users1)){
+                                        et_ZBSelect.setText(txtZBUsers + "," + users1);
+                                    }else if("".equals(txtZBUsers)){
+                                        et_ZBSelect.setText(users1);
+                                    }else if(!"".equals(txtZBUsers) && "".equals(users1)){
+                                        et_ZBSelect.setText(txtZBUsers);
+                                    }
+                                }
+                            }else{
+                                tv_count.setVisibility(View.VISIBLE);
+                                ll_show.setVisibility(View.GONE);
+                                tv_count.setText("联网失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String result) {
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
+                        }
+                    });
                     break;
                 case Const.CODE2:
-                    et_XBSelect.setText(users2);
-                    et_XBSelect.setHint(ids2);
+
+                    if(!"".equals(ids2)){
+                        String cha = ids2.charAt(ids2.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            ids2 = ids2.substring(0, ids2.length() -1);
+                        }
+                    }
+                    HashMap<String, Object> map1 = new HashMap<String, Object>();
+                    map1.put("DocID", recID);
+                    map1.put("PostilUserType", "2");
+                    map1.put("AllUserID", ids2);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLUSERSBYPOSTILTYPE, map1 , new IWebServiceCallBack() {
+
+                        @Override
+                        public void onSucced(SoapObject result) {
+
+                            if(result != null){
+                                tv_count.setVisibility(View.GONE);
+                                ll_show.setVisibility(View.VISIBLE);
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+                                    SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                    ids2 = jsonBean.ds.get(0).AllUserID;
+                                    et_XBSelect.setHint(ids2);
+                                    users2 = jsonBean.ds.get(0).AllRealName;
+                                    if(!"".equals(txtXBUsers) && !"".equals(users2)){
+                                        et_XBSelect.setText(txtXBUsers + "," + users2);
+                                    }else if("".equals(txtXBUsers)){
+                                        et_XBSelect.setText(users2);
+                                    }else if(!"".equals(txtXBUsers) && "".equals(users2)){
+                                        et_XBSelect.setText(txtXBUsers);
+                                    }
+                                }
+                            }else{
+                                tv_count.setVisibility(View.VISIBLE);
+                                ll_show.setVisibility(View.GONE);
+                                tv_count.setText("联网失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String result) {
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
+                        }
+                    });
                     break;
                 case Const.CODE3:
-                    et_BLSelect.setText(users3);
-                    et_BLSelect.setHint(ids3);
+
+
+                    if(!"".equals(ids3)){
+                        String cha = ids3.charAt(ids3.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            ids3 = ids3.substring(0, ids3.length() -1);
+                        }
+                    }
+
+                    HashMap<String, Object> map = new HashMap<String, Object>();
+                    map.put("DocID", recID);
+                    map.put("PostilUserType", "3");
+                    map.put("AllUserID", ids3);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLUSERSBYPOSTILTYPE, map , new IWebServiceCallBack() {
+
+                        @Override
+                        public void onSucced(SoapObject result) {
+
+                            if(result != null){
+                                tv_count.setVisibility(View.GONE);
+                                ll_show.setVisibility(View.VISIBLE);
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+                                    SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                    ids3 = jsonBean.ds.get(0).AllUserID;
+                                    et_BLSelect.setHint(ids3);
+                                    users3 = jsonBean.ds.get(0).AllRealName;
+                                    if(!"".equals(txtBLUsers) && !"".equals(users3)){
+                                        et_BLSelect.setText(txtBLUsers + "," + users3);
+                                    }else if("".equals(txtBLUsers)){
+                                        et_BLSelect.setText(users3);
+                                    }else if(!"".equals(txtBLUsers) && "".equals(users3)){
+                                        et_BLSelect.setText(txtBLUsers);
+                                    }
+
+                                    if(bt_sel5.getVisibility() == View.GONE){
+                                        HashMap<String, Object> map = new HashMap<String, Object>();
+                                        map.put("DocID", recID);
+                                        map.put("PostilUserType", "4");
+                                        map.put("AllUserID", ids3);
+                                        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLREADUSERSBYPOSTILTYPE, map , new IWebServiceCallBack() {
+
+                                            @Override
+                                            public void onSucced(SoapObject result) {
+
+                                                if(result != null){
+                                                    tv_count.setVisibility(View.GONE);
+                                                    ll_show.setVisibility(View.VISIBLE);
+                                                    String string = result.getProperty(0).toString();
+                                                    if(!"404".equals(string)){
+                                                        SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                                        ids4 = jsonBean.ds.get(0).AllUserID;
+                                                        et_PYSelect.setHint(ids4);
+                                                        users4 = jsonBean.ds.get(0).AllRealName;
+                                                        et_PYSelect.setText( users4);
+                                                    }
+                                                }else{
+                                                    tv_count.setVisibility(View.VISIBLE);
+                                                    ll_show.setVisibility(View.GONE);
+                                                    tv_count.setText("联网失败");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(String result) {
+                                                tv_count.setVisibility(View.VISIBLE);
+                                                ll_show.setVisibility(View.GONE);
+                                                tv_count.setText("联网失败");
+                                            }
+                                        });
+
+                                    }
+                                }
+                            }else{
+                                tv_count.setVisibility(View.VISIBLE);
+                                ll_show.setVisibility(View.GONE);
+                                tv_count.setText("联网失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String result) {
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
+                        }
+                    });
+//                    if(!"".equals(ids3)){
+//                        String cha3 =  ids3.charAt( ids3.length() -1 ) + "";
+//                        if(",".equals(cha3)){
+//                            et_BLSelect.setHint(ids3.substring(0, ids3.length() -1));
+//                        }else{
+//                            et_BLSelect.setHint(ids3);
+//                        }
+//
+//                    }else{
+//                        et_BLSelect.setHint(ids3);
+//                    }
                     break;
                 case Const.CODE4:
-                    et_PYSelect.setText(users4);
-                    et_PYSelect.setHint(ids4);
+
+                    if(!"".equals(ids4)){
+                        String cha = ids4.charAt(ids4.length() -1 ) + "";
+                        if(",".equals(cha)){
+                            ids4 = ids4.substring(0, ids4.length() -1);
+                        }
+                    }
+                    HashMap<String, Object> map2 = new HashMap<String, Object>();
+                    map2.put("DocID", recID);
+                    map2.put("PostilUserType", "4");
+                    map2.put("AllUserID", ids4);
+                    HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETALLUSERSBYPOSTILTYPE, map2 , new IWebServiceCallBack() {
+
+                        @Override
+                        public void onSucced(SoapObject result) {
+
+                            if(result != null){
+                                tv_count.setVisibility(View.GONE);
+                                ll_show.setVisibility(View.VISIBLE);
+                                String string = result.getProperty(0).toString();
+                                if(!"404".equals(string)){
+                                    SelUserBean jsonBean = JsonToBean.getJsonBean(string, SelUserBean.class);
+                                    ids4 = jsonBean.ds.get(0).AllUserID;
+                                    et_PYSelect.setHint(ids4);
+                                    users4 = jsonBean.ds.get(0).AllRealName;
+                                    if(!"".equals(txtPYUsers) && !"".equals(users4)){
+                                        et_PYSelect.setText(txtPYUsers + "," + users4);
+                                    }else if("".equals(txtPYUsers)){
+                                        et_PYSelect.setText(users4);
+                                    }else if(!"".equals(txtPYUsers) && "".equals(users4)){
+                                        et_PYSelect.setText(txtPYUsers);
+                                    }
+                                }
+                            }else{
+                                tv_count.setVisibility(View.VISIBLE);
+                                ll_show.setVisibility(View.GONE);
+                                tv_count.setText("联网失败");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String result) {
+                            tv_count.setVisibility(View.VISIBLE);
+                            ll_show.setVisibility(View.GONE);
+                            tv_count.setText("联网失败");
+                        }
+                    });
                     break;
             }
 
 
         }
     };
+
+    private String txtSelectUsers = "";
+    private String HFSelectUsers = "";
+    private String txtXBUsers = "";
+    private String HFXBSelectUsers = "";
+    private String HFZBSelectUsers = "";
+    private String txtZBUsers = "";
+    private String HFBLSelectUsers = "";
+    private String txtBLUsers = "";
+    private String txtPYUsers = "";
+    private String HFPYSelectUsers = "";
+
     private int[] stepNos;
     private Dialog loadingDialog;
     private String[] types;
@@ -240,6 +533,7 @@ public class DocSignActivity extends BaseActivity {
         spUtils = new SPUtils();
 
         officeUrl = "http://" + spUtils.getString(this, Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(this, Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE1;
+        initSeluser();
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("DocID", recID);
         String  userid = spUtils.getString(DocSignActivity.this, Const.USERID, "", Const.SP_OFFICE);
@@ -450,6 +744,84 @@ public class DocSignActivity extends BaseActivity {
         });
     }
 
+    private void initSeluser () {
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("DocID", recID);
+        map.put("UserID", spUtils.getString(DocSignActivity.this, Const.USERID, "", Const.SP_OFFICE));
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_ADDUSERRECDOC, map , new IWebServiceCallBack() {
+
+            @Override
+            public void onSucced(SoapObject result) {
+
+                if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
+                    String string = result.getProperty(0).toString();
+                    if(!"404".equals(string)){
+                        List<TestBean> list  = new Gson().fromJson(string, new TypeToken<List<TestBean>>() {
+                        }.getType());
+                        String str = "";
+                        for (TestBean testBean:list) {
+                            switch (testBean.Name){
+                                case "txtXBUsers":
+                                    switch (testBean.Attributes){
+                                        case "Text":
+                                            str += testBean.Value + ",";
+                                            break;
+                                    }
+                                    break;
+                                case "txtZBUsers":
+
+                                    switch (testBean.Attributes){
+                                        case "Text":
+                                            str += testBean.Value + ",";
+                                            break;
+                                    }
+                                    break;
+                                case "txtBLUsers":
+
+                                    switch (testBean.Attributes){
+                                        case "Text":
+                                            str += testBean.Value + ",";
+                                            break;
+                                    }
+                                    break;
+                                case "txtPYUsers":
+
+                                    switch (testBean.Attributes){
+                                        case "Text":
+                                            str += testBean.Value + ",";
+                                            break;
+                                    }
+                                    break;
+                                case "txtSelectUsers":
+                                    switch (testBean.Attributes){
+                                        case "Text":
+                                            str += testBean.Value + ",";
+                                            break;
+                                    }
+                                    break;
+                            }
+
+                            tv_selusers.setText("已选择同级签阅人员：" + str);
+                        }
+                    }
+                }else{
+                    tv_count.setVisibility(View.VISIBLE);
+                    ll_show.setVisibility(View.GONE);
+                    tv_count.setText("联网失败");
+                }
+            }
+
+            @Override
+            public void onFailure(String result) {
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -465,14 +837,15 @@ public class DocSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp.size(); i++) {
+                            if(!StrConUtils.StrCon(txtSelectUsers,temp.get(i).real_name) && !StrConUtils.StrCon(HFSelectUsers,temp.get(i).user_id)){
+                                if(i == temp.size() -1){
+                                    users +=  temp.get(i).real_name;
+                                    ids += "'" + temp.get(i).user_id + "'";
 
-                            if(i == temp.size() -1){
-                                users +=  temp.get(i).real_name;
-                                ids += "'" + temp.get(i).user_id + "'";
-
-                            }else{
-                                users +=  temp.get(i).real_name + ",";
-                                ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                                }else{
+                                    users +=  temp.get(i).real_name + ",";
+                                    ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -489,14 +862,15 @@ public class DocSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp1.size(); i++) {
+                            if(!StrConUtils.StrCon(txtZBUsers,temp1.get(i).real_name) && !StrConUtils.StrCon(HFZBSelectUsers,temp1.get(i).user_id)){
+                                if(i == temp1.size() -1){
+                                    users1 +=  temp1.get(i).real_name;
+                                    ids1 += "'" + temp1.get(i).user_id + "'";
 
-                            if(i == temp1.size() -1){
-                                users1 +=  temp1.get(i).real_name;
-                                ids1 += "'" + temp1.get(i).user_id + "'";
-
-                            }else{
-                                users1 +=  temp1.get(i).real_name + ",";
-                                ids1 +=  "'" + temp1.get(i).user_id + "'" + ",";
+                                }else{
+                                    users1 +=  temp1.get(i).real_name + ",";
+                                    ids1 +=  "'" + temp1.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -513,14 +887,15 @@ public class DocSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp2.size(); i++) {
+                            if(!StrConUtils.StrCon(txtXBUsers,temp2.get(i).real_name) && !StrConUtils.StrCon(HFXBSelectUsers,temp2.get(i).user_id)){
+                                if(i == temp2.size() -1){
+                                    users2 +=  temp2.get(i).real_name;
+                                    ids2 += "'" + temp2.get(i).user_id + "'";
 
-                            if(i == temp2.size() -1){
-                                users2 +=  temp2.get(i).real_name;
-                                ids2 += "'" + temp2.get(i).user_id + "'";
-
-                            }else{
-                                users2 +=  temp2.get(i).real_name + ",";
-                                ids2 +=  "'" + temp2.get(i).user_id + "'" + ",";
+                                }else{
+                                    users2 +=  temp2.get(i).real_name + ",";
+                                    ids2 +=  "'" + temp2.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -537,14 +912,15 @@ public class DocSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp3.size(); i++) {
+                            if(!StrConUtils.StrCon(txtBLUsers,temp3.get(i).real_name) && !StrConUtils.StrCon(HFBLSelectUsers,temp3.get(i).user_id)){
+                                if(i == temp3.size() -1){
+                                    users3 +=  temp3.get(i).real_name;
+                                    ids3 += "'" + temp3.get(i).user_id + "'";
 
-                            if(i == temp3.size() -1){
-                                users3 +=  temp3.get(i).real_name;
-                                ids3 += "'" + temp3.get(i).user_id + "'";
-
-                            }else{
-                                users3 +=  temp3.get(i).real_name + ",";
-                                ids3 +=  "'" + temp3.get(i).user_id + "'" + ",";
+                                }else{
+                                    users3 +=  temp3.get(i).real_name + ",";
+                                    ids3 +=  "'" + temp3.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -561,14 +937,15 @@ public class DocSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp4.size(); i++) {
+                            if(!StrConUtils.StrCon(txtPYUsers,temp4.get(i).real_name) && !StrConUtils.StrCon(HFPYSelectUsers,temp4.get(i).user_id)){
+                                if(i == temp4.size() -1){
+                                    users4 +=  temp4.get(i).real_name;
+                                    ids4 += "'" + temp4.get(i).user_id + "'";
 
-                            if(i == temp4.size() -1){
-                                users4 +=  temp4.get(i).real_name;
-                                ids4 += "'" + temp4.get(i).user_id + "'";
-
-                            }else{
-                                users4 +=  temp4.get(i).real_name + ",";
-                                ids4 +=  "'" + temp4.get(i).user_id + "'" + ",";
+                                }else{
+                                    users4 +=  temp4.get(i).real_name + ",";
+                                    ids4 +=  "'" + temp4.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -685,6 +1062,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Text":
+                            txtXBUsers = testBean.Value;
                             et_XBSelect.setText(testBean.Value);
                             break;
                     }
@@ -693,6 +1071,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Value":
+                            HFXBSelectUsers = testBean.Value;
                             et_XBSelect.setHint(testBean.Value);
                             break;
                     }
@@ -744,6 +1123,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Text":
+                            txtZBUsers = testBean.Value;
                             et_ZBSelect.setText(testBean.Value);
                             break;
                     }
@@ -752,6 +1132,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Value":
+                            HFZBSelectUsers = testBean.Value;
                             et_ZBSelect.setHint(testBean.Value);
                             break;
                     }
@@ -805,6 +1186,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Text":
+                            txtBLUsers = testBean.Value;
                             et_BLSelect.setText(testBean.Value);
                             break;
                     }
@@ -813,6 +1195,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Value":
+                            HFBLSelectUsers = testBean.Value;
                             et_BLSelect.setHint(testBean.Value);
                             break;
                     }
@@ -863,6 +1246,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Text":
+                            txtPYUsers = testBean.Value;
                             et_PYSelect.setText(testBean.Value);
                             break;
                     }
@@ -871,6 +1255,7 @@ public class DocSignActivity extends BaseActivity {
 
                     switch (testBean.Attributes){
                         case "Value":
+                            HFPYSelectUsers = testBean.Value;
                             et_PYSelect.setHint(testBean.Value);
                             break;
                     }
@@ -890,6 +1275,24 @@ public class DocSignActivity extends BaseActivity {
                                     iv_line_sel1.setVisibility(View.GONE);
                                     break;
                             }
+                            break;
+                    }
+                    break;
+
+                case "txtSelectUsers":
+                    switch (testBean.Attributes){
+                        case "Text":
+                            txtSelectUsers = testBean.Value;
+                            et_SelectUsers.setText(testBean.Value);
+                            break;
+                    }
+                    break;
+                case "HFSelectUsers":
+
+                    switch (testBean.Attributes){
+                        case "Value":
+                            HFSelectUsers = testBean.Value;
+                            et_SelectUsers.setHint(testBean.Value);
                             break;
                     }
                     break;
@@ -931,9 +1334,13 @@ public class DocSignActivity extends BaseActivity {
                             switch (testBean.Value){
                                 case "false":
                                     btn_lesign.setVisibility(View.GONE);
+                                    tv_selusers.setVisibility(View.GONE);
+                                    tv_selusers.setVisibility(View.GONE);
                                     break;
                                 case "true":
                                     btn_lesign.setVisibility(View.VISIBLE);
+                                    tv_selusers.setVisibility(View.VISIBLE);
+                                    tv_selusers.setVisibility(View.VISIBLE);
                                     break;
                             }
                             break;

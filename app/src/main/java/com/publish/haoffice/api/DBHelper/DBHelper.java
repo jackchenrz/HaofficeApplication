@@ -3,13 +3,14 @@ package com.publish.haoffice.api.DBHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.publish.haoffice.api.Const;
 
 public class DBHelper extends SQLiteOpenHelper {
 
 	private static String name = Const.DB_NAME;// 表示数据库的名称
-	private static int version = 1;// 表示数据库的版本号码
+	private static int version = 2;// 表示数据库的版本号码
 
 	public DBHelper(Context context) {
 		super(context, name, null, version);
@@ -55,6 +56,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+		int upgradeVersion  = oldVersion;
+
+		if (1 == upgradeVersion) {
+			CreateDownMangerTable(db);
+			upgradeVersion = 2;
+		}
+	}
+
+	private void CreateDownMangerTable (SQLiteDatabase db) {
+		StringBuffer buffer = new StringBuffer("create table download(");
+		buffer.append("_id integer primary key autoincrement, ");
+		buffer.append("url text unique, ");
+		buffer.append("downloadState text,");
+		buffer.append("filepath text, ");
+		buffer.append("filename text, ");
+		buffer.append("title text, ");
+		buffer.append("thumbnail text, ");
+		buffer.append("finishedSize integer, ");
+		buffer.append("totalSize integer)");
+		String sql = buffer.toString();
+		db.execSQL(sql);
 	}
 
 	private void createUserTable(SQLiteDatabase db) {

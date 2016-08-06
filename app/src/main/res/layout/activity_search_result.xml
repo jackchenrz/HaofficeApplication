@@ -29,82 +29,88 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_first"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/long_button"
-            android:textColor="@color/white"
-            android:text="首页"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_pre"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/long_button"
-            android:textColor="@color/white"
-            android:text="上一页"
-            android:textSize="16sp" />
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/long_button"
-            android:textColor="@color/white"
-            android:text="下一页"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/btn_last"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/long_button"
-            android:textColor="@color/white"
-            android:text="尾页"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/darkblack"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:text="每页20条  共100条"
-            />
     <ListView
         android:id="@+id/lv_autolist"
         android:layout_width="match_parent"
         android:layout_margin="5dp"
-        android:dividerHeight="5dp"
-        android:layout_height="match_parent"
-        android:divider="@null"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         ></ListView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/line" />
+                <TextView
+                    android:id="@+id/tv_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkblack"
+                    android:textSize="18sp"
+                    android:gravity="right"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="每页20条  共100条"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_first"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/long_button"
+                        android:textColor="@color/white"
+                        android:text="首页"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btn_pre"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/long_button"
+                        android:textColor="@color/white"
+                        android:text="上一页"
+                        android:textSize="16sp" />
+                    <Button
+                        android:id="@+id/btn_next"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/long_button"
+                        android:textColor="@color/white"
+                        android:text="下一页"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btn_last"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/long_button"
+                        android:textColor="@color/white"
+                        android:text="尾页"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
 </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

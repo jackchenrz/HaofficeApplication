@@ -187,13 +187,17 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
                 vh.tv_name.setText(Doc.FileTitle);
                 vh.tv_time.setText(Doc.CreateDate);
                 vh.tv_describe.setText(Doc.FileCode);
+                vh.tv_step.setText("当前环节：" + Doc.CurrentStepName);
 
                 if("上级文电".equals(Doc.DocType)){
-                    vh.tv_fileDZ.setText("电");
+                    vh.tv_fileDZ.setText("局");
+                    vh.iv_img.setBackgroundResource(R.drawable.round_bg);
                 }else if("段发公文".equals(Doc.DocType)){
                     vh.tv_fileDZ.setText("段");
+                    vh.iv_img.setBackgroundResource(R.drawable.round_bg1);
                 }else{
-                    vh.tv_fileDZ.setText("通");
+                    vh.tv_fileDZ.setText("段");
+                    vh.iv_img.setBackgroundResource(R.drawable.round_bg1);
                 }
                 return view;
             }
@@ -207,10 +211,14 @@ public class OfficeNoFragment extends BaseFragmentapp implements SwipeRefreshLay
         TextView tv_name;
         @InjectView(R.id.tv_time)
         TextView tv_time;
+        @InjectView(R.id.tv_step)
+        TextView tv_step;
         @InjectView(R.id.tv_describe)
         TextView tv_describe;
         @InjectView(R.id.tv_fileDZ)
         TextView tv_fileDZ;
+        @InjectView(R.id.iv_img)
+        ImageView iv_img;
 
         public ViewHolder(View view) {
             ButterKnife.inject(this, view);

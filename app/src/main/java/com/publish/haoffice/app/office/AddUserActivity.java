@@ -22,6 +22,7 @@ import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.bean.office.AddUserBean;
 import com.publish.haoffice.api.bean.office.OfficeUserBean;
+import com.publish.haoffice.api.utils.StrConUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -62,15 +63,34 @@ public class AddUserActivity extends BaseActivity {
     private String users;
     private String ids;
     private List<OfficeUserBean.OfficeUser> temp;
+    private String HFSelectUsersValuecoloum = "";
     private Handler handler = new Handler(){
         @Override
         public void handleMessage (Message msg) {
             super.handleMessage(msg);
+            if(!"".equals(textUsers)){
+                etText.setText(textUsers + "," +users);
+            }else {
+                etText.setText(users);
+            }
 
-            etText.setText(users);
+            if(!"".equals(ids)){
+                String cha = ids.charAt(ids.length() -1 ) + "";
+                if(",".equals(cha)){
+                    HFSelectUsersValuecoloum = ids.substring(0, ids.length() -1);
+                }else{
+                    HFSelectUsersValuecoloum = ids;
+                }
+            }else{
+                HFSelectUsersValuecoloum = ids;
+            }
+
+            LogUtils.d("ckj",HFSelectUsersValuecoloum);
         }
     };
     private int flagNorO;
+    private String HFSelectUsersValue = "";
+    private String textUsers = "";
 
     @Override
     public int bindLayout () {
@@ -95,6 +115,20 @@ public class AddUserActivity extends BaseActivity {
             @Override
             public void onClick (View v) {
                 finishActivity(AddUserActivity.this);
+            }
+        });
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+
+                LogUtils.d("ckj",ids);
+                if(flagNorO == 0){
+                    SaveAddUser(Const.OFFIC_SAVEADDUSERDOC);
+                }else if(flagNorO == 1){
+                    SaveAddUser(Const.OFFIC_SAVEADDUSERNOTICE);
+                }
+
             }
         });
 
@@ -172,27 +206,14 @@ public class AddUserActivity extends BaseActivity {
             }
         });
 
-        ids = ds.get(0).HFSelectUsers;
-
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v) {
-
-                LogUtils.d("ckj",ids);
-                if(flagNorO == 0){
-                    SaveAddUser(Const.OFFIC_SAVEADDUSERDOC);
-                }else if(flagNorO == 1){
-                    SaveAddUser(Const.OFFIC_ADDUSERNOTICE);
-                }
-
-            }
-        });
+        HFSelectUsersValue = ds.get(0).HFSelectUsers;
+        textUsers = ds.get(0).txtSelectUsers;
     }
 
     private void SaveAddUser (String methodName) {
         HashMap<String,  Object> map = new HashMap<String, Object>();
         map.put("DocID", recID);
-        map.put("HFSelectUsersValue", ids);
+        map.put("HFSelectUsersValue", HFSelectUsersValuecoloum);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, methodName, map , new IWebServiceCallBack() {
 
             @Override
@@ -200,12 +221,24 @@ public class AddUserActivity extends BaseActivity {
 
                 if(result != null){
                     AddUserActivity.this.finish();
-                    OfficSignActivity.instance.finish();
-                    OfficDetailActivity.instance.finish();
+
+                    if(flagNorO == 0){
+                        OfficSignActivity.instance.finish();
+                        OfficDetailActivity.instance.finish();
+                        HashMap<String,  String> map = new HashMap<String, String>();
+                        map.put("recID",recID);
+                        jump2Activity(AddUserActivity.this,OfficSignActivity.class,map,true);
+                    }else if(flagNorO == 1){
+                        NoticeDetailActivity.instance.finish();
+                        NoticeSignActivity.instance.finish();
+                        HashMap<String,  String> map = new HashMap<String, String>();
+                        map.put("recID",recID);
+                        jump2Activity(AddUserActivity.this,NoticeSignActivity.class,map,true);
+                    }
+
                     ToastUtils.showToast(AddUserActivity.this,"添加成功");
-                    HashMap<String,  String> map = new HashMap<String, String>();
-                    map.put("RecID",recID);
-                    jump2Activity(AddUserActivity.this,OfficDetailActivity.class,map,true);
+
+
 
                 }else{
                     ToastUtils.showToast(AddUserActivity.this,"添加失败");
@@ -226,7 +259,7 @@ public class AddUserActivity extends BaseActivity {
         if(data != null){
             if (resultCode == Const.CODE) {
                 users = "";
-                ids = ds.get(0).HFSelectUsers;
+                ids = "";
 
                 temp = (List<OfficeUserBean.OfficeUser>) data.getSerializableExtra("temp");
                 ThreadUtils.runInBackground(new Runnable() {
@@ -235,13 +268,14 @@ public class AddUserActivity extends BaseActivity {
                         String[] split = ids.split(",");
 
                         for (int i = 0; i < temp.size(); i++) {
-
-                            if(i == temp.size() -1){
-                                users +=  temp.get(i).real_name;
-                                ids +=  ",'" + temp.get(i).user_id + "'";
-                            }else{
-                                users +=  temp.get(i).real_name + ",";
-                                ids += "," +  "'" + temp.get(i).user_id + "'";
+                            if(!StrConUtils.StrCon(textUsers,temp.get(i).real_name) && !StrConUtils.StrCon(HFSelectUsersValue,temp.get(i).user_id)){
+                                if(i == temp.size() -1){
+                                    users +=  temp.get(i).real_name;
+                                    ids +=  "'" + temp.get(i).user_id + "'";
+                                }else{
+                                    users +=  temp.get(i).real_name + ",";
+                                    ids += "'" + temp.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 

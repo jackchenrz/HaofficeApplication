@@ -60,6 +60,8 @@ public class NoticeDetailActivity extends BaseActivity {
     TextView tv_send_other;
     @InjectView(R.id.tv_doc)
     TextView tv_doc;
+    @InjectView(R.id.tv_step)
+    TextView tv_step;
     @InjectView(R.id.lv_doc)
     ListView lv_doc;
 
@@ -220,6 +222,9 @@ public class NoticeDetailActivity extends BaseActivity {
 
         map = new HashMap<>();
         getWordData();
+        if(btnFlag == 0){
+            getBackBtnState();
+        }
         map.put("noticeID",recID);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETNOTICEDETAIL, map, new IWebServiceCallBack() {
             @Override
@@ -232,6 +237,7 @@ public class NoticeDetailActivity extends BaseActivity {
                         NoticeDetailBean jsonBean = JsonToBean.getJsonBean(string, NoticeDetailBean.class);
                         officdocDetail = jsonBean.ds.get(0);
                         tvTitle.setText("标        题：" + officdocDetail.NoticeTitle);
+                      tv_step.setText("当前环节：" + officdocDetail.CurrentStepName);
                         tvType.setText("通知类型：" + officdocDetail.NoticeType);
                         tv_docCode.setText("通知编号：" + officdocDetail.NoticeCode);
                         tv_send_main.setText("主送：" + officdocDetail.FileRecUsersText );
@@ -256,6 +262,35 @@ public class NoticeDetailActivity extends BaseActivity {
 
     }
 
+    private void getBackBtnState () {
+        map.put("DocID",recID);
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_NOTICEBACKBTNSTATE, map, new IWebServiceCallBack() {
+            @Override
+            public void onSucced (SoapObject result) {
+
+                if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
+                    String string = result.getProperty(0).toString();
+                    if("true".equals(string)){
+                        ll_sign_back.setVisibility(View.VISIBLE);
+
+                    }else if("false".equals(string)){
+                        ll_sign_back.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure (String result) {
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
+            }
+        });
+
+    }
+
     protected void getWordData() {
         map.put("DocID",recID);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETDOCDATAURL, map, new IWebServiceCallBack() {
@@ -266,7 +301,7 @@ public class NoticeDetailActivity extends BaseActivity {
                     tv_count.setVisibility(View.GONE);
                     ll_show.setVisibility(View.VISIBLE);
                     String string = result.getProperty(0).toString();
-                    if(!"404".equals(string)){
+                    if(!"anyType{}".equals(string)){
                         tv_main_doc.setText("点击下载查看" );
                         setclick(string);
 

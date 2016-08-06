@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * Created by ACER on 2016/6/28.
  */
-public class SearchTechBean {
+public class SearchTechBean implements Serializable{
     public List<SearchTech> ds;
-    public class SearchTech {
+    public class SearchTech implements Serializable{
 
         public String EqptNum;
         public String EqptModel;

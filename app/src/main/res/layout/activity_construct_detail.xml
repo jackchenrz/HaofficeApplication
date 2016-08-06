@@ -1,0 +1,94 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/dodgerblue"
+                android:clipToPadding="true"
+                android:fitsSystemWindows="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/darkbg"
+        android:orientation="vertical" >
+
+        <include layout="@layout/action_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_main1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:background="@color/white"
+            android:paddingRight="5dp"
+            >
+
+
+            <RadioButton
+                android:id="@+id/rb_construct"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/com_selector"
+                android:button="@null"
+                android:text="施工项目信息"
+                android:textSize="18sp"
+                android:textColor="@color/titleText"
+                android:gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:checked="false"/>
+
+            <RadioButton
+                android:id="@+id/rb_repair"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/com_selector"
+                android:button="@null"
+                android:textSize="18sp"
+                android:text="施工作业单"
+                android:textColor="@color/darkblack"
+                android:gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                />
+            <RadioButton
+                android:id="@+id/rb_other"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/com_selector"
+                android:button="@null"
+                android:textSize="18sp"
+                android:text="工作过程"
+                android:textColor="@color/darkblack"
+                android:gravity="center|bottom"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                />
+        </RadioGroup>
+
+    </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/line" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:id="@+id/fragment_container1"
+        android:orientation="vertical"
+        >
+    </FrameLayout>
+</LinearLayout>
+</RelativeLayout>

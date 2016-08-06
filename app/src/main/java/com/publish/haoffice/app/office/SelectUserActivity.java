@@ -229,14 +229,17 @@ public class SelectUserActivity extends BaseActivity {
         btn_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                temp.remove(officeUserremove);
-                if(!ds1.contains(officeUserremove)){
-                    ds1.add(officeUserremove);
+                if(officeUserremove != null){
+                    temp.remove(officeUserremove);
+                    if(!ds1.contains(officeUserremove)){
+                        ds1.add(officeUserremove);
+                    }
+                    setOrUpdateAdapter3();
+                    if(ds1 != null || ds1.size() != 0){
+                        setOrUpdateAdapter1();
+                    }
                 }
-                setOrUpdateAdapter3();
-                if(ds1 != null || ds1.size() != 0){
-                    setOrUpdateAdapter1();
-                }
+
             }
         });
     }
@@ -388,7 +391,7 @@ public class SelectUserActivity extends BaseActivity {
 
                         OfficeDeptBean jsonBean = JsonToBean.getJsonBean(string, OfficeDeptBean.class);
                         ds = jsonBean.ds;
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,ds.size()* DensityUtils.dip2px(SelectUserActivity.this,30),1);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,ds.size()* DensityUtils.dip2px(SelectUserActivity.this,35),1);
                         lv_item1.setLayoutParams(params);
                         setOrUpdateAdapter();
                     }

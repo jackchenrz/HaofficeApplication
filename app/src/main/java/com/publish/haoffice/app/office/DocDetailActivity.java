@@ -56,6 +56,8 @@ public class DocDetailActivity extends BaseActivity {
     TextView tv_doc;
     @InjectView(R.id.lv_doc)
     ListView lv_doc;
+    @InjectView(R.id.tv_step)
+    TextView tv_step;
 
     @InjectView(R.id.ll_show)
     LinearLayout ll_show;
@@ -212,6 +214,10 @@ public class DocDetailActivity extends BaseActivity {
         officeUrl = "http://" + spUtils.getString(this, Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(this, Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE1;
         map = new HashMap<>();
         getWordData();
+        if(btnFlag == 0){
+            getBackBtnState();
+        }
+
         map.put("recID",recID);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_GETDETAIL, map, new IWebServiceCallBack() {
             @Override
@@ -225,6 +231,7 @@ public class DocDetailActivity extends BaseActivity {
                         officdocDetail = jsonBean.ds.get(0);
                         tvTitle.setText("标        题：" + officdocDetail.RecTitle);
                         tvType.setText("公文种类：" + officdocDetail.RecType);
+                        tv_step.setText("当前环节：" + officdocDetail.CurrentStepName);
                         tv_docCode.setText("文电号：" + officdocDetail.FileCode );
                         tv_FileHJCD.setText("发文日期：" + officdocDetail.CreateDate );
                         tv_FileJMDJ.setText("归档号：" + officdocDetail.DocumentNo );
@@ -247,6 +254,35 @@ public class DocDetailActivity extends BaseActivity {
         });
     }
 
+    private void getBackBtnState () {
+        map.put("DocID",recID);
+        map.put("UserID", spUtils.getString(DocDetailActivity.this, Const.USERID, "", Const.SP_OFFICE));
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_RECDOCBACKBTNSTATE, map, new IWebServiceCallBack() {
+            @Override
+            public void onSucced (SoapObject result) {
+
+                if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
+                    String string = result.getProperty(0).toString();
+                    if("true".equals(string)){
+                        ll_sign_back.setVisibility(View.VISIBLE);
+
+                    }else if("false".equals(string)){
+                        ll_sign_back.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure (String result) {
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
+            }
+        });
+
+    }
     protected void getAutoRecord() {
         map.put("DocID", recID);
         HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_AUDITRECORD, map , new IWebServiceCallBack() {
@@ -289,7 +325,7 @@ public class DocDetailActivity extends BaseActivity {
                     tv_count.setVisibility(View.GONE);
                     ll_show.setVisibility(View.VISIBLE);
                     String string = result.getProperty(0).toString();
-                    if(!"404".equals(string)){
+                    if(!"anyType{}".equals(string)){
                         WordBean jsonBean = JsonToBean.getJsonBean(string, WordBean.class);
                         wordList = jsonBean.ds;
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,wordList.size()* DensityUtils.dip2px(DocDetailActivity.this,35));

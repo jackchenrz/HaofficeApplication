@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="5dp"
+            android:background="@color/white"
             android:paddingRight="5dp"
             >
 
@@ -36,11 +37,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#00000000"
+                android:background="@drawable/com_selector"
                 android:button="@null"
                 android:text="未上传"
                 android:textSize="18sp"
-                android:textColor="@color/red"
+                android:textColor="@color/titleText"
                 android:gravity="center|bottom"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
@@ -51,7 +52,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#00000000"
+                android:background="@drawable/com_selector"
                 android:button="@null"
                 android:textSize="18sp"
                 android:text="已上传"
@@ -64,7 +65,10 @@
         </RadioGroup>
 
     </LinearLayout>
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line" />
     <com.publish.haoffice.view.LazyViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"

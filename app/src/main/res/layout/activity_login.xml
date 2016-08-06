@@ -17,15 +17,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             >
 
             <ImageView
-                android:layout_width="match_parent"
+                android:id="@+id/iv_test"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="49dp"
+                android:scaleType="fitXY"
                 android:adjustViewBounds="true"
-                android:background="@drawable/login_ad" />
+                android:src="@drawable/login_ad" />
             <include layout="@layout/action_bar"/>
 
 

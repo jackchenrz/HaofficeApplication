@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.publish.haoffice.api.Const;
 import com.publish.haoffice.api.bean.repair.RepairInfo;
 import com.publish.haoffice.api.bean.repair.Search5tBean;
 import com.publish.haoffice.api.bean.repair.SearchTechBean;
+import com.publish.haoffice.api.bean.repair.ToRepairedBean;
 import com.publish.haoffice.api.dao.repair.TechEqptDao;
 import com.publish.haoffice.view.AutoListView;
 
@@ -71,6 +73,9 @@ public class SearchResultActivity extends BaseActivity {
     private int pageSize = 20;
     private int pageindex = 1;
     private int pageMax = 1;
+    private List<SearchTechBean.SearchTech> searchTechList;
+    private List<Search5tBean.Search5t> search5tList;
+    private int i;
 
     @Override
     public int bindLayout () {
@@ -88,6 +93,35 @@ public class SearchResultActivity extends BaseActivity {
             }
         });
         tv_size.setVisibility(View.GONE);
+
+
+        lv_autolist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
+
+                if(falgSearch == 0){
+                    SearchTechBean.SearchTech searchTech = searchTechList.get(position);
+                    Intent intent = new Intent(SearchResultActivity.this,
+                            SearchDetailActivity.class);
+                    intent.putExtra("searchTech", searchTech);
+                    intent.putExtra("flag5t", falgSearch);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.base_slide_right_in,
+                            R.anim.base_slide_remain);
+                }else if(falgSearch == 1){
+                    Search5tBean.Search5t search5t = search5tList.get(position);
+                    Intent intent = new Intent(SearchResultActivity.this,
+                            SearchDetailActivity.class);
+                    intent.putExtra("search5t", search5t);
+                    intent.putExtra("flag5t", falgSearch);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.base_slide_right_in,
+                            R.anim.base_slide_remain);
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -122,9 +156,9 @@ public class SearchResultActivity extends BaseActivity {
                         if(!"404".equals(string) && !"NULL".equals(string)){
                             tv_size.setVisibility(View.VISIBLE);
 
-                            int i = Integer.parseInt(string);
+                            i = Integer.parseInt(string);
                             pageMax = i % pageSize == 0 ? i / pageSize : i / pageSize + 1;
-                            tv_size.setText("每页20条  共"+i+"条");
+                            tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                             getData(Const.REPAIR_GETTECHSEARCH,pageindex,pageSize);
                         }else {
                             tv_size.setVisibility(View.GONE);
@@ -163,9 +197,9 @@ public class SearchResultActivity extends BaseActivity {
                         if(!"404".equals(string) && !"NULL".equals(string)){
                             tv_size.setVisibility(View.VISIBLE);
 
-                            int i = Integer.parseInt(string);
+                            i = Integer.parseInt(string);
                             pageMax = i % pageSize == 0 ? i / pageSize : i / pageSize + 1;
-                            tv_size.setText("每页20条  共"+i+"条");
+                            tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                             getData(Const.REPAIR_GET5TSEARCH,pageindex,pageSize);
                         }else {
                             tv_size.setVisibility(View.GONE);
@@ -196,6 +230,7 @@ public class SearchResultActivity extends BaseActivity {
             @Override
             public void onClick (View v) {
                 pageindex = 1;
+                tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                 if(falgSearch == 0){
                     getData(Const.REPAIR_GETTECHSEARCH,pageindex,pageSize);
                 }else if(falgSearch == 1){
@@ -212,6 +247,7 @@ public class SearchResultActivity extends BaseActivity {
                 }else{
                     pageindex --;
                 }
+                tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                 if(falgSearch == 0){
                     getData(Const.REPAIR_GETTECHSEARCH,pageindex,pageSize);
                 }else if(falgSearch == 1){
@@ -230,6 +266,7 @@ public class SearchResultActivity extends BaseActivity {
                 }else{
                     pageindex ++;
                 }
+                tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                 if(falgSearch == 0){
                     getData(Const.REPAIR_GETTECHSEARCH,pageindex,pageSize);
                 }else if(falgSearch == 1){
@@ -242,6 +279,7 @@ public class SearchResultActivity extends BaseActivity {
             @Override
             public void onClick (View v) {
                     pageindex = pageMax;
+                tv_size.setText("共"+i+"条 第"+pageindex+"页/共" +pageMax+ "页");
                 if(falgSearch == 0){
                     getData(Const.REPAIR_GETTECHSEARCH,pageindex,pageSize);
                 }else if(falgSearch == 1){
@@ -259,6 +297,7 @@ public class SearchResultActivity extends BaseActivity {
 
         HttpConn.callService(url, Const.SERVICE_NAMESPACE,methodName, map,new IWebServiceCallBack() {
 
+
             @Override
             public void onSucced(SoapObject result) {
                 if (result != null) {
@@ -268,11 +307,11 @@ public class SearchResultActivity extends BaseActivity {
                         tv_count.setVisibility(View.GONE);
                         if(methodName.equals(Const.REPAIR_GETTECHSEARCH)){
                             SearchTechBean jsonBean = JsonToBean.getJsonBean(string, SearchTechBean.class);
-                            List<SearchTechBean.SearchTech> searchTechList = jsonBean.ds;
+                            searchTechList = jsonBean.ds;
                             setOrUpdateAdapter(searchTechList);
                         }else if(methodName.equals(Const.REPAIR_GET5TSEARCH)){
                             Search5tBean jsonBean = JsonToBean.getJsonBean(string, Search5tBean.class);
-                            List<Search5tBean.Search5t> search5tList = jsonBean.ds;
+                            search5tList = jsonBean.ds;
                             setOrUpdateAdapter1(search5tList);
                         }
 
@@ -319,16 +358,7 @@ public class SearchResultActivity extends BaseActivity {
                 Search5tBean.Search5t toRepair = repairInfoList.get(position);
                 vh.tv_name.setText("设备名称：" + toRepair.ProbeStation);
                 vh.tv_address.setText("设备处所：" + toRepair.EqptAddress);
-                vh.tv_faultdesc.setText("故障描述：" + toRepair.FaultAppearance);
-                vh.tv_fault.setText("故障处理：" + toRepair.FaultHandle);
                 vh.tv_state.setText("故障状态：" + toRepair.FaultStatus);
-                vh.tv_usedept.setText("使用部门：" + toRepair.dept_name);
-                vh.tv_repairdept.setText("维修部门：" + toRepair.repair_dept_name);
-                vh.tv_occurtime.setText("发生时间：" + toRepair.FaultOccu_Time);
-                vh.tv_repairtime.setText("修复时间：" + toRepair.RepairFinishTime);
-                vh.tv_type.setText("故障类型：" + toRepair.FaultType);
-                vh.tv_catory.setText("责任分类：" + toRepair.FaultReason);
-
                 if("未处理".equals(toRepair.FaultStatus)){
                     view.setBackgroundColor(getResources().getColor(R.color.powderblue));
                 }else{
@@ -365,16 +395,7 @@ public class SearchResultActivity extends BaseActivity {
                 SearchTechBean.SearchTech toRepair = repairInfoList.get(position);
                 vh.tv_name.setText("设备名称：" + toRepair.EqptName);
                 vh.tv_address.setText("设备处所：" + toRepair.SettingAddr);
-                vh.tv_faultdesc.setText("故障描述：" + toRepair.FaultAppearance);
-                vh.tv_fault.setText("故障处理：" + toRepair.FaultHandle);
                 vh.tv_state.setText("故障状态：" + toRepair.FaultStatus);
-                vh.tv_usedept.setText("使用部门：" + toRepair.dept_name);
-                vh.tv_repairdept.setText("维修部门：" + toRepair.repair_dept_name);
-                vh.tv_occurtime.setText("发生时间：" + toRepair.FaultOccu_Time);
-                vh.tv_repairtime.setText("修复时间：" + toRepair.RepairFinishTime);
-                vh.tv_type.setText("故障类型：" + toRepair.FaultType);
-                vh.tv_catory.setText("责任分类：" + toRepair.FaultReason);
-
                 if("未处理".equals(toRepair.FaultStatus)){
                     view.setBackgroundColor(getResources().getColor(R.color.powderblue));
                 }else{
@@ -394,24 +415,8 @@ public class SearchResultActivity extends BaseActivity {
         TextView tv_name;
         @InjectView(R.id.tv_address)
         TextView tv_address;
-        @InjectView(R.id.tv_faultdesc)
-        TextView tv_faultdesc;
-        @InjectView(R.id.tv_fault)
-        TextView tv_fault;
         @InjectView(R.id.tv_state)
         TextView tv_state;
-        @InjectView(R.id.tv_usedept)
-        TextView tv_usedept;
-        @InjectView(R.id.tv_repairdept)
-        TextView tv_repairdept;
-        @InjectView(R.id.tv_occurtime)
-        TextView tv_occurtime;
-        @InjectView(R.id.tv_repairtime)
-        TextView tv_repairtime;
-        @InjectView(R.id.tv_type)
-        TextView tv_type;
-        @InjectView(R.id.tv_catory)
-        TextView tv_catory;
         @InjectView(R.id.iv_img)
         ImageView ivImg;
 

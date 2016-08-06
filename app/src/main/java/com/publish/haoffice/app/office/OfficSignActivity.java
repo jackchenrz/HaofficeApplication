@@ -20,16 +20,19 @@ import com.google.gson.reflect.TypeToken;
 import com.msystemlib.base.BaseActivity;
 import com.msystemlib.http.HttpConn;
 import com.msystemlib.http.IWebServiceCallBack;
+import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ThreadUtils;
 import com.msystemlib.utils.ToastUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.api.Const;
+import com.publish.haoffice.api.bean.office.AddUserBean;
 import com.publish.haoffice.api.bean.office.FlowStep;
 import com.publish.haoffice.api.bean.office.OfficeUserBean;
 import com.publish.haoffice.api.bean.office.TestBean;
 import com.publish.haoffice.api.utils.DialogUtils;
+import com.publish.haoffice.api.utils.StrConUtils;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -86,6 +89,8 @@ public class OfficSignActivity extends BaseActivity {
     LinearLayout ll_back;
     @InjectView(R.id.tv_title)
     TextView tv_title;
+    @InjectView(R.id.tv_selusers)
+    TextView tv_selusers;
 
     public static OfficSignActivity instance = null;
     private String stepNo;
@@ -95,16 +100,34 @@ public class OfficSignActivity extends BaseActivity {
     private List<OfficeUserBean.OfficeUser> temp;
     private String users = "";
     private String ids = "";
+    private String _HFSelectUsersValuecoloum = "";
     private Handler handler = new Handler(){
         @Override
         public void handleMessage (Message msg) {
             super.handleMessage(msg);
+            if(!"".equals(textSelectUser)){
+                etClass.setText(textSelectUser + "," +users);
+            }else {
+                etClass.setText(users);
+            }
 
-            etClass.setText(users);
+            if(!"".equals(ids)){
+                String cha = ids.charAt(ids.length() -1 ) + "";
+                if(",".equals(cha)){
+                    _HFSelectUsersValuecoloum = ids.substring(0, ids.length() -1);
+                }else{
+                    _HFSelectUsersValuecoloum = ids;
+                }
+            }else{
+                _HFSelectUsersValuecoloum = ids;
+            }
+            LogUtils.d("ckj",_HFSelectUsersValuecoloum);
         }
     };
     private int[] stepNos;
     private Dialog loadingDialog;
+    private String textSelectUser = "";
+    private String _HFSelectUsersValue = "";
 
     @Override
     public int bindLayout () {
@@ -133,6 +156,7 @@ public class OfficSignActivity extends BaseActivity {
         spUtils = new SPUtils();
 
         officeUrl = "http://" + spUtils.getString(this, Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(this, Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE1;
+        initSelUsers();
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("DocID", recID);
         map.put("UserID", spUtils.getString(OfficSignActivity.this, Const.USERID, "", Const.SP_OFFICE));
@@ -188,12 +212,15 @@ public class OfficSignActivity extends BaseActivity {
 
                 String _StepNo =  stepNos[spinner_next.getSelectedItemPosition()] + "";
                 String _PostilDesc = etText.getText().toString().trim();
-                String _HFSelectUsersValue = ids;
                 String _txtIsHuiQianSelectedValue = "";
                 if(rb_sign.isChecked()){
                     _txtIsHuiQianSelectedValue = "签发";
                 }else if(rb_sign1.isChecked()){
                     _txtIsHuiQianSelectedValue = "会签";
+                }else{
+                    loadingDialog.dismiss();
+                    ToastUtils.showToast(OfficSignActivity.this,"请选择签阅状态");
+                    return;
                 }
                 String _btnSaveText = btn_sign.getText().toString().trim();
                 if(llText.getVisibility() == View.VISIBLE && "".equals(_PostilDesc)){
@@ -206,7 +233,7 @@ public class OfficSignActivity extends BaseActivity {
                 map.put("UserID", spUtils.getString(OfficSignActivity.this, Const.USERID, "", Const.SP_OFFICE));
                 map.put("_StepNo", _StepNo);
                 map.put("_PostilDesc", _PostilDesc);
-                map.put("_HFSelectUsersValue", _HFSelectUsersValue);
+                map.put("_HFSelectUsersValue", _HFSelectUsersValuecoloum);
                 map.put("_txtIsHuiQianSelectedValue", _txtIsHuiQianSelectedValue);
                 map.put("_btnSaveText", _btnSaveText);
                 HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_SAVESENDDOCCTR, map , new IWebServiceCallBack() {
@@ -267,14 +294,15 @@ public class OfficSignActivity extends BaseActivity {
 
 
                         for (int i = 0; i < temp.size(); i++) {
+                            if(!StrConUtils.StrCon(textSelectUser,temp.get(i).real_name) && !StrConUtils.StrCon(_HFSelectUsersValue,temp.get(i).user_id)){
+                                if(i == temp.size() -1){
+                                    users +=  temp.get(i).real_name;
+                                    ids += "'" + temp.get(i).user_id + "'";
 
-                            if(i == temp.size() -1){
-                                users +=  temp.get(i).real_name;
-                                ids += "'" + temp.get(i).user_id + "'";
-
-                            }else{
-                                users +=  temp.get(i).real_name + ",";
-                                ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                                }else{
+                                    users +=  temp.get(i).real_name + ",";
+                                    ids +=  "'" + temp.get(i).user_id + "'" + ",";
+                                }
                             }
                         }
 
@@ -291,6 +319,41 @@ public class OfficSignActivity extends BaseActivity {
     private int stepPosition;
 
     private ArrayAdapter<String> adapter_steps;
+
+
+    private void initSelUsers () {
+
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("DocID", recID);
+        HttpConn.callService(officeUrl, Const.SERVICE_NAMESPACE, Const.OFFIC_ADDUSERDOC, map , new IWebServiceCallBack() {
+
+            @Override
+            public void onSucced(SoapObject result) {
+
+                if(result != null){
+                    tv_count.setVisibility(View.GONE);
+                    ll_show.setVisibility(View.VISIBLE);
+                    String string = result.getProperty(0).toString();
+                    if(!"".equals(string)){
+
+                        AddUserBean jsonBean = JsonToBean.getJsonBean(string, AddUserBean.class);
+                        tv_selusers.setText("已选择同级签阅人员：" + jsonBean.ds.get(0).txtSelectUsers);
+                    }
+                }else{
+                    tv_count.setVisibility(View.VISIBLE);
+                    ll_show.setVisibility(View.GONE);
+                    tv_count.setText("联网失败");
+                }
+            }
+
+            @Override
+            public void onFailure(String result) {
+                tv_count.setVisibility(View.VISIBLE);
+                ll_show.setVisibility(View.GONE);
+                tv_count.setText("联网失败");
+            }
+        });
+    }
 
     /**
      * 初始化控件显示
@@ -314,6 +377,24 @@ public class OfficSignActivity extends BaseActivity {
                             break;
                     }
                 break;
+
+                case "txtSelectUsers":
+                    switch (testBean.Attributes){
+                        case "Text":
+                            textSelectUser = testBean.Value;
+                            etClass.setText(testBean.Value);
+                            break;
+                    }
+                    break;
+                case "HFSelectUsers":
+
+                    switch (testBean.Attributes){
+                        case "Value":
+                            _HFSelectUsersValue = testBean.Value;
+                            break;
+                    }
+                    break;
+
                 case "txtStepNo":
                     testBean.Value.replaceAll("\\\\","");
                     List<FlowStep> list1  = new Gson().fromJson(testBean.Value, new TypeToken<List<FlowStep>>() {
@@ -346,10 +427,12 @@ public class OfficSignActivity extends BaseActivity {
                     switch (testBean.Value){
                         case "false":
                             btn_lesign.setVisibility(View.GONE);
+                            tv_selusers.setVisibility(View.GONE);
                             iv_line_shenhe.setVisibility(View.GONE);
                             break;
                         case "true":
                             btn_lesign.setVisibility(View.VISIBLE);
+                            tv_selusers.setVisibility(View.VISIBLE);
                             iv_line_shenhe.setVisibility(View.VISIBLE);
                             break;
                     }
@@ -359,6 +442,7 @@ public class OfficSignActivity extends BaseActivity {
                         case "签发":
                             llSel2.setVisibility(View.VISIBLE);
                             rb_sign1.setVisibility(View.GONE);
+                            rb_sign.setChecked(true);
                             break;
                         default:
                             rb_sign1.setVisibility(View.VISIBLE);

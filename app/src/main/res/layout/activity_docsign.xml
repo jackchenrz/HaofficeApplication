@@ -67,7 +67,8 @@
                 <TextView
                     android:id="@+id/tv_txtZhuYi"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:layout_margin="5dp"
                     android:text="注意："
                     android:textColor="@color/red"
@@ -85,7 +86,8 @@
                 <TextView
                     android:id="@+id/tv_txtErrors"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:layout_margin="5dp"
                     android:text="注意："
                     android:textColor="@color/red"
@@ -96,6 +98,7 @@
                     android:id="@+id/tv_notify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:textColor="@color/red"
                     android:visibility="gone"
                     android:textSize="16sp"
@@ -379,7 +382,8 @@
                 <TextView
                     android:id="@+id/tv_txtErrorMsg1"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
                     android:layout_margin="5dp"
                     android:text="注意："
                     android:textColor="@color/red"
@@ -456,20 +460,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/line"/>
-
-                <Button
-                    android:id="@+id/btn_sign"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/long_button"
-                    android:text="签阅"
-                    android:textColor="@color/white"
+                <TextView
+                    android:padding="5dp"
+                    android:id="@+id/tv_selusers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已选择人员："
                     android:textSize="16sp"/>
-
-
                 <Button
                     android:id="@+id/btn_lesign"
                     android:layout_width="match_parent"
@@ -482,6 +479,18 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btn_sign"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/long_button"
+                    android:text="签阅"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+
 
             </LinearLayout>
 

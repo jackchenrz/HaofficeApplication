@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.msystemlib.base.BaseActivity;
+import com.msystemlib.utils.LogUtils;
 import com.publish.haoffice.R;
 import com.publish.haoffice.app.MineFragment;
 
@@ -90,7 +91,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 rb_business.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rb_mine.setTextColor(this.getResources().getColor(R.color.darkblack));
                 rb_min.setTextColor(this.getResources().getColor(R.color.darkblack));
-                rg_main.check(R.id.rb_update);
                 if (officeNoFragment == null) {
                     officeNoFragment = new OfficeNoFragment();
                     ft.add(R.id.fragment_container, officeNoFragment);
@@ -109,7 +109,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 } else {
                     ft.show(officeYesFragment);
                 }
-                rg_main.check(R.id.rb_business);
                 break;
             case 2:
                 rb_mine.setTextColor(this.getResources().getColor(R.color.bottomcolor));
@@ -122,7 +121,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 } else {
                     ft.show(officeSearchFragment);
                 }
-                rg_main.check(R.id.rb_mine);
                 break;
 
             case 3:
@@ -136,7 +134,6 @@ public class OfficeMainActivity extends BaseActivity implements  RadioGroup.OnCh
                 } else {
                     ft.show(mineFragment);
                 }
-                rg_main.check(R.id.rb_min);
                 break;
         }
         ft.commit();   //提交事务

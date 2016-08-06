@@ -1,13 +1,14 @@
 package com.publish.haoffice.api.bean.repair;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ACER on 2016/6/28.
  */
-public class Search5tBean {
+public class Search5tBean implements Serializable{
     public List<Search5t> ds;
-    public class Search5t {
+    public class Search5t implements Serializable{
 
         public String EqptID;
         public String EqptType;
