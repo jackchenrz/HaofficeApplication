@@ -269,8 +269,8 @@ public class NoUploadFragment extends BaseFragment implements SwipeRefreshLayout
         if(bundle!=null ){
             flag5t = bundle.getInt("flag5t");
         }
-        String serverIP = spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_REPAIR);
-        String serverPort = spUtils.getString(getActivity(), Const.SERVICE_PORT, "",Const.SP_REPAIR);
+        String serverIP = spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_OFFICE);
+        String serverPort = spUtils.getString(getActivity(), Const.SERVICE_PORT, "",Const.SP_OFFICE);
         if (serverIP != null && !"".equals(serverIP) && serverPort != null&& !"".equals(serverPort)) {
             url = "http://" + serverIP + ":" + serverPort+ Const.SERVICE_PAGE;
         }

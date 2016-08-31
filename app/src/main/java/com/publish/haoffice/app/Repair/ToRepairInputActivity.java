@@ -254,8 +254,8 @@ public class ToRepairInputActivity extends BaseActivity implements TimePickerDia
         sys_deptDao = Sys_deptDao.getInstance(mContext);
         toRepairDao = ToRepairDao.getInstance(mContext);
         spUtils = new SPUtils();
-        String serverIP = spUtils.getString(ToRepairInputActivity.this, Const.SERVICE_IP, "", Const.SP_REPAIR);
-        String serverPort = spUtils.getString(ToRepairInputActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR);
+        String serverIP = spUtils.getString(ToRepairInputActivity.this, Const.SERVICE_IP, "", Const.SP_OFFICE);
+        String serverPort = spUtils.getString(ToRepairInputActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE);
         if (serverIP != null && !"".equals(serverIP) && serverPort != null&& !"".equals(serverPort)) {
             url = "http://" + serverIP + ":" + serverPort+ Const.SERVICE_PAGE;
         }

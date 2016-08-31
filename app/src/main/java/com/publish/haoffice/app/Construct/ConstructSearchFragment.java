@@ -193,7 +193,7 @@ public class ConstructSearchFragment extends BaseFragmentapp implements DatePick
         ButterKnife.inject(this,view);
         layout_search.setVisibility(View.GONE);
         spUtils = new SPUtils();
-        constUrl = "http://" + spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_CONSTRUCT) + ":" + spUtils.getString(getActivity(), Const.SERVICE_PORT, "", Const.SP_CONSTRUCT) + Const.SERVICE_PAGE2;
+        constUrl = "http://" + spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(getActivity(), Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE2;
 
         init();
         return view;

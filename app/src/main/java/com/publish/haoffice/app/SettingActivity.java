@@ -78,18 +78,13 @@ public class SettingActivity extends BaseActivity {
                     ToastUtils.showToast(SettingActivity.this, "请输入IP地址或端口");
                     return;
                 }
-                if("0".equals(flag)){
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_IP, serverIP,Const.SP_OFFICE);
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_PORT, serverPort,Const.SP_OFFICE);
+                SPUtils.saveString(SettingActivity.this, Const.SERVICE_IP, serverIP,Const.SP_OFFICE);
+                SPUtils.saveString(SettingActivity.this, Const.SERVICE_PORT, serverPort,Const.SP_OFFICE);
+
+                if("0".equals(flag) || "2".equals(flag)){
                     finish();
                 }else if("1".equals(flag)){
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_IP, serverIP,Const.SP_REPAIR);
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_PORT, serverPort,Const.SP_REPAIR);
                     jump2Activity(SettingActivity.this,AdminActivity.class,null,true);
-                }else if("2".equals(flag)){
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_IP, serverIP,Const.SP_CONSTRUCT);
-                    SPUtils.saveString(SettingActivity.this, Const.SERVICE_PORT, serverPort,Const.SP_CONSTRUCT);
-                    finish();
                 }
             }
         });
@@ -97,16 +92,8 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void resume () {
-        if("0".equals(flag)){
-            etServerIP.setText(SPUtils.getString(this, Const.SERVICE_IP, "",Const.SP_OFFICE));
-            etServerPort.setText(SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_OFFICE));
-        }else if("1".equals(flag)){
-            etServerIP.setText(SPUtils.getString(this, Const.SERVICE_IP, "",Const.SP_REPAIR));
-            etServerPort.setText(SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_REPAIR));
-        }else if("2".equals(flag)){
-            etServerIP.setText(SPUtils.getString(this, Const.SERVICE_IP, "",Const.SP_CONSTRUCT));
-            etServerPort.setText(SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_CONSTRUCT));
-        }
+        etServerIP.setText(SPUtils.getString(this, Const.SERVICE_IP, "",Const.SP_OFFICE));
+        etServerPort.setText(SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_OFFICE));
     }
 
     @Override

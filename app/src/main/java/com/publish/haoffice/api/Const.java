@@ -20,7 +20,8 @@ public class Const {
     public static String SP_REPAIR = "repair";
     public static final int DEVICENAME = 1;
     public static final int REPAIRDEPARTMENTLIST = 2;
-    public static final String SERVICE_PAGE = "/dm/DmApp.asmx";
+//    public static final String SERVICE_PAGE = "/dm/DmApp.asmx";
+    public static final String SERVICE_PAGE = "/DmApp.asmx";
     public static final String REPAIR_GETSYSUSER = "Getsys_user";// 得到用户
     public static final String REPAIR_GETSYS_DEPT = "Getsys_dept";// 得到维修部门
     public static final String REPAIR_GETTECH_EQPT = "GetTech_Eqpt";// 得到机械设备
@@ -42,8 +43,8 @@ public class Const {
     public static final String REPAIR_GETTECHSEARCHNUM = "GetTechSearchNum"; //得到机械查询数据数量
 
     //公文子系统
-//    public static final String SERVICE_PAGE1 = "/gwgl/RecSerApp.asmx";
-    public static final String SERVICE_PAGE1 = "/demo/RecSerApp.asmx";
+    public static final String SERVICE_PAGE1 = "/gwgl/RecSerApp.asmx";
+//    public static final String SERVICE_PAGE1 = "/demo/RecSerApp.asmx";
     public static final String TOKEN = "token";// 用户角色
     public static final String STEP = "Step";// 用户层级
     public static String SP_OFFICE = "office";

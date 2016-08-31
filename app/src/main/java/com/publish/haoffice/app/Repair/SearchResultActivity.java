@@ -129,8 +129,8 @@ public class SearchResultActivity extends BaseActivity {
         spUtils = new SPUtils();
         imageLoader = ImgLoad.initImageLoader(this);
         techEqptDao = TechEqptDao.getInstance(this);
-        String serverIP = spUtils.getString(SearchResultActivity.this, Const.SERVICE_IP, "", Const.SP_REPAIR);
-        String serverPort = spUtils.getString(SearchResultActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR);
+        String serverIP = spUtils.getString(SearchResultActivity.this, Const.SERVICE_IP, "", Const.SP_OFFICE);
+        String serverPort = spUtils.getString(SearchResultActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE);
         if (serverIP != null && !"".equals(serverIP) && serverPort != null&& !"".equals(serverPort)) {
             url = "http://" + serverIP + ":" + serverPort+ Const.SERVICE_PAGE;
         }

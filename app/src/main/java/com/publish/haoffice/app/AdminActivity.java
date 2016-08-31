@@ -20,6 +20,7 @@ import com.msystemlib.http.HttpConn;
 import com.msystemlib.http.IWebServiceCallBack;
 import com.msystemlib.http.JsonToBean;
 import com.msystemlib.utils.AlertUtils;
+import com.msystemlib.utils.LogUtils;
 import com.msystemlib.utils.SPUtils;
 import com.msystemlib.utils.ThreadUtils;
 import com.msystemlib.utils.ToastUtils;
@@ -152,8 +153,8 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     @Override
     public void doBusiness (Context mContext) {
         SPUtils = new SPUtils();
-        String serverIP = SPUtils.getString(this, Const.SERVICE_IP, "", Const.SP_REPAIR);
-        String serverPort = SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_REPAIR);
+        String serverIP = SPUtils.getString(this, Const.SERVICE_IP, "", Const.SP_OFFICE);
+        String serverPort = SPUtils.getString(this, Const.SERVICE_PORT, "",Const.SP_OFFICE);
         if (serverIP != null && !"".equals(serverIP) && serverPort != null&& !"".equals(serverPort)) {
             url = "http://" + serverIP + ":" + serverPort+ Const.SERVICE_PAGE;
         }
@@ -228,7 +229,7 @@ public class AdminActivity  extends BaseActivity implements AdapterView.OnItemCl
     private void updateDevices() {
         downloadDialog = showDownloadDialog(this, "正在准备更新...", "0/0", i);
         downloadDialog.show();
-
+        LogUtils.d("ckj",url);
         HttpConn.callService(url, Const.SERVICE_NAMESPACE, Const.REPAIR_GETFIVET_EQPT, null, new IWebServiceCallBack() {
 
             @Override

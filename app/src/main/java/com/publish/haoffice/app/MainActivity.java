@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         userName = spUtils.getString(MainActivity.this, Const.USERNAME, "",Const.SP_REPAIR);
         userId = spUtils.getString(MainActivity.this, Const.USERID, "", Const.SP_OFFICE);
         officeUrl = "http://" + spUtils.getString(MainActivity.this, Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(MainActivity.this, Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE1;
-        repairUrl = "http://" + spUtils.getString(MainActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + spUtils.getString(MainActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
+        repairUrl = "http://" + spUtils.getString(MainActivity.this, Const.SERVICE_IP, "",Const.SP_OFFICE) + ":" + spUtils.getString(MainActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE) + Const.SERVICE_PAGE;
 
         if(userName != null &&  !"".equals(userName) ){
             getData1 ();

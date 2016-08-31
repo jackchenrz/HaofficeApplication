@@ -199,7 +199,7 @@ public class LoginActivity extends BaseActivity{
                     });
 
                 }else if("1".equals(flag)){
-                    repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_REPAIR) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_REPAIR) + Const.SERVICE_PAGE;
+                    repairUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_OFFICE) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE) + Const.SERVICE_PAGE;
                     if(userDao.avaiLogin(userName, MD5Utils.md5Encode(pwd))){
 
 //                        SysApplication.assignData(Const.USERNAME,userName);
@@ -213,7 +213,7 @@ public class LoginActivity extends BaseActivity{
                         ToastUtils.showToast(LoginActivity.this, "账号或者密码错误");
                     }
                 }else if("2".equals(flag)){
-                    constructUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_CONSTRUCT) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_CONSTRUCT) + Const.SERVICE_PAGE2;
+                    constructUrl = "http://" + SPUtils.getString(LoginActivity.this, Const.SERVICE_IP, "",Const.SP_OFFICE) + ":" + SPUtils.getString(LoginActivity.this, Const.SERVICE_PORT, "",Const.SP_OFFICE) + Const.SERVICE_PAGE2;
 
                     HashMap<String,String> map = new HashMap<String, String>();
                     map.put("user_name",userName);

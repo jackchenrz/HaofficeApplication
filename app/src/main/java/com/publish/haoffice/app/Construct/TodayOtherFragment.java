@@ -59,7 +59,7 @@ public class TodayOtherFragment extends BaseFragmentapp implements SwipeRefreshL
     public void initData () {
 
         spUtils = new SPUtils();
-        constUrl = "http://" + spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_CONSTRUCT) + ":" + spUtils.getString(getActivity(), Const.SERVICE_PORT, "", Const.SP_CONSTRUCT) + Const.SERVICE_PAGE2;
+        constUrl = "http://" + spUtils.getString(getActivity(), Const.SERVICE_IP, "", Const.SP_OFFICE) + ":" + spUtils.getString(getActivity(), Const.SERVICE_PORT, "", Const.SP_OFFICE) + Const.SERVICE_PAGE2;
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setColorSchemeResources(R.color.chocolate,
                 R.color.yellow,
